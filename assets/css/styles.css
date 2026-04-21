@@ -528,7 +528,7 @@ h1, h2, h3, h4, h5, h6 {
 /* Wrapper needs position:relative for blobs to anchor to */
 .section-blob-wrap {
   position: relative;
-  overflow: hidden;
+  /* NO overflow:hidden here — it breaks position:sticky on child cards */
 }
 
 /* Direct container child sits above the blobs */
