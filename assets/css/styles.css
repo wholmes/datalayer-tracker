@@ -1364,40 +1364,23 @@ h1, h2, h3, h4, h5, h6 {
 
 /* ── Card-context stat list — used inside feature-full-card (narrower column) ── */
 .card-feature-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
   margin-top: 20px;
 }
 
 .card-feature-item {
   display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 10px 14px;
+  flex-direction: column;
+  gap: 3px;
+  padding: 12px 14px;
   border-radius: var(--radius-md);
   border: 1px solid var(--border);
   background: transparent;
 }
 
-.card-feature-item-icon {
-  width: 30px; height: 30px;
-  border-radius: 8px;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-  background: var(--accent-dim);
-}
-
-.card-feature-item-icon svg {
-  width: 14px; height: 14px;
-  stroke: var(--accent);
-}
-
-.card-feature-item-text {
-  display: flex;
-  flex-direction: column;
-  gap: 1px;
-}
+.card-feature-item-icon { display: none; }
 
 .card-feature-item-label {
   font-size: 0.85rem;
@@ -1409,6 +1392,7 @@ h1, h2, h3, h4, h5, h6 {
 .card-feature-item-sub {
   font-size: 0.77rem;
   color: var(--text-3);
+  line-height: 1.4;
 }
 
 .spotlight-list {
