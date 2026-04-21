@@ -4,87 +4,129 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DataLayer Tracker - Debug Overlay Demo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
-#adt-debug-overlay-demo header button {padding: 0 !important;}
-#adt-debug-overlay-demo, #adt-debug-overlay-demo header {border-radius: 6 !important;}
-#adt-ov-events-wrap-demo button.adt-download-btn {padding: 0 !important;}
-#adt-pagectx-details-demo, .adt-page-context-demo {padding-left:15px}
-#adt-debug-overlay-demo code {} 
-.adt-collapsible {
-  overflow: hidden;
-  transition: max-height 0.3s ease, opacity 0.3s ease;
-  max-height: 500px;
-  opacity: 1;
-}
-.adt-collapsed {
-  max-height: 0 !important;
-  opacity: 0;
-}
+  /* ── Light mode design tokens ── */
+  :root {
+    --ov-bg:        #ffffff;
+    --ov-bg-alt:    #f8f9fb;
+    --ov-bg-header: #f2f4f8;
+    --ov-border:    #e4e7ed;
+    --ov-text-1:    #0f172a;
+    --ov-text-2:    #475569;
+    --ov-text-3:    #94a3b8;
+    --ov-accent:    #1b4fd8;
+    --ov-accent-bg: rgba(27,79,216,0.07);
+    --ov-green:     #059669;
+    --ov-green-bg:  rgba(5,150,105,0.08);
+    --ov-shadow:    0 4px 24px rgba(15,23,42,0.10), 0 1px 4px rgba(15,23,42,0.06);
+    --ov-radius:    10px;
+    --ov-font:      'Inter', -apple-system, sans-serif;
+  }
 
-/* Collapsible body */
-#adt-pagectx-details-demo {
-  font-size: 10px;
-  white-space: pre-wrap;
-  color: #bbb;
-  margin-top: 4px;
-  transition: max-height 0.3s ease, opacity 0.3s ease;
-  overflow: hidden;
-  max-height: 0;
-  opacity: 0;
-}
+  /* ── Collapsible utilities ── */
+  .adt-collapsible {
+    overflow: hidden;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+    max-height: 500px;
+    opacity: 1;
+  }
+  .adt-collapsed { max-height: 0 !important; opacity: 0; }
+  .adt-collapsible-demo {
+    overflow: hidden;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+    max-height: 500px;
+    opacity: 1;
+  }
+  .adt-collapsed-demo { max-height: 0 !important; opacity: 0; overflow: hidden; }
 
-#adt-pagectx-details-demo.adt-open {
-  max-height: 500px; /* big enough for content */
-  opacity: 1;
-}
+  #adt-pagectx-details-demo {
+    font-size: 10px;
+    white-space: pre-wrap;
+    color: var(--ov-text-3);
+    margin-top: 4px;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+  }
+  #adt-pagectx-details-demo.adt-open { max-height: 500px; opacity: 1; }
 
-/* Collapsible demo panel */
-.adt-collapsible-demo {
-  overflow: hidden;
-  transition: max-height 0.3s ease, opacity 0.3s ease;
-  max-height: 500px;
-  opacity: 1;
-}
+  /* ── Page background ── */
+  body {
+    background: #eef1f7;
+    padding: 16px;
+    margin: 0;
+    font-family: var(--ov-font);
+  }
 
-/* Collapsed state */
-.adt-collapsed-demo {
-  max-height: 0 !important;
-  opacity: 0;
-  overflow: hidden;
-}
-  /* === ADT Debug Overlay Demo (Unified CSS) === */
+  /* ── Overlay shell ── */
   #adt-debug-overlay-demo {
-	height: 700px;
-    bottom: 20px;
-    right: 20px;
-    width: 360px;
-    font-family: sans-serif;
-    z-index: 99999;
-    box-shadow: rgba(0,0,0,0.5) 0px 0px 10px;
-    border-radius: 6px 6px 0 0 !important;
-    background: #111;
-    color: #eee;
+    height: 700px;
+    width: 100%;
+    max-width: 360px;
+    font-family: var(--ov-font);
     font-size: 12px;
+    z-index: 99999;
+    box-shadow: var(--ov-shadow);
+    border-radius: var(--ov-radius);
+    border: 1px solid var(--ov-border);
+    background: var(--ov-bg);
+    color: var(--ov-text-1);
     display: flex;
     flex-direction: column;
+    overflow: hidden;
   }
+
+  /* ── Header ── */
   #adt-debug-overlay-demo header {
     display: flex;
     align-items: center;
-    padding: 8px 8px;
-    background: #222;
-    border-bottom: 1px solid #333;
-    border-radius: 6px 6px 0 0 !important;
+    padding: 10px 12px;
+    background: var(--ov-bg-header);
+    border-bottom: 1px solid var(--ov-border);
+    border-radius: var(--ov-radius) var(--ov-radius) 0 0;
+    gap: 8px;
   }
-  #adt-debug-overlay-demo header strong { font-size: 13px; }
+  #adt-debug-overlay-demo header strong {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--ov-text-1);
+    letter-spacing: -0.01em;
+  }
+  /* Traffic light dots */
+  #adt-debug-overlay-demo header::before {
+    content: '';
+    display: inline-block;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--ov-green);
+    box-shadow: 0 0 0 2px var(--ov-green-bg);
+    flex-shrink: 0;
+  }
+  #adt-debug-overlay-demo header button {
+    padding: 0 !important;
+    background: transparent;
+    border: none;
+    color: var(--ov-text-3);
+    font-size: 16px;
+    margin-left: auto;
+    cursor: pointer;
+    line-height: 1;
+  }
+  #adt-debug-overlay-demo header button:hover { color: var(--ov-text-1); }
 
+  /* ── Status bar ── */
   #adt-dual-status-demo {
     display: flex;
     align-items: center;
-    padding: 6px 8px;
+    padding: 5px 12px;
     font-size: 11px;
-    border-bottom: 1px solid #333;
-    background: #181818;
+    border-bottom: 1px solid var(--ov-border);
+    background: var(--ov-bg-alt);
+    color: var(--ov-text-2);
   }
   #adt-dual-status-demo .adt-dual-left {
     display: flex;
@@ -98,24 +140,32 @@
     100% { opacity: 1; }
   }
 
+  /* ── Intent bar ── */
   #adt-ov-intent-demo {
-    padding: 6px 8px;
-    border-bottom: 1px solid #333;
+    padding: 6px 12px;
+    border-bottom: 1px solid var(--ov-border);
     font-size: 11px;
+    color: var(--ov-text-2);
   }
   #adt-ov-intent-demo .adt-intent-summary {
-    color: #aaa;
+    color: var(--ov-text-3);
     margin-top: 2px;
     font-size: 10px;
   }
 
+  /* ── Events scroll area ── */
   #adt-ov-events-wrap-demo {
     flex: 1;
     overflow-y: auto;
-    max-height: 700px;
-    border-top: 1px solid #333;
+    max-height: 840px;
+    border-top: 1px solid var(--ov-border);
   }
-  #adt-ov-events-wrap-demo button {margin:0}
+  #adt-ov-events-wrap-demo button { margin: 0; }
+  #adt-ov-events-wrap-demo::-webkit-scrollbar { width: 4px; }
+  #adt-ov-events-wrap-demo::-webkit-scrollbar-track { background: transparent; }
+  #adt-ov-events-wrap-demo::-webkit-scrollbar-thumb { background: var(--ov-border); border-radius: 4px; }
+
+  /* ── Event lists ── */
   #adt-ov-events-demo,
   #adt-ov-pinned-demo,
   #adt-ovlog-events {
@@ -127,130 +177,216 @@
   #adt-ov-events-demo li,
   #adt-ov-pinned-demo li,
   #adt-ovlog-events li {
-    padding: 6px 8px;
-    border-bottom: 1px solid #333;
-    font-size: 12px;
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--ov-border);
+    font-size: 11.5px;
+    color: var(--ov-text-1);
+    transition: background 0.12s;
   }
   #adt-ov-events-demo li:hover,
   #adt-ov-pinned-demo li:hover,
   #adt-ovlog-events li:hover {
-    background: #1a1a1a;
+    background: var(--ov-bg-alt);
   }
 
   #adt-ovlog-events {
-	  max-height: 580px !important;
+    font-family: var(--ov-font);
+    font-size: 11.5px;
+    line-height: 1.5;
+    background: var(--ov-bg);
+    color: var(--ov-text-1);
+    overflow-y: auto;
+    max-height: 580px;
   }
-  #adt-ov-events-wrap-demo {
-      flex: 1;
-      overflow-y: auto;
-      max-height: 840px;
+
+  /* ── Pinned events indicator ── */
+  #adt-ov-pinned-demo li {
+    background: var(--ov-accent-bg);
+    border-left: 3px solid var(--ov-accent);
   }
-  
-  /* === Shared Elements === */
+
+  /* ── Timestamps ── */
   .ts {
-    color: #888;
-    font-size: 11px;
-    margin-right: 4px;
+    color: var(--ov-text-3);
+    font-size: 10.5px;
+    margin-right: 5px;
     display: inline-block;
-    min-width: 70px;
+    min-width: 68px;
+    font-variant-numeric: tabular-nums;
   }
+
+  /* ── Event name chips ── */
   code {
-    color: #9be9a8;
-    font-size: 12px;
-    background: rgba(255,255,255,0.1);
-    padding: 2px 4px;
-    border-radius: 3px;
-  }
-  pre {
-    background: #000;
-    padding: 6px;
-    border-radius: 4px;
+    font-family: 'SF Mono', 'Fira Code', monospace;
     font-size: 11px;
-    font-family: monospace;
-    margin-top: 4px;
+    font-weight: 500;
+    color: var(--ov-accent);
+    background: var(--ov-accent-bg);
+    padding: 2px 6px;
+    border-radius: 4px;
+    letter-spacing: -0.01em;
+  }
+
+  /* ── Category colour overrides ── */
+  #adt-ovlog-events li.custom code  { color: #0891b2; background: rgba(8,145,178,0.08); }
+  #adt-ovlog-events li.ecom code    { color: #d97706; background: rgba(217,119,6,0.09); }
+  #adt-ovlog-events li.engagement code { color: #7c3aed; background: rgba(124,58,237,0.08); }
+  #adt-ovlog-events li.form code    { color: #059669; background: rgba(5,150,105,0.08); }
+  #adt-ovlog-events li.consent code { color: #b45309; background: rgba(180,83,9,0.08); }
+  #adt-ovlog-events li.video code   { color: #db2777; background: rgba(219,39,119,0.08); }
+  #adt-ovlog-events li.attribution code { color: #0d9488; background: rgba(13,148,136,0.08); }
+  #adt-ovlog-events li.summary code { color: #64748b; background: rgba(100,116,139,0.08); }
+  #adt-ovlog-events li.core code    { color: var(--ov-accent); background: var(--ov-accent-bg); }
+
+  /* ── JSON pre block ── */
+  pre {
+    background: var(--ov-bg-alt);
+    border: 1px solid var(--ov-border);
+    padding: 8px;
+    border-radius: 6px;
+    font-size: 10.5px;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    margin-top: 6px;
     white-space: pre-wrap;
     word-break: break-word;
     display: none;
-    color: #0f0;
+    color: var(--ov-text-2);
+    line-height: 1.6;
   }
-  .pin-btn {
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    width:20px;height:20px;
-    background:black;
-    border-radius:4px;
-    cursor:pointer;
-    float:right;
-    opacity:.6;
-    margin-left:6px;
-  }
-  .pin-btn.pinned { color:#0f9d58; opacity:1; }
-  .note-btn {
-    background:transparent;
-    border:none;
-    padding:4px;
-    border-radius:4px;
-    cursor:pointer;
-    margin-left:6px;
-    transition: background 0.2s;
-  }
-  .note-btn:hover {
-    background: rgba(255,255,255,0.15);
-  }
+  /* JSON key colouring */
+  pre { color: #334155; }
 
-  #adt-debug-overlay-demo footer {
-    text-align: center;
-    padding: 6px 0;
-    background: #1a1a1a;
-    border-top: 1px solid #333;
-    font-size: 10px;
-  }
-  #adt-debug-overlay-demo footer a {
-    color: #888;
-    text-decoration: none;
-  }
-
-  /* === Scoped Styles for #adt-ovlog-events (log list only) === */
-  #adt-ovlog-events {
-    font-family: monospace, monospace;
-    font-size: 12px;
-    line-height: 1.4;
-    background: #111;
-    color: #eee;
-    border-radius: 6px;
-    overflow-y: auto;
-    max-height: 400px;
-  }
-  #adt-ovlog-events li.custom code { color: #9fe4ff; }
-  #adt-ovlog-events li.ecom code { color: #ffb347; }
+  /* ── Small metadata text ── */
   #adt-ovlog-events small {
     display: inline-block;
     margin-top: 2px;
-    color: #bbb;
+    color: var(--ov-text-3);
     font-size: 10px;
-    font-style: italic;
-  }
-  #adt-ovlog-events li[style*="opacity: 0.4"] {
-    color: #888;
-    text-align: center;
-    font-style: italic;
-  }
-  body {
-    background: #0a0a0a;
-    padding: 20px;
-  }
-  
-  #adt-ovlog-events li {padding-top:10px; padding-bottom:10px;}
-  
-  /* Highlight animation for scrolled-to events */
-  @keyframes adtHighlight {
-    0% { background-color: rgba(33, 150, 243, 0.3); }
-    100% { background-color: transparent; }
+    font-style: normal;
+    font-weight: 500;
   }
 
-  #adt-ovlog-events li.adt-highlight {
-    animation: adtHighlight 1s ease-out;
+  /* ── Step chips (checkout funnel) ── */
+  .adt-step-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    font-size: 10px;
+    font-weight: 700;
+    background: var(--ov-accent);
+    color: #fff;
+    margin-right: 4px;
+    vertical-align: middle;
+  }
+  .adt-chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 7px;
+    border-radius: 999px;
+    font-size: 10px;
+    font-weight: 600;
+    background: var(--ov-accent-bg);
+    color: var(--ov-accent);
+  }
+  .adt-checkout-step { margin-top: 6px; }
+  .step-indicator { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; }
+  .items-count { font-size: 10px; color: var(--ov-text-3); }
+  .step-progress {
+    height: 3px;
+    background: var(--ov-border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .progress-bar {
+    height: 100%;
+    background: var(--ov-accent);
+    border-radius: 2px;
+    transition: width 0.4s ease;
+  }
+
+  /* ── Pin button ── */
+  .pin-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px; height: 20px;
+    background: var(--ov-bg-alt);
+    border: 1px solid var(--ov-border);
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+    opacity: 0.55;
+    margin-left: 6px;
+    transition: opacity 0.15s, background 0.15s;
+  }
+  .pin-btn:hover { opacity: 1; background: var(--ov-accent-bg); }
+  .pin-btn svg { stroke: var(--ov-text-2); fill: none; }
+  .pin-btn.pinned { opacity: 1; background: var(--ov-accent-bg); border-color: var(--ov-accent); }
+  .pin-btn.pinned svg { stroke: var(--ov-accent); fill: var(--ov-accent); }
+
+  /* ── Note button ── */
+  .note-btn {
+    background: transparent;
+    border: none;
+    padding: 4px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 4px;
+    transition: background 0.15s;
+    opacity: 0.5;
+  }
+  .note-btn:hover { background: var(--ov-bg-alt); opacity: 1; }
+  .note-btn svg { stroke: var(--ov-text-2); }
+
+  /* ── Separator ── */
+  #adt-ovlog-events li[style*="opacity: 0.4"] {
+    color: var(--ov-text-3);
+    text-align: center;
+    font-style: italic;
+    font-size: 10px;
+    padding: 6px 0;
+    background: transparent !important;
+  }
+
+  /* ── Footer ── */
+  #adt-debug-overlay-demo footer {
+    text-align: center;
+    padding: 7px 0;
+    background: var(--ov-bg-header);
+    border-top: 1px solid var(--ov-border);
+    font-size: 10px;
+    color: var(--ov-text-3);
+  }
+  #adt-debug-overlay-demo footer a {
+    color: var(--ov-text-3);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.15s;
+  }
+  #adt-debug-overlay-demo footer a:hover { color: var(--ov-accent); }
+
+  /* ── 3rd party form vendor strip ── */
+  #adt-form-vendor-container-demo {
+    font-size: 10px;
+    color: var(--ov-text-3);
+    padding: 8px 12px;
+    border-top: 1px solid var(--ov-border);
+    background: var(--ov-bg-alt);
+  }
+
+  /* ── Highlight animation ── */
+  @keyframes adtHighlight {
+    0%   { background-color: rgba(27,79,216,0.12); }
+    100% { background-color: transparent; }
+  }
+  #adt-ovlog-events li.adt-highlight { animation: adtHighlight 1s ease-out; }
+
+  /* ── Pulse warning ── */
+  @keyframes pulseWarn {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
   }
   </style>
 </head>
