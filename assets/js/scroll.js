@@ -744,12 +744,11 @@ function initCardStack() {
     const cards = stack.querySelectorAll('.card-stack-item');
     if (cards.length < 2) return;
 
-    // Stagger sticky top so later cards peek below earlier ones — 12px per level
-    // i=0 (first/bottom card) gets top:100px, each subsequent card gets +12px more
-    // so card i+1 sticks lower and peeks out beneath card i when stacked
-    const PEEK = 12;
+    // All cards share the same sticky top — no pushing each other
+    const STICKY_TOP = 100;
+    const PEEK = 10; // px each card peeks below the one in front via translateY
     cards.forEach((card, i) => {
-      card.style.top = `${100 + i * PEEK}px`;
+      card.style.top = `${STICKY_TOP}px`;
     });
 
     cards.forEach((card, i) => {
@@ -757,14 +756,14 @@ function initCardStack() {
       // depth: 0 = frontmost (last in DOM), n = furthest behind
       const depth = cards.length - 1 - i;
 
-      // Set initial resting scale — cards behind are slightly smaller
+      // Cards behind the front card are offset downward so they peek below
       gsap.set(card, {
+        y: depth * PEEK,
         scale: 1 - depth * 0.02,
         transformOrigin: 'top center',
       });
 
-      // As each subsequent card scrolls into place, push the one below
-      // slightly further back (scale down + fade)
+      // As the next card scrolls in and covers this one, compress it back
       if (!isLast) {
         ScrollTrigger.create({
           trigger: cards[i + 1],
@@ -773,6 +772,7 @@ function initCardStack() {
           scrub: true,
           onUpdate: self => {
             gsap.set(card, {
+              y:       depth * PEEK * (1 - self.progress * 0.5),
               scale:   1 - depth * 0.02 - self.progress * 0.03,
               opacity: 1 - self.progress * 0.25,
             });
