@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pin-in-Sequence Debug Test</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    h1 {
+      color: #333;
+    }
+    .controls {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    button {
+      background: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-right: 10px;
+      font-size: 14px;
+    }
+    button:hover {
+      background: #45a049;
+    }
+    button.stop {
+      background: #f44336;
+    }
+    button.stop:hover {
+      background: #da190b;
+    }
+    .console-output {
+      background: #1e1e1e;
+      color: #00ff00;
+      padding: 15px;
+      border-radius: 8px;
+      font-family: monospace;
+      font-size: 12px;
+      height: 200px;
+      overflow-y: auto;
+      margin-top: 20px;
+    }
+    .console-output div {
+      margin-bottom: 5px;
+    }
+    iframe {
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>🔍 Pin-in-Sequence Debug Test</h1>
+  
+  <div class="controls">
+    <h3>Test Controls</h3>
+    <button onclick="startSequence()">▶ Start Sequence</button>
+    <button onclick="stopSequence()" class="stop">⏹ Stop Sequence</button>
+    <button onclick="manualPin()">📌 Manual Pin Test</button>
+    <button onclick="clearConsole()">🗑️ Clear Console</button>
+    
+    <div style="margin-top: 15px; color: #666;">
+      <strong>Current Event:</strong> <span id="current-event">None</span><br>
+      <strong>Sequence Status:</strong> <span id="sequence-status">Stopped</span>
+    </div>
+  </div>
+
+  <iframe 
+    id="demo-iframe" 
+    src="https://datalayer-tracker.com/adt-debug-overlay-demo.html"
+    width="420" 
+    height="720"
+    style="border: none;">
+  </iframe>
+
+  <div class="console-output" id="console-output">
+    <div>📋 Console Output (watch for pin messages)...</div>
+  </div>
+</div>
+
+<script src="https://datalayer-tracker.com/debug-demo-helper.js"></script>
+
+<script>
+// Override console.log to capture output
+const originalLog = console.log;
+const consoleDiv = document.getElementById('console-output');
+
+console.log = function(...args) {
+  originalLog.apply(console, args);
+  const msg = args.map(arg => 
+    typeof arg === 'object' ? JSON.stringify(arg, null, 2) : String(arg)
+  ).join(' ');
+  
+  const div = document.createElement('div');
+  div.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
+  consoleDiv.appendChild(div);
+  consoleDiv.scrollTop = consoleDiv.scrollHeight;
+};
+
+// Test events
+const testEvents = [
+  'page_view',
+  'view_item',
+  'add_to_cart',
+  'begin_checkout',
+  'purchase'
+];
+
+let sequenceController = null;
+
+function startSequence() {
+  console.log('=== STARTING SEQUENCE TEST ===');
+  console.log('Pin in Sequence: ENABLED');
+  console.log('Events:', testEvents);
+  
+  sequenceController = OverlayDemoHelper.sequence('#demo-iframe', testEvents, {
+    duration: 3000,
+    loop: true,
+    disableInteraction: true,
+    pauseAutoScroll: false,
+    pinInSequence: true,  // ← THIS IS THE KEY SETTING
+    onEventChange: function(eventName, index, total) {
+      console.log(`✓ Event changed to: ${eventName} (${index + 1}/${total})`);
+      document.getElementById('current-event').textContent = eventName;
+    },
+    onComplete: function() {
+      console.log('=== SEQUENCE COMPLETE ===');
+      document.getElementById('sequence-status').textContent = 'Complete';
+    }
+  });
+  
+  if (sequenceController) {
+    sequenceController.start();
+    document.getElementById('sequence-status').textContent = 'Running';
+  } else {
+    console.error('❌ Failed to create sequence controller!');
+  }
+}
+
+function stopSequence() {
+  console.log('=== STOPPING SEQUENCE ===');
+  if (sequenceController) {
+    sequenceController.stop();
+    document.getElementById('sequence-status').textContent = 'Stopped';
+    document.getElementById('current-event').textContent = 'None';
+  } else {
+    console.warn('No sequence running');
+  }
+}
+
+function manualPin() {
+  console.log('=== MANUAL PIN TEST ===');
+  console.log('Attempting to pin "page_view" manually...');
+  
+  const result = OverlayDemoHelper.pin('#demo-iframe', 'page_view');
+  console.log('Pin result:', result);
+  
+  setTimeout(() => {
+    console.log('Attempting to pin "purchase" manually...');
+    OverlayDemoHelper.pin('#demo-iframe', 'purchase');
+  }, 2000);
+}
+
+function clearConsole() {
+  consoleDiv.innerHTML = '<div>📋 Console cleared...</div>';
+}
+
+// Log when helper is ready
+window.addEventListener('load', function() {
+  console.log('✓ Page loaded');
+  console.log('✓ OverlayDemoHelper available:', typeof OverlayDemoHelper !== 'undefined');
+  
+  // Wait for iframe to be ready
+  setTimeout(() => {
+    console.log('✓ Ready to test (iframe should be loaded)');
+  }, 2000);
+});
+</script>
+
+</body>
+</html>

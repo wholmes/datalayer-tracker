@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1200">
+<title>DataLayer Tracker — OG Share Card (Light)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    font-family: 'Space Mono', monospace;
+  }
+
+  .card {
+    width: 1200px;
+    height: 630px;
+    background: #F5F7F2;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,0,0,.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,0,0,.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+  }
+
+  .card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent 0%, #0A8C4A 20%, #0A8C4A 60%, transparent 100%);
+  }
+
+  .left {
+    flex: 0 0 680px;
+    padding: 56px 60px 52px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    z-index: 2;
+  }
+
+  .right {
+    flex: 1;
+    padding: 44px 48px 44px 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 12px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .divider {
+    position: absolute;
+    left: 680px;
+    top: 40px; bottom: 40px;
+    width: 1px;
+    background: linear-gradient(180deg, transparent, rgba(0,0,0,.1) 20%, rgba(0,0,0,.1) 80%, transparent);
+    z-index: 3;
+  }
+
+  .logo-row { display: flex; align-items: center; gap: 12px; }
+
+  .logo-icon {
+    width: 36px; height: 36px;
+    border: 1.5px solid #0A8C4A;
+    border-radius: 6px;
+    background: #fff;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .logo-icon svg { width: 20px; height: 20px; }
+
+  .logo-name {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px; font-weight: 700;
+    color: rgba(0,0,0,.4);
+    letter-spacing: .12em; text-transform: uppercase;
+  }
+
+  .headline {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800; font-size: 58px;
+    line-height: 1.04; letter-spacing: -.02em;
+    color: #0D1610; margin-top: 4px;
+  }
+  .headline .accent { color: #0A8C4A; display: block; }
+
+  .sub {
+    font-family: 'Space Mono', monospace;
+    font-size: 13.5px; line-height: 1.6;
+    color: rgba(0,0,0,.42); max-width: 460px; margin-top: 4px;
+  }
+
+  .footer-row { display: flex; align-items: center; justify-content: space-between; }
+  .domain { font-family: 'Space Mono', monospace; font-size: 12px; color: rgba(0,0,0,.3); letter-spacing: .06em; }
+  .badge {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: .1em; text-transform: uppercase;
+    color: #0A8C4A;
+    border: 1px solid rgba(10,140,74,.35);
+    background: rgba(10,140,74,.06);
+    border-radius: 4px; padding: 4px 10px;
+  }
+
+  .stat-tile {
+    background: #fff;
+    border: 1px solid rgba(0,0,0,.1);
+    border-radius: 8px; padding: 14px 18px;
+    position: relative; overflow: hidden;
+  }
+  .stat-tile.highlight { border-color: rgba(10,140,74,.35); background: rgba(10,140,74,.04); }
+  .stat-tile::before {
+    content: ''; position: absolute;
+    left: 0; top: 0; bottom: 0; width: 2px;
+    background: rgba(10,140,74,.6);
+    border-radius: 2px 0 0 2px;
+  }
+  .stat-tile:not(.highlight)::before { background: rgba(0,0,0,.15); }
+
+  .tile-label { font-family: 'Space Mono', monospace; font-size: 10px; color: rgba(0,0,0,.35); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 6px; }
+  .tile-value-row { display: flex; align-items: baseline; gap: 8px; }
+  .tile-value { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 28px; color: #0D1610; line-height: 1; }
+  .tile-value.green { color: #0A8C4A; }
+  .tile-unit { font-family: 'Space Mono', monospace; font-size: 11px; color: rgba(0,0,0,.38); }
+
+  .stream-block { background: #fff; border: 1px solid rgba(0,0,0,.08); border-radius: 8px; padding: 14px 18px; overflow: hidden; }
+  .stream-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .live-dot { width: 7px; height: 7px; background: #0A8C4A; border-radius: 50%; flex-shrink: 0; }
+  .stream-label { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: rgba(0,0,0,.32); }
+
+  .stream-event { font-family: 'Space Mono', monospace; font-size: 10.5px; line-height: 1.8; display: flex; align-items: center; gap: 10px; }
+  .ev-name { color: #0A8C4A; }
+  .ev-path { color: rgba(0,0,0,.35); flex: 1; }
+  .ev-badge { font-size: 9px; padding: 1px 6px; border-radius: 3px; font-weight: 700; letter-spacing: .08em; flex-shrink: 0; }
+  .ev-badge.srv { background: rgba(10,140,74,.1); color: #0A8C4A; border: 1px solid rgba(10,140,74,.25); }
+  .ev-badge.cli { background: rgba(0,0,0,.05); color: rgba(0,0,0,.4); border: 1px solid rgba(0,0,0,.1); }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="divider"></div>
+  <div class="left">
+    <div class="logo-row">
+      <div class="logo-icon">
+        <svg viewBox="0 0 20 20" fill="none">
+          <rect x="2" y="2" width="7" height="7" rx="1" fill="#0A8C4A" opacity=".9"/>
+          <rect x="11" y="2" width="7" height="7" rx="1" fill="#0A8C4A" opacity=".4"/>
+          <rect x="2" y="11" width="7" height="7" rx="1" fill="#0A8C4A" opacity=".4"/>
+          <rect x="11" y="11" width="7" height="7" rx="1" fill="#0A8C4A" opacity=".15"/>
+        </svg>
+      </div>
+      <span class="logo-name">DataLayer Tracker</span>
+    </div>
+    <div>
+      <h1 class="headline">Stop Losing<span class="accent">40% of Your</span>Analytics Data.</h1>
+      <p class="sub">Server-side tracking, enrichment &amp; smart consent — enterprise analytics in 15 minutes.</p>
+    </div>
+    <div class="footer-row">
+      <span class="domain">datalayer-tracker.com</span>
+      <span class="badge">WordPress Plugin</span>
+    </div>
+  </div>
+  <div class="right">
+    <div class="stat-tile highlight">
+      <div class="tile-label">Event Recovery Rate</div>
+      <div class="tile-value-row"><span class="tile-value green">+34%</span><span class="tile-unit">more vs. client-only</span></div>
+    </div>
+    <div class="stat-tile">
+      <div class="tile-label">Setup Time</div>
+      <div class="tile-value-row"><span class="tile-value">15 min</span><span class="tile-unit">zero code</span></div>
+    </div>
+    <div class="stat-tile">
+      <div class="tile-label">Data Recovery</div>
+      <div class="tile-value-row"><span class="tile-value">99.8%</span><span class="tile-unit">ad-block proof</span></div>
+    </div>
+    <div class="stream-block">
+      <div class="stream-header"><div class="live-dot"></div><span class="stream-label">Live Event Stream</span></div>
+      <div class="stream-event"><span class="ev-name">purchase</span><span class="ev-path">/checkout/confirm</span><span class="ev-badge srv">server</span></div>
+      <div class="stream-event"><span class="ev-name">page_view</span><span class="ev-path">/shop/</span><span class="ev-badge cli">client</span></div>
+      <div class="stream-event"><span class="ev-name">add_to_cart</span><span class="ev-path">/product/blue-widget</span><span class="ev-badge srv">server</span></div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
