@@ -744,10 +744,12 @@ function initCardStack() {
     const cards = stack.querySelectorAll('.card-stack-item');
     if (cards.length < 2) return;
 
-    // Stagger sticky top so cards peek below the one above — 12px per level
+    // Stagger sticky top so later cards peek below earlier ones — 12px per level
+    // i=0 (first/bottom card) gets top:100px, each subsequent card gets +12px more
+    // so card i+1 sticks lower and peeks out beneath card i when stacked
     const PEEK = 12;
     cards.forEach((card, i) => {
-      card.style.top = `${100 + (cards.length - 1 - i) * PEEK}px`;
+      card.style.top = `${100 + i * PEEK}px`;
     });
 
     cards.forEach((card, i) => {
