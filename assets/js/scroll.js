@@ -746,15 +746,19 @@ function initCardStack() {
 
     cards.forEach((card, i) => {
       const isLast = i === cards.length - 1;
+      // How far behind this card is (0 = top/last, n = furthest behind)
+      const depth = cards.length - 1 - i;
 
-      // Initial state: cards behind start slightly scaled down
+      // Initial state: cards behind are slightly scaled down and offset
+      // so they peek as a visible pile
       gsap.set(card, {
-        scale: 1 - (cards.length - 1 - i) * 0.03,
-        y: (cards.length - 1 - i) * 10,
+        scale: 1 - depth * 0.025,
+        y: depth * 8,
+        x: depth * 6,
         transformOrigin: 'top center',
       });
 
-      // Each card (except last) scales back and fades slightly
+      // Each card (except last) scales back, shifts, and fades slightly
       // as the NEXT card scrolls over it
       if (!isLast) {
         ScrollTrigger.create({
@@ -763,9 +767,15 @@ function initCardStack() {
           end: 'top 20%',
           scrub: true,
           onUpdate: self => {
+            // As next card arrives, squash this one further back into the pile
+            const stackedScale = 1 - depth * 0.025 - self.progress * 0.025;
+            const stackedY     = depth * 8 + self.progress * 6;
+            const stackedX     = depth * 6 + self.progress * 4;
             gsap.set(card, {
-              scale: 1 - (1 - self.progress) * (cards.length - 1 - i) * 0.03 - self.progress * 0.04,
-              opacity: 1 - self.progress * 0.35,
+              scale:   stackedScale,
+              y:       stackedY,
+              x:       stackedX,
+              opacity: 1 - self.progress * 0.3,
             });
           },
         });
