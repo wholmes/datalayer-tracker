@@ -744,28 +744,22 @@ function initCardStack() {
     const cards = stack.querySelectorAll('.card-stack-item');
     if (cards.length < 2) return;
 
-    const PEEK = 12; // px per depth level — cumulative so each card peeks more
+    const PEEK = 12;
 
     cards.forEach((card, i) => {
       const isLast = i === cards.length - 1;
-      // depth: last card (frontmost) = 0, first card (furthest back) = n-1
       const depth = cards.length - 1 - i;
 
-      // All cards same sticky top so none can push another
-      card.style.top    = '100px';
-      // Later cards (higher index) render on top
+      // Stagger sticky top so earlier cards peek below later ones.
+      // Last card (frontmost) always gets top:100px so it never pushes anything.
+      card.style.top    = isLast ? '100px' : `${100 + i * PEEK}px`;
       card.style.zIndex = i + 1;
 
-      // Cumulative peek: card furthest back peeks most (depth * PEEK downward)
-      // Front card has depth=0 so y=0
       gsap.set(card, {
-        y: depth * PEEK,
         scale: 1 - depth * 0.02,
         transformOrigin: 'top center',
       });
 
-      // As the next card scrolls in and covers this one,
-      // animate its peek back toward 0 and compress/fade it
       if (!isLast) {
         ScrollTrigger.create({
           trigger: cards[i + 1],
@@ -774,9 +768,8 @@ function initCardStack() {
           scrub: true,
           onUpdate: self => {
             gsap.set(card, {
-              y:       depth * PEEK * (1 - self.progress),
-              scale:   1 - depth * 0.02 - self.progress * 0.02,
-              opacity: 1 - self.progress * 0.2,
+              scale:   1 - depth * 0.02 - self.progress * 0.03,
+              opacity: 1 - self.progress * 0.25,
             });
           },
         });
