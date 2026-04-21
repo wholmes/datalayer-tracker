@@ -744,34 +744,28 @@ function initCardStack() {
     const cards = stack.querySelectorAll('.card-stack-item');
     if (cards.length < 2) return;
 
-    const PEEK = 10; // px each card peeks below the card in front of it
+    const PEEK = 12; // px per depth level — cumulative so each card peeks more
 
     cards.forEach((card, i) => {
       const isLast = i === cards.length - 1;
+      // depth: last card (frontmost) = 0, first card (furthest back) = n-1
+      const depth = cards.length - 1 - i;
 
-      // Later cards sit on top — higher z-index
-      card.style.top     = '100px';
-      card.style.zIndex  = i + 1;
+      // All cards same sticky top so none can push another
+      card.style.top    = '100px';
+      // Later cards (higher index) render on top
+      card.style.zIndex = i + 1;
 
-      // Each card (except the last/frontmost) gets a translateY nudge
-      // so it peeks below the card that will cover it.
-      // depth relative to the NEXT card (i+1): card i peeks out by PEEK px
-      if (!isLast) {
-        gsap.set(card, {
-          y: PEEK,
-          scale: 1 - (cards.length - 1 - i) * 0.015,
-          transformOrigin: 'top center',
-        });
-      } else {
-        gsap.set(card, {
-          y: 0,
-          scale: 1,
-          transformOrigin: 'top center',
-        });
-      }
+      // Cumulative peek: card furthest back peeks most (depth * PEEK downward)
+      // Front card has depth=0 so y=0
+      gsap.set(card, {
+        y: depth * PEEK,
+        scale: 1 - depth * 0.02,
+        transformOrigin: 'top center',
+      });
 
-      // As the next card scrolls in and covers this one, pull the peek back
-      // and compress/fade this card into the pile
+      // As the next card scrolls in and covers this one,
+      // animate its peek back toward 0 and compress/fade it
       if (!isLast) {
         ScrollTrigger.create({
           trigger: cards[i + 1],
@@ -780,8 +774,8 @@ function initCardStack() {
           scrub: true,
           onUpdate: self => {
             gsap.set(card, {
-              y:       PEEK * (1 - self.progress),
-              scale:   1 - (cards.length - 1 - i) * 0.015 - self.progress * 0.025,
+              y:       depth * PEEK * (1 - self.progress),
+              scale:   1 - depth * 0.02 - self.progress * 0.02,
               opacity: 1 - self.progress * 0.2,
             });
           },
