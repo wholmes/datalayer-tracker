@@ -2465,16 +2465,10 @@ mark.kb-search-highlight {
   opacity: 1 !important;
   transform: none !important;
   position: sticky;
-  top: 100px;
+  top: 100px; /* JS overrides per-card with PEEK stagger */
   margin-bottom: 24px;
   will-change: transform, opacity;
 }
-
-/* Stagger the sticky top so each card in the pile sits slightly lower */
-.card-stack-item:nth-child(1) { top: 104px; }
-.card-stack-item:nth-child(2) { top: 102px; }
-.card-stack-item:nth-child(3) { top: 100px; }
-.card-stack-item:nth-child(4) { top: 98px; }
 
 @media (max-width: 768px) {
   .card-stack-item {

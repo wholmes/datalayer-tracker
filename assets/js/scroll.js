@@ -744,38 +744,35 @@ function initCardStack() {
     const cards = stack.querySelectorAll('.card-stack-item');
     if (cards.length < 2) return;
 
+    // Stagger sticky top so cards peek below the one above — 12px per level
+    const PEEK = 12;
+    cards.forEach((card, i) => {
+      card.style.top = `${100 + (cards.length - 1 - i) * PEEK}px`;
+    });
+
     cards.forEach((card, i) => {
       const isLast = i === cards.length - 1;
-      // How far behind this card is (0 = top/last, n = furthest behind)
+      // depth: 0 = frontmost (last in DOM), n = furthest behind
       const depth = cards.length - 1 - i;
 
-      // Initial state: cards behind are slightly scaled down and offset
-      // so they peek as a visible pile
+      // Set initial resting scale — cards behind are slightly smaller
       gsap.set(card, {
-        scale: 1 - depth * 0.025,
-        y: depth * 8,
-        x: depth * 6,
+        scale: 1 - depth * 0.02,
         transformOrigin: 'top center',
       });
 
-      // Each card (except last) scales back, shifts, and fades slightly
-      // as the NEXT card scrolls over it
+      // As each subsequent card scrolls into place, push the one below
+      // slightly further back (scale down + fade)
       if (!isLast) {
         ScrollTrigger.create({
           trigger: cards[i + 1],
-          start: 'top 80%',
-          end: 'top 20%',
+          start: 'top 85%',
+          end: 'top 15%',
           scrub: true,
           onUpdate: self => {
-            // As next card arrives, squash this one further back into the pile
-            const stackedScale = 1 - depth * 0.025 - self.progress * 0.025;
-            const stackedY     = depth * 8 + self.progress * 6;
-            const stackedX     = depth * 6 + self.progress * 4;
             gsap.set(card, {
-              scale:   stackedScale,
-              y:       stackedY,
-              x:       stackedX,
-              opacity: 1 - self.progress * 0.3,
+              scale:   1 - depth * 0.02 - self.progress * 0.03,
+              opacity: 1 - self.progress * 0.25,
             });
           },
         });
