@@ -66,6 +66,12 @@ html.lenis, html.lenis body {
   will-change: transform, opacity;
 }
 
+/* Stack items are managed entirely by GSAP — cancel the pre-hide */
+.feature-full-card.card-stack-item {
+  opacity: 1;
+  transform: none;
+}
+
 /* ============================================================
    MARQUEE TICKER
    ============================================================ */
