@@ -755,12 +755,31 @@ function initCardStack() {
       card.style.zIndex = i + 1; // later cards render on top
 
       // Permanent downward offset — card furthest back peeks the most
-      // Front card (depth=0) has y=0, each card behind adds PEEK
+      // Front card (depth=0) starts from below (same entrance feel as the others)
+      const startY = isLast ? PEEK * 2 : depth * PEEK;
+      const startScale = isLast ? 0.97 : 1 - depth * 0.02;
+
       gsap.set(card, {
-        y: depth * PEEK,
-        scale: 1 - depth * 0.02,
+        y: startY,
+        scale: startScale,
         transformOrigin: 'top center',
       });
+
+      // Last card: animate into its final resting position as it enters view
+      if (isLast) {
+        ScrollTrigger.create({
+          trigger: card,
+          start: 'top 85%',
+          end: 'top 15%',
+          scrub: true,
+          onUpdate: self => {
+            gsap.set(card, {
+              y:     startY * (1 - self.progress),
+              scale: startScale + (1 - startScale) * self.progress,
+            });
+          },
+        });
+      }
 
       // When the NEXT card (i+1) scrolls in over this one,
       // pull this card's peek back and compress it into the pile
