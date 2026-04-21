@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Debug Overlay Demo — DataLayer Tracker</title>
+  <meta name="description" content="See the DataLayer Tracker debug overlay in action. Watch real-time event tracking, pinning, and session intelligence live." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="stylesheet" href="assets/css/scroll.css" />
+
+  <style>
+    /* ── Demo page layout ── */
+    .demo-page-wrap {
+      min-height: 100vh;
+      background: var(--bg);
+    }
+
+    /* ── Hero section ── */
+    .demo-hero {
+      padding: 120px 0 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .demo-hero .hero-blobs { opacity: 0.35; }
+
+    /* ── Stage: side-by-side layout ── */
+    .demo-stage {
+      padding: 0 0 100px;
+    }
+    .demo-stage-inner {
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      gap: 48px;
+      align-items: start;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--gutter);
+    }
+
+    /* Left: controls + descriptions */
+    .demo-controls-col {
+      position: sticky;
+      top: 100px;
+    }
+
+    .demo-section-title {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-3);
+      margin-bottom: 16px;
+    }
+
+    /* Event category tabs */
+    .demo-filter-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 32px;
+    }
+    .demo-filter-tab {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      border: 1.5px solid var(--border-md);
+      background: var(--bg-card);
+      color: var(--text-2);
+      cursor: pointer;
+      transition: all 0.18s;
+      line-height: 1;
+    }
+    .demo-filter-tab:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .demo-filter-tab.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+    .demo-filter-tab .dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: currentColor;
+      opacity: 0.7;
+    }
+
+    /* Action buttons */
+    .demo-action-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 32px;
+    }
+    .demo-action-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 14px;
+      border-radius: var(--radius-md);
+      border: 1.5px solid var(--border-md);
+      background: var(--bg-card);
+      color: var(--text-1);
+      font-size: 0.82rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.18s;
+      text-align: left;
+    }
+    .demo-action-btn:hover {
+      border-color: var(--accent);
+      background: rgba(27,79,216,0.05);
+    }
+    .demo-action-btn .icon {
+      font-size: 1rem;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+    .demo-action-btn.danger:hover {
+      border-color: #ef4444;
+      background: rgba(239,68,68,0.05);
+      color: #ef4444;
+    }
+    .demo-action-btn.active {
+      border-color: var(--accent);
+      background: rgba(27,79,216,0.08);
+      color: var(--accent);
+    }
+
+    /* Sequence player */
+    .demo-sequence-player {
+      background: var(--bg-card);
+      border: 1.5px solid var(--border-md);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      margin-bottom: 32px;
+    }
+    .demo-sequence-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .demo-sequence-label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-1);
+    }
+    .demo-sequence-status {
+      font-size: 0.72rem;
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: rgba(27,79,216,0.1);
+      color: var(--accent);
+      font-weight: 500;
+    }
+    .demo-sequence-status.running {
+      background: rgba(16,185,129,0.12);
+      color: #10b981;
+    }
+    .demo-sequence-controls {
+      display: flex;
+      gap: 8px;
+    }
+    .demo-seq-btn {
+      flex: 1;
+      padding: 9px 0;
+      border-radius: var(--radius-sm);
+      border: 1.5px solid var(--border-md);
+      background: var(--bg);
+      color: var(--text-2);
+      font-size: 0.82rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.18s;
+    }
+    .demo-seq-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .demo-seq-btn.play {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+      flex: 2;
+    }
+    .demo-seq-btn.play:hover { background: var(--accent-dark, #1558c0); }
+    .demo-seq-event-indicator {
+      margin-top: 12px;
+      font-size: 0.75rem;
+      color: var(--text-3);
+      min-height: 1.4em;
+    }
+    .demo-seq-event-indicator code {
+      background: rgba(27,79,216,0.1);
+      color: var(--accent);
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+    }
+
+    /* Feature highlights */
+    .demo-highlights {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .demo-highlight-item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .demo-highlight-icon {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      background: rgba(27,79,216,0.1);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .demo-highlight-text strong {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-1);
+      margin-bottom: 2px;
+    }
+    .demo-highlight-text span {
+      font-size: 0.78rem;
+      color: var(--text-3);
+      line-height: 1.5;
+    }
+
+    /* Right: overlay iframe */
+    .demo-overlay-col {
+      position: sticky;
+      top: 100px;
+    }
+    .demo-overlay-frame-wrap {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.3), 0 4px 16px rgba(0,0,0,0.15);
+      background: #111;
+    }
+    .demo-overlay-frame-wrap iframe {
+      display: block;
+      width: 100%;
+      height: 700px;
+      border: none;
+    }
+    /* Glow ring */
+    .demo-overlay-frame-wrap::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: 13px;
+      background: linear-gradient(135deg, rgba(27,79,216,0.5), rgba(124,58,237,0.3));
+      z-index: -1;
+    }
+    .demo-live-badge {
+      position: absolute;
+      top: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 999px;
+      padding: 4px 12px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      z-index: 10;
+      pointer-events: none;
+    }
+    .demo-live-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #10b981;
+      animation: livePulse 1.5s ease-in-out infinite;
+    }
+    @keyframes livePulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.3); }
+    }
+
+    /* ── How it works section ── */
+    .demo-how {
+      padding: 80px 0 100px;
+      background: var(--bg-alt);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .demo-stage-inner {
+        grid-template-columns: 1fr;
+      }
+      .demo-controls-col, .demo-overlay-col {
+        position: static;
+      }
+      .demo-overlay-frame-wrap iframe {
+        height: 560px;
+      }
+    }
+    @media (max-width: 600px) {
+      .demo-action-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cursor-dot"></div>
+  <div class="cursor-ring"></div>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="index.html" class="nav-logo">
+          <div class="nav-logo-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          DataLayer Tracker
+        </a>
+        <div class="nav-links">
+          <a href="wordpress-analytics-plugin.html" class="nav-link">Features</a>
+          <a href="pricing.html" class="nav-link">Pricing</a>
+          <a href="knowledge-base.html" class="nav-link">Docs</a>
+        </div>
+        <div class="nav-actions">
+          <a href="debug-overlay-demo.html" class="nav-demo nav-link--active">Live Demo</a>
+          <a href="https://checkout.freemius.com/plugin/20636/plan/35597/?trial=free" class="nav-cta" target="_blank">
+            Start Free Trial
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </a>
+        </div>
+        <button class="nav-hamburger" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="nav-mobile">
+    <a href="index.html" class="nav-mobile-link">Home</a>
+    <a href="wordpress-analytics-plugin.html" class="nav-mobile-link">Features</a>
+    <a href="pricing.html" class="nav-mobile-link">Pricing</a>
+    <a href="knowledge-base.html" class="nav-mobile-link">Docs</a>
+    <a href="debug-overlay-demo.html" class="nav-mobile-link">Live Demo</a>
+    <a href="https://checkout.freemius.com/plugin/20636/plan/35597/?trial=free" class="nav-mobile-cta" target="_blank">Start Free Trial →</a>
+  </div>
+
+  <div class="demo-page-wrap">
+
+    <!-- ── HERO ── -->
+    <section class="demo-hero page-hero" style="position:relative;overflow:hidden">
+      <div class="hero-blobs" style="opacity:0.35">
+        <div class="blob blob-1" style="width:500px;height:500px;top:-120px;right:0%"></div>
+        <div class="blob blob-3" style="width:300px;height:300px;bottom:-60px;left:5%"></div>
+      </div>
+      <div class="container" style="position:relative;z-index:1;text-align:center">
+        <span class="chip chip-blue" style="margin-bottom:20px">Interactive Demo</span>
+        <h1 class="display-lg" data-split>
+          See Every Event.<br><span class="gradient-text">In Real Time.</span>
+        </h1>
+        <p class="body-lg" data-fade-up style="max-width:560px;margin:20px auto 0">
+          This is the actual debug overlay built into DataLayer Tracker. Every click, scroll, form interaction, and purchase tracked — visible instantly in your WordPress admin.
+        </p>
+        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:32px" data-fade-up>
+          <a href="https://checkout.freemius.com/plugin/20636/plan/35597/?trial=free" class="btn btn-primary" target="_blank">
+            Get The Plugin →
+          </a>
+          <a href="wordpress-analytics-plugin.html" class="btn btn-ghost">
+            See All Features
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── STAGE ── -->
+    <section class="demo-stage">
+      <div class="demo-stage-inner">
+
+        <!-- LEFT: Controls -->
+        <div class="demo-controls-col">
+
+          <!-- Filter tabs -->
+          <p class="demo-section-title">Filter by Event Type</p>
+          <div class="demo-filter-tabs" id="filter-tabs">
+            <button class="demo-filter-tab active" data-group="all">
+              <span class="dot"></span> All Events
+            </button>
+            <button class="demo-filter-tab" data-group="ecom">
+              <span class="dot" style="background:#ffb347"></span> eCommerce
+            </button>
+            <button class="demo-filter-tab" data-group="engagement">
+              <span class="dot" style="background:#64b5f6"></span> Engagement
+            </button>
+            <button class="demo-filter-tab" data-group="form">
+              <span class="dot" style="background:#81c784"></span> Forms
+            </button>
+            <button class="demo-filter-tab" data-group="consent">
+              <span class="dot" style="background:#ffcc80"></span> Consent
+            </button>
+            <button class="demo-filter-tab" data-group="video">
+              <span class="dot" style="background:#ce93d8"></span> Video
+            </button>
+            <button class="demo-filter-tab" data-group="attribution">
+              <span class="dot" style="background:#80cbc4"></span> Attribution
+            </button>
+            <button class="demo-filter-tab" data-group="summary">
+              <span class="dot" style="background:#90a4ae"></span> Summary
+            </button>
+          </div>
+
+          <!-- Sequence player -->
+          <div class="demo-sequence-player">
+            <div class="demo-sequence-header">
+              <span class="demo-sequence-label">Auto-Play Sequence</span>
+              <span class="demo-sequence-status" id="seq-status">Stopped</span>
+            </div>
+            <div style="font-size:0.75rem;color:var(--text-3);margin-bottom:12px;line-height:1.6">
+              Watch a full customer journey — from page view through purchase — highlighted automatically.
+            </div>
+            <div class="demo-sequence-controls">
+              <button class="demo-seq-btn" id="seq-prev" title="Previous">‹</button>
+              <button class="demo-seq-btn play" id="seq-play">▶ Play Journey</button>
+              <button class="demo-seq-btn" id="seq-next" title="Next">›</button>
+            </div>
+            <div class="demo-seq-event-indicator" id="seq-indicator">Press Play to start the customer journey demo</div>
+          </div>
+
+          <!-- Quick actions -->
+          <p class="demo-section-title">Quick Actions</p>
+          <div class="demo-action-grid">
+            <button class="demo-action-btn" id="btn-pin-ecom">
+              <span class="icon">📌</span> Pin eCommerce
+            </button>
+            <button class="demo-action-btn" id="btn-pin-checkout">
+              <span class="icon">🛒</span> Pin Checkout
+            </button>
+            <button class="demo-action-btn" id="btn-open-purchase">
+              <span class="icon">💰</span> Show Purchase
+            </button>
+            <button class="demo-action-btn" id="btn-open-consent">
+              <span class="icon">🔒</span> Show Consent
+            </button>
+            <button class="demo-action-btn" id="btn-unpin">
+              <span class="icon">📋</span> Unpin All
+            </button>
+            <button class="demo-action-btn danger" id="btn-close">
+              <span class="icon">✕</span> Close All
+            </button>
+          </div>
+
+          <!-- Feature highlights -->
+          <p class="demo-section-title">What You're Seeing</p>
+          <div class="demo-highlights">
+            <div class="demo-highlight-item">
+              <div class="demo-highlight-icon">📡</div>
+              <div class="demo-highlight-text">
+                <strong>45+ Auto-Tracked Events</strong>
+                <span>Every scroll, click, form field, video interaction, and purchase captured automatically — no code needed.</span>
+              </div>
+            </div>
+            <div class="demo-highlight-item">
+              <div class="demo-highlight-icon">📌</div>
+              <div class="demo-highlight-text">
+                <strong>Pin &amp; Inspect</strong>
+                <span>Click the star icon on any event to pin it to the top. Click any event to expand its full JSON payload.</span>
+              </div>
+            </div>
+            <div class="demo-highlight-item">
+              <div class="demo-highlight-icon">🛒</div>
+              <div class="demo-highlight-text">
+                <strong>Checkout Funnel Steps</strong>
+                <span>eCommerce events show step indicators and progress bars so you can see exactly where customers drop off.</span>
+              </div>
+            </div>
+            <div class="demo-highlight-item">
+              <div class="demo-highlight-icon">🔒</div>
+              <div class="demo-highlight-text">
+                <strong>Consent-Aware Tracking</strong>
+                <span>Consent events fire when your CMP is accepted or revoked — fully GDPR compliant, nothing hidden.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: Overlay iframe -->
+        <div class="demo-overlay-col">
+          <div class="demo-overlay-frame-wrap">
+            <div class="demo-live-badge">
+              <span class="demo-live-dot"></span> Live Overlay Preview
+            </div>
+            <iframe
+              id="demo-iframe"
+              src="assets/adt-debug-overlay-demo.html"
+              title="DataLayer Tracker Debug Overlay"
+              loading="lazy">
+            </iframe>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── HOW IT WORKS ── -->
+    <section class="demo-how section">
+      <div class="container">
+        <div class="section-header centered">
+          <div class="section-header-eyebrow">
+            <span class="chip chip-green">How It Works</span>
+          </div>
+          <h2 class="display-md" data-split>It's Built Right Into WordPress</h2>
+          <p class="body-lg section-header-sub" data-fade-up>No external dashboards. No extra accounts. The overlay lives directly in your WordPress admin sidebar — always one click away while you browse your own site.</p>
+        </div>
+
+        <div class="grid-3 card-group" style="margin-top:48px">
+          <div class="feature-card">
+            <div class="feature-card-icon icon-blue">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            </div>
+            <h3>Activate the Plugin</h3>
+            <p>Install DataLayer Tracker, go to Settings, and enable the debug overlay. It appears as a panel on your live site — visible only to admins.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-card-icon icon-violet">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            </div>
+            <h3>Browse Normally</h3>
+            <p>Visit your pages, add to cart, fill out forms. Every interaction fires automatically and appears in the overlay in real time.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-card-icon icon-green">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <h3>Verify Your Tracking</h3>
+            <p>Pin events, expand JSON payloads, and confirm that every event fires correctly before your data reaches GA4 or Meta.</p>
+          </div>
+        </div>
+
+        <div style="text-align:center;margin-top:56px" data-fade-up>
+          <a href="https://checkout.freemius.com/plugin/20636/plan/35597/?trial=free" class="btn btn-primary btn-lg" target="_blank">
+            Start Free Trial — Get the Debug Overlay →
+          </a>
+          <p style="margin-top:12px;font-size:0.85rem;color:var(--text-3)">No credit card required. Free plan includes the debug overlay.</p>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /demo-page-wrap -->
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand-logo">
+            <div class="footer-brand-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            </div>
+            DataLayer Tracker
+          </div>
+          <p class="footer-tagline">Enterprise WordPress analytics without the enterprise complexity. Server-side tracking, data enrichment, and smart consent—in 15 minutes.</p>
+          <a href="https://checkout.freemius.com/plugin/20636/plan/35597/?trial=free" class="btn btn-primary" style="font-size:0.88rem;padding:10px 20px" target="_blank">Start Free Trial →</a>
+        </div>
+        <div>
+          <div class="footer-col-title">Product</div>
+          <ul class="footer-links">
+            <li><a href="wordpress-analytics-plugin.html" class="footer-link">Features</a></li>
+            <li><a href="pricing.html" class="footer-link">Pricing</a></li>
+            <li><a href="debug-overlay-demo.html" class="footer-link">Live Demo</a></li>
+            <li><a href="knowledge-base.html" class="footer-link">Documentation</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">Features</div>
+          <ul class="footer-links">
+            <li><a href="wordpress-analytics-plugin.html" class="footer-link">Server-Side Tracking</a></li>
+            <li><a href="wordpress-analytics-plugin.html" class="footer-link">Data Enrichment</a></li>
+            <li><a href="wordpress-analytics-plugin.html" class="footer-link">GTM Generator</a></li>
+            <li><a href="wordpress-analytics-plugin.html" class="footer-link">Consent Management</a></li>
+            <li><a href="wordpress-analytics-plugin.html" class="footer-link">WooCommerce Suite</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">Resources</div>
+          <ul class="footer-links">
+            <li><a href="knowledge-base.html" class="footer-link">Knowledge Base</a></li>
+            <li><a href="knowledge-base.html" class="footer-link">Installation Guide</a></li>
+            <li><a href="knowledge-base.html" class="footer-link">GTM Setup Guide</a></li>
+            <li><a href="mailto:support@datalayer-tracker.com" class="footer-link">Support</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 DataLayer Tracker. All rights reserved.</span>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Cookie Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="assets/js/debug-demo-helper.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/scroll.js"></script>
+
+  <script>
+  (function() {
+    const IFRAME = '#demo-iframe';
+    const iframe = document.getElementById('demo-iframe');
+    let iframeReady = false;
+    let sequenceController = null;
+    let sequenceRunning = false;
+
+    const JOURNEY_EVENTS = [
+      'page_view',
+      'scroll_depth',
+      'hover_intent',
+      'view_item',
+      'add_to_cart',
+      'view_cart',
+      'begin_checkout',
+      'checkout_progress',
+      'purchase',
+      'session_engagement_summary',
+      'session_commerce_summary'
+    ];
+
+    // ── Wait for iframe ready signal ──
+    window.addEventListener('message', (e) => {
+      if (e.data?.action === 'adtDemoReady') {
+        iframeReady = true;
+      }
+    });
+
+    function whenReady(fn) {
+      if (iframeReady) { fn(); return; }
+      const t = setInterval(() => { if (iframeReady) { clearInterval(t); fn(); } }, 100);
+      setTimeout(() => clearInterval(t), 8000);
+    }
+
+    // ── Filter tabs ──
+    const filterTabs = document.querySelectorAll('.demo-filter-tab');
+    filterTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        filterTabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+
+        const group = tab.dataset.group;
+        whenReady(() => {
+          if (group === 'all') {
+            // Show all: unpin everything, reset
+            OverlayDemoHelper.unpinAll(IFRAME);
+            OverlayDemoHelper.closeAll(IFRAME);
+          } else {
+            OverlayDemoHelper.unpinAll(IFRAME);
+            OverlayDemoHelper.closeAll(IFRAME);
+            setTimeout(() => {
+              OverlayDemoHelper.pinGroup(IFRAME, group);
+            }, 200);
+          }
+        });
+      });
+    });
+
+    // ── Sequence player ──
+    const seqPlay  = document.getElementById('seq-play');
+    const seqPrev  = document.getElementById('seq-prev');
+    const seqNext  = document.getElementById('seq-next');
+    const seqStatus = document.getElementById('seq-status');
+    const seqIndicator = document.getElementById('seq-indicator');
+
+    function setSeqStatus(running) {
+      sequenceRunning = running;
+      seqStatus.textContent = running ? 'Running' : 'Stopped';
+      seqStatus.className = 'demo-sequence-status' + (running ? ' running' : '');
+      seqPlay.textContent = running ? '⏹ Stop' : '▶ Play Journey';
+    }
+
+    seqPlay.addEventListener('click', () => {
+      whenReady(() => {
+        if (sequenceRunning && sequenceController) {
+          sequenceController.stop();
+          setSeqStatus(false);
+          seqIndicator.innerHTML = 'Press Play to start the customer journey demo';
+          return;
+        }
+
+        sequenceController = OverlayDemoHelper.sequence(IFRAME, JOURNEY_EVENTS, {
+          duration: 2800,
+          loop: true,
+          disableInteraction: false,
+          pauseAutoScroll: true,
+          pinInSequence: true,
+          onEventChange: (name, idx, total) => {
+            seqIndicator.innerHTML = `Step ${idx + 1}/${total}: <code>${name}</code>`;
+          },
+          onComplete: () => {
+            setSeqStatus(false);
+            seqIndicator.innerHTML = 'Journey complete. Press Play to restart.';
+          }
+        });
+
+        sequenceController.start();
+        setSeqStatus(true);
+      });
+    });
+
+    seqPrev.addEventListener('click', () => {
+      if (sequenceController) sequenceController.previous();
+    });
+    seqNext.addEventListener('click', () => {
+      if (sequenceController) sequenceController.next();
+    });
+
+    // ── Quick action buttons ──
+    document.getElementById('btn-pin-ecom').addEventListener('click', () => {
+      whenReady(() => {
+        OverlayDemoHelper.unpinAll(IFRAME);
+        setTimeout(() => OverlayDemoHelper.pinGroup(IFRAME, 'ecom'), 200);
+      });
+    });
+
+    document.getElementById('btn-pin-checkout').addEventListener('click', () => {
+      whenReady(() => {
+        OverlayDemoHelper.unpinAll(IFRAME);
+        setTimeout(() => {
+          ['add_to_cart','begin_checkout','checkout_progress','purchase'].forEach(e => {
+            OverlayDemoHelper.pin(IFRAME, e);
+          });
+        }, 200);
+      });
+    });
+
+    document.getElementById('btn-open-purchase').addEventListener('click', () => {
+      whenReady(() => {
+        OverlayDemoHelper.closeAll(IFRAME);
+        setTimeout(() => {
+          iframe.contentWindow.postMessage({
+            action: 'adtScrollAndOpenEvent',
+            eventName: 'purchase',
+            scrollBehavior: 'smooth',
+            openDelay: 300
+          }, '*');
+        }, 100);
+      });
+    });
+
+    document.getElementById('btn-open-consent').addEventListener('click', () => {
+      whenReady(() => {
+        OverlayDemoHelper.unpinAll(IFRAME);
+        setTimeout(() => OverlayDemoHelper.pinGroup(IFRAME, 'consent'), 200);
+      });
+    });
+
+    document.getElementById('btn-unpin').addEventListener('click', () => {
+      whenReady(() => OverlayDemoHelper.unpinAll(IFRAME));
+    });
+
+    document.getElementById('btn-close').addEventListener('click', () => {
+      whenReady(() => OverlayDemoHelper.closeAll(IFRAME));
+    });
+
+  })();
+  </script>
+
+</body>
+</html>

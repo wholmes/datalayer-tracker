@@ -1,0 +1,2379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DataLayer Tracker - Debug Overlay Demo</title>
+  <style>
+#adt-debug-overlay-demo header button {padding: 0 !important;}
+#adt-debug-overlay-demo, #adt-debug-overlay-demo header {border-radius: 6 !important;}
+#adt-ov-events-wrap-demo button.adt-download-btn {padding: 0 !important;}
+#adt-pagectx-details-demo, .adt-page-context-demo {padding-left:15px}
+#adt-debug-overlay-demo code {} 
+.adt-collapsible {
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+  max-height: 500px;
+  opacity: 1;
+}
+.adt-collapsed {
+  max-height: 0 !important;
+  opacity: 0;
+}
+
+/* Collapsible body */
+#adt-pagectx-details-demo {
+  font-size: 10px;
+  white-space: pre-wrap;
+  color: #bbb;
+  margin-top: 4px;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+}
+
+#adt-pagectx-details-demo.adt-open {
+  max-height: 500px; /* big enough for content */
+  opacity: 1;
+}
+
+/* Collapsible demo panel */
+.adt-collapsible-demo {
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+  max-height: 500px;
+  opacity: 1;
+}
+
+/* Collapsed state */
+.adt-collapsed-demo {
+  max-height: 0 !important;
+  opacity: 0;
+  overflow: hidden;
+}
+  /* === ADT Debug Overlay Demo (Unified CSS) === */
+  #adt-debug-overlay-demo {
+	height: 700px;
+    bottom: 20px;
+    right: 20px;
+    width: 360px;
+    font-family: sans-serif;
+    z-index: 99999;
+    box-shadow: rgba(0,0,0,0.5) 0px 0px 10px;
+    border-radius: 6px 6px 0 0 !important;
+    background: #111;
+    color: #eee;
+    font-size: 12px;
+    display: flex;
+    flex-direction: column;
+  }
+  #adt-debug-overlay-demo header {
+    display: flex;
+    align-items: center;
+    padding: 8px 8px;
+    background: #222;
+    border-bottom: 1px solid #333;
+    border-radius: 6px 6px 0 0 !important;
+  }
+  #adt-debug-overlay-demo header strong { font-size: 13px; }
+
+  #adt-dual-status-demo {
+    display: flex;
+    align-items: center;
+    padding: 6px 8px;
+    font-size: 11px;
+    border-bottom: 1px solid #333;
+    background: #181818;
+  }
+  #adt-dual-status-demo .adt-dual-left {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .adt-pulse-warning { animation: pulseWarn 1.5s infinite; }
+  @keyframes pulseWarn {
+    0% { opacity: 1; }
+    50% { opacity: .3; }
+    100% { opacity: 1; }
+  }
+
+  #adt-ov-intent-demo {
+    padding: 6px 8px;
+    border-bottom: 1px solid #333;
+    font-size: 11px;
+  }
+  #adt-ov-intent-demo .adt-intent-summary {
+    color: #aaa;
+    margin-top: 2px;
+    font-size: 10px;
+  }
+
+  #adt-ov-events-wrap-demo {
+    flex: 1;
+    overflow-y: auto;
+    max-height: 700px;
+    border-top: 1px solid #333;
+  }
+  #adt-ov-events-wrap-demo button {margin:0}
+  #adt-ov-events-demo,
+  #adt-ov-pinned-demo,
+  #adt-ovlog-events {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  #adt-ov-events-demo li,
+  #adt-ov-pinned-demo li,
+  #adt-ovlog-events li {
+    padding: 6px 8px;
+    border-bottom: 1px solid #333;
+    font-size: 12px;
+  }
+  #adt-ov-events-demo li:hover,
+  #adt-ov-pinned-demo li:hover,
+  #adt-ovlog-events li:hover {
+    background: #1a1a1a;
+  }
+
+  #adt-ovlog-events {
+	  max-height: 580px !important;
+  }
+  #adt-ov-events-wrap-demo {
+      flex: 1;
+      overflow-y: auto;
+      max-height: 840px;
+  }
+  
+  /* === Shared Elements === */
+  .ts {
+    color: #888;
+    font-size: 11px;
+    margin-right: 4px;
+    display: inline-block;
+    min-width: 70px;
+  }
+  code {
+    color: #9be9a8;
+    font-size: 12px;
+    background: rgba(255,255,255,0.1);
+    padding: 2px 4px;
+    border-radius: 3px;
+  }
+  pre {
+    background: #000;
+    padding: 6px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-family: monospace;
+    margin-top: 4px;
+    white-space: pre-wrap;
+    word-break: break-word;
+    display: none;
+    color: #0f0;
+  }
+  .pin-btn {
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:20px;height:20px;
+    background:black;
+    border-radius:4px;
+    cursor:pointer;
+    float:right;
+    opacity:.6;
+    margin-left:6px;
+  }
+  .pin-btn.pinned { color:#0f9d58; opacity:1; }
+  .note-btn {
+    background:transparent;
+    border:none;
+    padding:4px;
+    border-radius:4px;
+    cursor:pointer;
+    margin-left:6px;
+    transition: background 0.2s;
+  }
+  .note-btn:hover {
+    background: rgba(255,255,255,0.15);
+  }
+
+  #adt-debug-overlay-demo footer {
+    text-align: center;
+    padding: 6px 0;
+    background: #1a1a1a;
+    border-top: 1px solid #333;
+    font-size: 10px;
+  }
+  #adt-debug-overlay-demo footer a {
+    color: #888;
+    text-decoration: none;
+  }
+
+  /* === Scoped Styles for #adt-ovlog-events (log list only) === */
+  #adt-ovlog-events {
+    font-family: monospace, monospace;
+    font-size: 12px;
+    line-height: 1.4;
+    background: #111;
+    color: #eee;
+    border-radius: 6px;
+    overflow-y: auto;
+    max-height: 400px;
+  }
+  #adt-ovlog-events li.custom code { color: #9fe4ff; }
+  #adt-ovlog-events li.ecom code { color: #ffb347; }
+  #adt-ovlog-events small {
+    display: inline-block;
+    margin-top: 2px;
+    color: #bbb;
+    font-size: 10px;
+    font-style: italic;
+  }
+  #adt-ovlog-events li[style*="opacity: 0.4"] {
+    color: #888;
+    text-align: center;
+    font-style: italic;
+  }
+  body {
+    background: #0a0a0a;
+    padding: 20px;
+  }
+  
+  #adt-ovlog-events li {padding-top:10px; padding-bottom:10px;}
+  
+  /* Highlight animation for scrolled-to events */
+  @keyframes adtHighlight {
+    0% { background-color: rgba(33, 150, 243, 0.3); }
+    100% { background-color: transparent; }
+  }
+
+  #adt-ovlog-events li.adt-highlight {
+    animation: adtHighlight 1s ease-out;
+  }
+  </style>
+</head>
+<body>
+
+<div id="adt-debug-overlay-demo" data-overlay-demo>
+  <header>
+    <strong>ADT Debug Overlay</strong>
+    <button style="background:transparent;border:none;color:#888;font-size:16px;margin-left:auto;cursor:pointer;">–</button>
+  </header>
+
+  <!-- Pixel Mode -->
+  <!-- <div id="adt-dual-status-demo">
+    <div class="adt-dual-left">
+      ><svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="12" r="10" stroke="white" stroke-width="2"></circle>
+        <circle cx="12" cy="12" r="5" fill="#28a745" class="adt-pulse-warning"></circle>
+      </svg>
+      <span>Dual Pixel Mode ✓ (All Pixels Ready)</span>
+    </div>
+  </div> -->
+
+
+<!-- ><div id="adt-page-context-demo" aria-label="Page Metadata" style="font-size: 10px; color: rgb(204, 204, 204); padding: 12px 8px; border-bottom: 1px solid rgb(51, 51, 51); margin-bottom: 6px;">
+	  <div style="display:flex;justify-content:space-between;align-items:center;">
+	    <strong>Page Context</strong>
+	    <span id="adt-toggle-pagectx" style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:4px;background:black;cursor:pointer; padding:10px 10px !important;">
+	      <svg id="adt-pagectx-arrow" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 20 20" fill="none" points="6 8 10 12 14 8">
+	        <polyline points="6 8 10 12 14 8" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></polyline>
+	      </svg>
+	    </span>
+	  </div>
+	  <div id="adt-pagectx-details" class="adt-collapsible adt-collapsed" style="margin-top:4px;font-size:10px;white-space:pre-wrap;color:#bbb;"><div><strong>Slug:</strong> wireless-mouse</div><div><strong>Path:</strong> /shop/wireless-mouse</div><div><strong>Post ID:</strong> 8432</div><div><strong>Template:</strong> product</div><div><strong>Page Type:</strong> product</div>
+</div>
+</div> -->
+
+
+
+  <!-- Intent -->
+  <!-- <div id="adt-ov-intent-demo">
+    <span class="adt-intent-label">Likely Intent:</span>
+    <span class="adt-intent-value">purchaser</span>
+    <div class="adt-intent-summary">Signals: 42 • Last: purchase • Score: 100%</div>
+  </div> -->
+
+  <!-- Pinned Events -->
+  <ol id="adt-ov-pinned-demo" aria-label="Pinned Events"></ol>
+
+  <!-- Events (Scrollable) -->
+  <div id="adt-ov-events-wrap-demo">
+
+<ol id="adt-ovlog-events">
+
+<!-- 1. PAGE_VIEW -->
+<li class="core">
+  <span class="ts">2:14:02 PM</span>
+  <code>page_view</code>
+
+  <span class="pin-btn" title="Pin this event">
+    <svg viewBox="0 0 24 24" width="12" height="12" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2L14.9 8.6L22 9.2L17 14.1L18.4 21.1L12 17.8L5.6 21.1L7 14.1L2 9.2L9.1 8.6L12 2Z"
+            stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </span>
+
+  <button class="note-btn" title="Add Note">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 20h9" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      <path d="M16.5 3.5l4 4L9 19H5v-4L16.5 3.5z"
+            stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <pre style="display:none;">{
+  "event": "page_view",
+  "page_title": "Wireless Mouse - TechBrand Pro",
+  "page_location": "https://example.com/shop/wireless-mouse",
+  "page_referrer": "https://google.com/search?q=best+wireless+mouse",
+  "page_type": "product",
+  "page_path": "/shop/wireless-mouse",
+  "post_id": 8432,
+  "logged_in": false,
+  "session_id": "sess_1760034620287_abc123",
+  "session_number": 3,
+  "tab_id": "tab_1760034620287_xyz",
+  "timestamp": "2025-01-09T19:14:02.000Z"
+}</pre>
+</li>
+
+<!-- 2. SESSION_ENGAGEMENT_MILESTONE -->
+<li class="core">
+  <span class="ts">2:14:32 PM</span>
+  <code>session_engagement_milestone</code>
+
+  <span class="pin-btn" title="Pin this event">
+    <svg viewBox="0 0 24 24" width="12" height="12" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2L14.9 8.6L22 9.2L17 14.1L18.4 21.1L12 17.8L5.6 21.1L7 14.1L2 9.2L9.1 8.6L12 2Z"
+            stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </span>
+
+  <button class="note-btn" title="Add Note">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 20h9" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      <path d="M16.5 3.5l4 4L9 19H5v-4L16.5 3.5z"
+            stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <pre style="display:block;">{
+  "event": "session_engagement_milestone",
+  "milestone_type": "active_time_30",
+  "session_id": "sess_1760034620287_abc123",
+  "active_time": 35,
+  "page_views": 1,
+  "timestamp": "2025-01-09T19:14:32.000Z"
+}</pre>
+</li>
+
+<!-- 3. GTM.JS -->
+<li class="custom">
+  <span class="ts">2:14:02 PM</span>
+  <code>gtm.js</code>
+
+  <span class="pin-btn" title="Pin this event">
+    <svg viewBox="0 0 24 24" width="12" height="12" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2L14.9 8.6L22 9.2L17 14.1L18.4 21.1L12 17.8L5.6 21.1L7 14.1L2 9.2L9.1 8.6L12 2Z"
+            stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </span>
+
+  <button class="note-btn" title="Add Note">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 20h9" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      <path d="M16.5 3.5l4 4L9 19H5v-4L16.5 3.5z"
+            stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <pre style="display:none;">{
+  "gtm.start": 1760034842088,
+  "event": "gtm.js",
+  "gtm.uniqueEventId": 2
+}</pre>
+</li>
+
+<!-- 4. SCROLL_DEPTH (25%) -->
+<li class="engagement">
+  <span class="ts">2:14:08 PM</span>
+  <code>scroll_depth</code>
+
+  <span class="pin-btn" title="Pin this event">
+    <svg viewBox="0 0 24 24" width="12" height="12" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2L14.9 8.6L22 9.2L17 14.1L18.4 21.1L12 17.8L5.6 21.1L7 14.1L2 9.2L9.1 8.6L12 2Z"
+            stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </span>
+
+  <button class="note-btn" title="Add Note">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 20h9" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      <path d="M16.5 3.5l4 4L9 19H5v-4L16.5 3.5z"
+            stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <pre style="display:none;">{
+  "event": "scroll_depth",
+  "percent_scrolled": 25,
+  "page_height": 3200,
+  "viewport_height": 800,
+  "session_id": "sess_1760034620287_abc123",
+  "timestamp": "2025-01-09T19:14:08.000Z"
+}</pre>
+</li>
+
+<!-- 5. SCROLL_DEPTH (50%) -->
+<li class="engagement">
+  <span class="ts">2:14:15 PM</span>
+  <code>scroll_depth</code>
+
+  <span class="pin-btn" title="Pin this event">
+    <svg viewBox="0 0 24 24" width="12" height="12" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2L14.9 8.6L22 9.2L17 14.1L18.4 21.1L12 17.8L5.6 21.1L7 14.1L2 9.2L9.1 8.6L12 2Z"
+            stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </span>
+
+  <button class="note-btn" title="Add Note">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 20h9" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      <path d="M16.5 3.5l4 4L9 19H5v-4L16.5 3.5z"
+            stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <pre style="display:none;">{
+  "event": "scroll_depth",
+  "percent_scrolled": 50,
+  "page_height": 3200,
+  "viewport_height": 800,
+  "session_id": "sess_1760034620287_abc123",
+  "timestamp": "2025-01-09T19:14:15.000Z"
+}</pre>
+</li>
+
+<!-- 6. SCROLL_BACK_UP -->
+<li class="engagement">
+  <span class="ts">2:14:18 PM</span>
+  <code>scroll_back_up</code>
+
+  <span class="pin-btn" title="Pin this event">
+    <svg viewBox="0 0 24 24" width="12" height="12" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2L14.9 8.6L22 9.2L17 14.1L18.4 21.1L12 17.8L5.6 21.1L7 14.1L2 9.2L9.1 8.6L12 2Z"
+            stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </span>
+
+  <button class="note-btn" title="Add Note">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 20h9" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      <path d="M16.5 3.5l4 4L9 19H5v-4L16.5 3.5z"
+            stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <pre style="display:none;">{
+  "event": "scroll_back_up",
+  "scroll_direction": "up",
+  "scroll_amount": 450,
+  "current_position": 1200,
+  "session_id": "sess_1760034620287_abc123",
+  "timestamp": "2025-01-09T19:14:18.000Z"
+}</pre>
+</li>
+
+<!-- 7. TIME_ON_PAGE -->
+<li class="engagement">
+  <span class="ts">2:14:32 PM</span>
+  <code>time_on_page</code>
+
+  <span class="pin-btn" title="Pin this event">
+    <svg viewBox="0 0 24 24" width="12" height="12" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2L14.9 8.6L22 9.2L17 14.1L18.4 21.1L12 17.8L5.6 21.1L7 14.1L2 9.2L9.1 8.6L12 2Z"
+            stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </span>
+
+  <button class="note-btn" title="Add Note">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 20h9" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      <path d="M16.5 3.5l4 4L9 19H5v-4L16.5 3.5z"
+            stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <pre style="display:none;">{
+  "event": "time_on_page",
+  "time_seconds": 30,
+  "page_visible": true,
+  "session_id": "sess_1760034620287_abc123",
+  "timestamp": "2025-01-09T19:14:32.000Z"
+}</pre>
+</li>
+
+<!-- 8. ACTIVE_TIME -->
+<li class="engagement">
+  <span class="ts">2:14:32 PM</span>
+  <code>active_time</code>
+
+  <span class="pin-btn" title="Pin this event">
+    <svg viewBox="0 0 24 24" width="12" height="12" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2L14.9 8.6L22 9.2L17 14.1L18.4 21.1L12 17.8L5.6 21.1L7 14.1L2 9.2L9.1 8.6L12 2Z"
+            stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </span>
+
+  <button class="note-btn" title="Add Note">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 20h9" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      <path d="M16.5 3.5l4 4L9 19H5v-4L16.5 3.5z"
+            stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <pre style="display:none;">{
+  "event": "active_time",
+  "active_seconds": 28,
+  "page_visible": true,
+  "interaction_rate": 0.93,
+  "session_id": "sess_1760034620287_abc123",
+  "timestamp": "2025-01-09T19:14:32.000Z"
+}</pre>
+</li>
+
+<!-- 9. FOCUS_BLUR -->
+<li class="engagement">
+  <span class="ts">2:14:45 PM</span>
+  <code>focus_blur</code>
+
+  <span class="pin-btn" title="Pin this event">
+    <svg viewBox="0 0 24 24" width="12" height="12" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2L14.9 8.6L22 9.2L17 14.1L18.4 21.1L12 17.8L5.6 21.1L7 14.1L2 9.2L9.1 8.6L12 2Z"
+            stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </span>
+
+  <button class="note-btn" title="Add Note">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 20h9" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      <path d="M16.5 3.5l4 4L9 19H5v-4L16.5 3.5z"
+            stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <pre style="display:none;">{
+  "event": "focus_blur",
+  "visibility_state": "hidden",
+  "time_away": 45,
+  "session_id": "sess_1760034620287_abc123",
+  "timestamp": "2025-01-09T19:14:45.000Z"
+}</pre>
+</li>
+
+<!-- 10. HOVER_INTENT -->
+<li class="engagement">
+  <span class="ts">2:15:12 PM</span>
+  <code>hover_intent</code>
+
+  <span class="pin-btn" title="Pin this event">
+    <svg viewBox="0 0 24 24" width="12" height="12" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2L14.9 8.6L22 9.2L17 14.1L18.4 21.1L12 17.8L5.6 21.1L7 14.1L2 9.2L9.1 8.6L12 2Z"
+            stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </span>
+
+  <button class="note-btn" title="Add Note">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 20h9" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      <path d="M16.5 3.5l4 4L9 19H5v-4L16.5 3.5z"
+            stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <pre style="display:none;">{
+  "event": "hover_intent",
+  "element_text": "Add to Cart",
+  "element_type": "button",
+  "hover_duration": 750,
+  "element_classes": "btn btn-primary add-to-cart",
+  "session_id": "sess_1760034620287_abc123",
+  "timestamp": "2025-01-09T19:15:12.000Z"
+}</pre>
+</li>
+
+<!-- 11. CONTENT_INTELLIGENCE -->
+<li class="content">
+  <span class="ts">2:14:03 PM</span>
+  <code>content_intelligence</code>
+
+  <span class="pin-btn" title="Pin this event">
+    <svg viewBox="0 0 24 24" width="12" height="12" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2L14.9 8.6L22 9.2L17 14.1L18.4 21.1L12 17.8L5.6 21.1L7 14.1L2 9.2L9.1 8.6L12 2Z"
+            stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </span>
+
+  <button class="note-btn" title="Add Note">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 20h9" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      <path d="M16.5 3.5l4 4L9 19H5v-4L16.5 3.5z"
+            stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <pre style="display:none;">{
+  "event": "content_intelligence",
+  "content_type": "product_page",
+  "engagement_score": 78,
+  "content_length": 1450,
+  "has_video": true,
+  "has_forms": false,
+  "section_count": 5,
+  "session_id": "sess_1760034620287_abc123",
+  "timestamp": "2025-01-09T19:14:03.000Z"
+}</pre>
+</li>
+
+<!-- 12. SECTION_ENGAGEMENT -->
+<li class="content">
+  <span class="ts">2:14:25 PM</span>
+  <code>section_engagement</code>
+
+  <span class="pin-btn" title="Pin this event">
+    <svg viewBox="0 0 24 24" width="12" height="12" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2L14.9 8.6L22 9.2L17 14.1L18.4 21.1L12 17.8L5.6 21.1L7 14.1L2 9.2L9.1 8.6L12 2Z"
+            stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </span>
+
+  <button class="note-btn" title="Add Note">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 20h9" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      <path d="M16.5 3.5l4 4L9 19H5v-4L16.5 3.5z"
+            stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <pre style="display:none;">{
+  "event": "section_engagement",
+  "section_id": "product-features",
+  "section_title": "Key Features",
+  "dwell_time": 12,
+  "scroll_depth": 85,
+  "session_id": "sess_1760034620287_abc123",
+  "timestamp": "2025-01-09T19:14:25.000Z"
+}</pre>
+</li>
+
+<!-- 13. LAST_ENGAGED_SECTION -->
+<li class="content">
+  <span class="ts">2:15:48 PM</span>
+  <code>last_engaged_section</code>
+
+  <span class="pin-btn" title="Pin this event">
+    <svg viewBox="0 0 24 24" width="12" height="12" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2L14.9 8.6L22 9.2L17 14.1L18.4 21.1L12 17.8L5.6 21.1L7 14.1L2 9.2L9.1 8.6L12 2Z"
+            stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </span>
+
+  <button class="note-btn" title="Add Note">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 20h9" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      <path d="M16.5 3.5l4 4L9 19H5v-4L16.5 3.5z"
+            stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <pre style="display:none;">{
+  "event": "last_engaged_section",
+  "section_id": "product-reviews",
+  "section_title": "Customer Reviews",
+  "total_time_in_section": 23,
+  "session_id": "sess_1760034620287_abc123",
+  "timestamp": "2025-01-09T19:15:48.000Z"
+}</pre>
+</li>
+
+<!-- 14. LAST_CONTENT_TYPE_VIEWED -->
+<li class="content">
+  <span class="ts">2:15:48 PM</span>
+  <code>last_content_type_viewed</code>
+
+  <span class="pin-btn" title="Pin this event">
+    <svg viewBox="0 0 24 24" width="12" height="12" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2L14.9 8.6L22 9.2L17 14.1L18.4 21.1L12 17.8L5.6 21.1L7 14.1L2 9.2L9.1 8.6L12 2Z"
+            stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </span>
+
+  <button class="note-btn" title="Add Note">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 20h9" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      <path d="M16.5 3.5l4 4L9 19H5v-4L16.5 3.5z"
+            stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <pre style="display:none;">{
+  "event": "last_content_type_viewed",
+  "content_type": "product_page",
+  "session_id": "sess_1760034620287_abc123",
+  "timestamp": "2025-01-09T19:15:48.000Z"
+}</pre>
+</li>
+
+<!-- 15. CTA_EXPOSURE -->
+<li class="content">
+  <span class="ts">2:14:05 PM</span>
+  <code>cta_exposure</code>
+
+  <span class="pin-btn" title="Pin this event">
+    <svg viewBox="0 0 24 24" width="12" height="12" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2L14.9 8.6L22 9.2L17 14.1L18.4 21.1L12 17.8L5.6 21.1L7 14.1L2 9.2L9.1 8.6L12 2Z"
+            stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </span>
+
+  <button class="note-btn" title="Add Note">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 20h9" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      <path d="M16.5 3.5l4 4L9 19H5v-4L16.5 3.5z"
+            stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <pre style="display:none;">{
+  "event": "cta_exposure",
+  "cta_text": "Add to Cart",
+  "cta_position": "product-hero",
+  "time_to_exposure": 3.2,
+  "scroll_depth_at_exposure": 15,
+  "session_id": "sess_1760034620287_abc123",
+  "timestamp": "2025-01-09T19:14:05.000Z"
+}</pre>
+</li>
+
+<!-- 16. FORM_START -->
+<li class="form">
+  <span class="ts">2:16:15 PM</span>
+  <code>form_start</code>
+
+  <span class="pin-btn" title="Pin this event">
+    <svg viewBox="0 0 24 24" width="12" height="12" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2L14.9 8.6L22 9.2L17 14.1L18.4 21.1L12 17.8L5.6 21.1L7 14.1L2 9.2L9.1 8.6L12 2Z"
+            stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </span>
+
+  <button class="note-btn" title="Add Note">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 20h9" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      <path d="M16.5 3.5l4 4L9 19H5v-4L16.5 3.5z"
+            stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <pre style="display:none;">{
+  "event": "form_start",
+  "form_id": "checkout-form",
+  "form_name": "WooCommerce Checkout",
+  "form_vendor": "woocommerce",
+  "field_count": 7,
+  "session_id": "sess_1760034620287_abc123",
+  "timestamp": "2025-01-09T19:16:15.000Z"
+}</pre>
+</li>
+
+<!-- 17. FORM_FIELD_INTERACTION -->
+<li class="form">
+  <span class="ts">2:16:28 PM</span>
+  <code>form_field_interaction</code>
+
+  <span class="pin-btn" title="Pin this event">
+    <svg viewBox="0 0 24 24" width="12" height="12" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2L14.9 8.6L22 9.2L17 14.1L18.4 21.1L12 17.8L5.6 21.1L7 14.1L2 9.2L9.1 8.6L12 2Z"
+            stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </span>
+
+  <button class="note-btn" title="Add Note">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 20h9" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      <path d="M16.5 3.5l4 4L9 19H5v-4L16.5 3.5z"
+            stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <pre style="display:none;">{
+  "event": "form_field_interaction",
+  "form_id": "checkout-form",
+  "field_id": "billing_email",
+  "field_type": "email",
+  "field_name": "billing_email",
+  "interaction_time": 8,
+  "total_interactions": 1,
+  "field_value_length": 24,
+  "session_id": "sess_1760034620287_abc123",
+  "timestamp": "2025-01-09T19:16:28.000Z"
+}</pre>
+</li>
+
+<!-- 18. FIELD_INTERACTION -->
+<li class="form">
+  <span class="ts">2:16:35 PM</span>
+  <code>field_interaction</code>
+
+  <span class="pin-btn" title="Pin this event">
+    <svg viewBox="0 0 24 24" width="12" height="12" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2L14.9 8.6L22 9.2L17 14.1L18.4 21.1L12 17.8L5.6 21.1L7 14.1L2 9.2L9.1 8.6L12 2Z"
+            stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </span>
+
+  <button class="note-btn" title="Add Note">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 20h9" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      <path d="M16.5 3.5l4 4L9 19H5v-4L16.5 3.5z"
+            stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <pre style="display:none;">{
+  "event": "field_interaction",
+  "form_id": "checkout-form",
+  "field_id": "billing_phone",
+  "field_type": "tel",
+  "interaction_type": "blur",
+  "session_id": "sess_1760034620287_abc123",
+  "timestamp": "2025-01-09T19:16:35.000Z"
+}</pre>
+</li>
+
+<!-- 19. FORM_SUBMIT -->
+<li class="form">
+  <span class="ts">2:17:35 PM</span>
+  <code>form_submit</code>
+
+  <span class="pin-btn" title="Pin this event">
+    <svg viewBox="0 0 24 24" width="12" height="12" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2L14.9 8.6L22 9.2L17 14.1L18.4 21.1L12 17.8L5.6 21.1L7 14.1L2 9.2L9.1 8.6L12 2Z"
+            stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </span>
+
+  <button class="note-btn" title="Add Note">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 20h9" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      <path d="M16.5 3.5l4 4L9 19H5v-4L16.5 3.5z"
+            stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <pre style="display:none;">{
+  "event": "form_submit",
+  "form_id": "checkout-form",
+  "form_name": "WooCommerce Checkout",
+  "form_vendor": "woocommerce",
+  "completion_time": 80,
+  "field_count": 7,
+  "form_destination": "/checkout/order-received",
+  "session_id": "sess_1760034620287_abc123",
+  "timestamp": "2025-01-09T19:17:35.000Z"
+}</pre>
+</li>
+
+<!-- 20. VIDEO_START -->
+<li class="video">
+  <span class="ts">2:14:30 PM</span>
+  <code>video_start</code>
+
+  <span class="pin-btn" title="Pin this event">
+    <svg viewBox="0 0 24 24" width="12" height="12" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2L14.9 8.6L22 9.2L17 14.1L18.4 21.1L12 17.8L5.6 21.1L7 14.1L2 9.2L9.1 8.6L12 2Z"
+            stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </span>
+
+  <button class="note-btn" title="Add Note">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 20h9" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      <path d="M16.5 3.5l4 4L9 19H5v-4L16.5 3.5z"
+            stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <pre style="display:none;">{
+  "event": "video_start",
+  "video_title": "Product Demo",
+  "video_url": "https://youtube.com/watch?v=demo123",
+  "video_provider": "youtube",
+  "video_duration": 180,
+  "video_id": "demo-2024",
+  "session_id": "sess_1760034620287_abc123",
+  "timestamp": "2025-01-09T19:14:30.000Z"
+}</pre>
+</li>
+
+<!-- 21. VIDEO_PROGRESS (25%) -->
+<li class="video">
+  <span class="ts">2:14:75 PM</span>
+  <code>video_progress</code>
+
+  <span class="pin-btn" title="Pin this event">
+    <svg viewBox="0 0 24 24" width="12" height="12" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2L14.9 8.6L22 9.2L17 14.1L18.4 21.1L12 17.8L5.6 21.1L7 14.1L2 9.2L9.1 8.6L12 2Z"
+            stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </span>
+
+  <button class="note-btn" title="Add Note">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 20h9" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      <path d="M16.5 3.5l4 4L9 19H5v-4L16.5 3.5z"
+            stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <pre style="display:none;">{
+  "event": "video_progress",
+  "video_title": "Product Demo",
+  "video_percent": 25,
+  "video_current_time": 45,
+  "video_duration": 180,
+  "video_provider": "youtube",
+  "session_id": "sess_1760034620287_abc123",
+  "timestamp": "2025-01-09T19:14:75.000Z"
+}</pre>
+</li>
+
+<!-- 22. VIDEO_PROGRESS (50%) -->
+<li class="video">
+  <span class="ts">2:15:20 PM</span>
+  <code>video_progress</code>
+
+  <span class="pin-btn" title="Pin this event">
+    <svg viewBox="0 0 24 24" width="12" height="12" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2L14.9 8.6L22 9.2L17 14.1L18.4 21.1L12 17.8L5.6 21.1L7 14.1L2 9.2L9.1 8.6L12 2Z"
+            stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </span>
+
+  <button class="note-btn" title="Add Note">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 20h9" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      <path d="M16.5 3.5l4 4L9 19H5v-4L16.5 3.5z"
+            stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <pre style="display:none;">{
+  "event": "video_progress",
+  "video_title": "Product Demo",
+  "video_percent": 50,
+  "video_current_time": 90,
+  "video_duration": 180,
+  "video_provider": "youtube",
+  "session_id": "sess_1760034620287_abc123",
+  "timestamp": "2025-01-09T19:15:20.000Z"
+}</pre>
+</li>
+
+<!-- 23. VIDEO_PAUSE -->
+<li class="video">
+  <span class="ts">2:15:35 PM</span>
+  <code>video_pause</code>
+
+  <span class="pin-btn" title="Pin this event">
+    <svg viewBox="0 0 24 24" width="12" height="12" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2L14.9 8.6L22 9.2L17 14.1L18.4 21.1L12 17.8L5.6 21.1L7 14.1L2 9.2L9.1 8.6L12 2Z"
+            stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </span>
+
+  <button class="note-btn" title="Add Note">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 20h9" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      <path d="M16.5 3.5l4 4L9 19H5v-4L16.5 3.5z"
+            stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <pre style="display:none;">{
+  "event": "video_pause",
+  "video_title": "Product Demo",
+  "video_current_time": 105,
+  "video_percent": 58,
+  "session_id": "sess_1760034620287_abc123",
+  "timestamp": "2025-01-09T19:15:35.000Z"
+}</pre>
+</li>
+
+<!-- 24. VIDEO_COMPLETE -->
+<li class="video">
+  <span class="ts">2:16:00 PM</span>
+  <code>video_complete</code>
+
+  <span class="pin-btn" title="Pin this event">
+    <svg viewBox="0 0 24 24" width="12" height="12" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2L14.9 8.6L22 9.2L17 14.1L18.4 21.1L12 17.8L5.6 21.1L7 14.1L2 9.2L9.1 8.6L12 2Z"
+            stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </span>
+
+  <button class="note-btn" title="Add Note">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 20h9" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      <path d="M16.5 3.5l4 4L9 19H5v-4L16.5 3.5z"
+            stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <pre style="display:none;">{
+  "event": "video_complete",
+  "video_title": "Product Demo",
+  "video_percent": 100,
+  "video_current_time": 180,
+  "video_duration": 180,
+  "video_provider": "youtube",
+  "session_id": "sess_1760034620287_abc123",
+  "timestamp": "2025-01-09T19:16:00.000Z"
+}</pre>
+</li>
+
+<!-- 25. VIEW_ITEM -->
+<li class="ecom pinned" style="border-left:4px solid rgb(0,188,212);">
+  <span class="ts">2:14:03 PM</span>
+  <code>view_item</code>
+
+  <span class="pin-btn" title="Pin this event">
+    <svg viewBox="0 0 24 24" width="12" height="12" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2L14.9 8.6L22 9.2L17 14.1L18.4 21.1L12 17.8L5.6 21.1L7 14.1L2 9.2L9.1 8.6L12 2Z"
+            stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </span>
+
+  <button class="note-btn" title="Add Note">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 20h9" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      <path d="M16.5 3.5l4 4L9 19H5v-4L16.5 3.5z"
+            stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <br>
+  <small>value: $49.99</small>
+
+  <pre style="display:none;">{
+  "event": "view_item",
+  "ecommerce": {
+    "currency": "USD",
+    "value": 49.99,
+    "items": [{
+      "item_id": "SKU-12345",
+      "item_name": "Wireless Mouse - TechBrand Pro",
+      "item_category": "Electronics",
+      "item_brand": "TechBrand",
+      "price": 49.99,
+      "quantity": 1
+    }]
+  },
+  "session_id": "sess_1760034620287_abc123",
+  "timestamp": "2025-01-09T19:14:03.000Z"
+}</pre>
+</li>
+
+<!-- 26. ADD_TO_CART -->
+<li class="ecom" style="border-left:4px solid rgb(33,150,243);">
+  <span class="adt-step-chip step-1">1</span>
+  <span class="ts">2:15:18 PM</span>
+  <code>add_to_cart</code>
+
+  <span class="pin-btn" title="Pin this event">
+    <svg viewBox="0 0 24 24" width="12" height="12" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2L14.9 8.6L22 9.2L17 14.1L18.4 21.1L12 17.8L5.6 21.1L7 14.1L2 9.2L9.1 8.6L12 2Z"
+            stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </span>
+
+  <button class="note-btn" title="Add Note">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 20h9" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      <path d="M16.5 3.5l4 4L9 19H5v-4L16.5 3.5z"
+            stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <br>
+  <small>value: $49.99</small>
+
+  <div class="adt-checkout-step adt-step-1">
+    <div class="step-indicator">
+      <span class="adt-chip" style="background:#2196F3;">1/5</span>
+      <span class="items-count">1 item</span>
+    </div>
+    <div class="step-progress">
+      <div class="progress-bar" style="width:20%;"></div>
+    </div>
+  </div>
+
+  <pre style="display:none;">{
+  "event": "add_to_cart",
+  "ecommerce": {
+    "currency": "USD",
+    "value": 49.99,
+    "items": [{
+      "item_id": "SKU-12345",
+      "item_name": "Wireless Mouse - TechBrand Pro",
+      "price": 49.99,
+      "quantity": 1
+    }]
+  },
+  "session_id": "sess_1760034620287_abc123",
+  "timestamp": "2025-01-09T19:15:18.000Z"
+}</pre>
+</li>
+
+<!-- 27. VIEW_CART -->
+<li class="ecom" style="border-left:4px solid rgb(103,58,183);">
+  <span class="adt-step-chip step-2">2</span>
+  <span class="ts">2:15:25 PM</span>
+  <code>view_cart</code>
+
+  <span class="pin-btn" title="Pin this event">
+    <svg viewBox="0 0 24 24" width="12" height="12" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2L14.9 8.6L22 9.2L17 14.1L18.4 21.1L12 17.8L5.6 21.1L7 14.1L2 9.2L9.1 8.6L12 2Z"
+            stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </span>
+
+  <button class="note-btn" title="Add Note">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 20h9" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      <path d="M16.5 3.5l4 4L9 19H5v-4L16.5 3.5z"
+            stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <br>
+  <small>value: $49.99</small>
+
+  <div class="adt-checkout-step adt-step-2">
+    <div class="step-indicator">
+      <span class="adt-chip" style="background:#673AB7;">2/5</span>
+      <span class="items-count">1 item</span>
+    </div>
+    <div class="step-progress">
+      <div class="progress-bar" style="width:40%;"></div>
+    </div>
+  </div>
+
+  <pre style="display:none;">{
+  "event": "view_cart",
+  "ecommerce": {
+    "currency": "USD",
+    "value": 49.99,
+    "items": [{
+      "item_id": "SKU-12345",
+      "item_name": "Wireless Mouse - TechBrand Pro",
+      "price": 49.99,
+      "quantity": 1
+    }]
+  },
+  "session_id": "sess_1760034620287_abc123",
+  "timestamp": "2025-01-09T19:15:25.000Z"
+}</pre>
+</li>
+
+<!-- 28. REMOVE_FROM_CART -->
+<li class="ecom" style="border-left:4px solid rgb(244,67,54);">
+  <span class="ts">2:15:42 PM</span>
+  <code>remove_from_cart</code>
+
+  <span class="pin-btn" title="Pin this event">
+    <svg viewBox="0 0 24 24" width="12" height="12" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2L14.9 8.6L22 9.2L17 14.1L18.4 21.1L12 17.8L5.6 21.1L7 14.1L2 9.2L9.1 8.6L12 2Z"
+            stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </span>
+
+  <button class="note-btn" title="Add Note">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 20h9" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      <path d="M16.5 3.5l4 4L9 19H5v-4L16.5 3.5z"
+            stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <br>
+  <small>item removed</small>
+
+  <pre style="display:none;">{
+  "event": "remove_from_cart",
+  "ecommerce": {
+    "currency": "USD",
+    "value": 49.99,
+    "items": [{
+      "item_id": "SKU-12345",
+      "item_name": "Wireless Mouse - TechBrand Pro",
+      "price": 49.99,
+      "quantity": 1
+    }]
+  },
+  "session_id": "sess_1760034620287_abc123",
+  "timestamp": "2025-01-09T19:15:42.000Z"
+}</pre>
+</li>
+
+<!-- 29. BEGIN_CHECKOUT -->
+<li class="ecom" style="border-left:4px solid rgb(255,152,0);">
+  <span class="adt-step-chip step-3">3</span>
+  <span class="ts">2:16:05 PM</span>
+  <code>begin_checkout</code>
+
+  <span class="pin-btn" title="Pin this event">
+    <svg viewBox="0 0 24 24" width="12" height="12" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2L14.9 8.6L22 9.2L17 14.1L18.4 21.1L12 17.8L5.6 21.1L7 14.1L2 9.2L9.1 8.6L12 2Z"
+            stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </span>
+
+  <button class="note-btn" title="Add Note">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 20h9" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      <path d="M16.5 3.5l4 4L9 19H5v-4L16.5 3.5z"
+            stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <br>
+  <small>value: $49.99</small>
+
+  <div class="adt-checkout-step adt-step-3">
+    <div class="step-indicator">
+      <span class="adt-chip" style="background:#FF9800;">3/5</span>
+      <span class="items-count">1 item</span>
+    </div>
+    <div class="step-progress">
+      <div class="progress-bar" style="width:60%;"></div>
+    </div>
+  </div>
+
+  <pre style="display:none;">{
+  "event": "begin_checkout",
+  "ecommerce": {
+    "currency": "USD",
+    "value": 49.99,
+    "items": [{
+      "item_id": "SKU-12345",
+      "item_name": "Wireless Mouse - TechBrand Pro",
+      "price": 49.99,
+      "quantity": 1
+    }]
+  },
+  "session_id": "sess_1760034620287_abc123",
+  "timestamp": "2025-01-09T19:16:05.000Z"
+}</pre>
+</li>
+
+<!-- 30. CHECKOUT_PROGRESS -->
+<li class="ecom" style="border-left:4px solid rgb(255,193,7);">
+  <span class="adt-step-chip step-4">4</span>
+  <span class="ts">2:17:12 PM</span>
+  <code>checkout_progress</code>
+
+  <span class="pin-btn" title="Pin this event">
+    <svg viewBox="0 0 24 24" width="12" height="12" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2L14.9 8.6L22 9.2L17 14.1L18.4 21.1L12 17.8L5.6 21.1L7 14.1L2 9.2L9.1 8.6L12 2Z"
+            stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </span>
+
+  <button class="note-btn" title="Add Note">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 20h9" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      <path d="M16.5 3.5l4 4L9 19H5v-4L16.5 3.5z"
+            stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <br>
+  <small>step 2: shipping</small>
+
+  <div class="adt-checkout-step adt-step-4">
+    <div class="step-indicator">
+      <span class="adt-chip" style="background:#FFC107;">4/5</span>
+      <span class="items-count">1 item</span>
+    </div>
+    <div class="step-progress">
+      <div class="progress-bar" style="width:80%;"></div>
+    </div>
+  </div>
+
+  <pre style="display:none;">{
+  "event": "checkout_progress",
+  "ecommerce": {
+    "checkout_step": 2,
+    "checkout_option": "shipping_method",
+    "value": 49.99,
+    "items": [{
+      "item_id": "SKU-12345",
+      "item_name": "Wireless Mouse - TechBrand Pro",
+      "price": 49.99,
+      "quantity": 1
+    }]
+  },
+  "session_id": "sess_1760034620287_abc123",
+  "timestamp": "2025-01-09T19:17:12.000Z"
+}</pre>
+</li>
+
+<!-- 31. PURCHASE -->
+<li class="ecom" style="border-left:4px solid rgb(76,175,80);">
+  <span class="adt-step-chip step-5" style="background-color:rgb(76,175,80);color:#fff;">✓</span>
+  <span class="ts">2:17:40 PM</span>
+  <code>purchase</code>
+
+  <span class="pin-btn" title="Pin this event">
+    <svg viewBox="0 0 24 24" width="12" height="12" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2L14.9 8.6L22 9.2L17 14.1L18.4 21.1L12 17.8L5.6 21.1L7 14.1L2 9.2L9.1 8.6L12 2Z"
+            stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </span>
+
+  <button class="note-btn" title="Add Note">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 20h9" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      <path d="M16.5 3.5l4 4L9 19H5v-4L16.5 3.5z"
+            stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <br>
+  <small>value: $49.99 | order: #45782</small>
+
+  <div class="adt-checkout-step adt-step-5">
+    <div class="step-indicator">
+      <span class="adt-chip" style="background:#4CAF50;">5/5 • Complete ✓</span>
+      <span class="items-count">1 item</span>
+    </div>
+    <div class="step-progress">
+      <div class="progress-bar" style="width:100%;background:#4CAF50;"></div>
+    </div>
+  </div>
+
+  <pre style="display:none;">{
+  "event": "purchase",
+  "ecommerce": {
+    "transaction_id": "ORDER-45782",
+    "affiliation": "TechBrand Online Store",
+    "value": 49.99,
+    "tax": 4.25,
+    "shipping": 5.99,
+    "currency": "USD",
+    "coupon": "",
+    "items": [{
+      "item_id": "SKU-12345",
+      "item_name": "Wireless Mouse - TechBrand Pro",
+      "item_category": "Electronics",
+      "item_brand": "TechBrand",
+      "price": 49.99,
+      "quantity": 1
+    }]
+  },
+  "session_id": "sess_1760034620287_abc123",
+  "timestamp": "2025-01-09T19:17:40.000Z"
+}</pre>
+</li>
+
+<li style="opacity:.4;font-size:10px;text-align:center;">──── Session Exit (30 seconds) ────</li>
+
+<!-- 32. SESSION_ENGAGEMENT_SUMMARY -->
+<li class="summary">
+  <span class="ts">2:18:10 PM</span>
+  <code>session_engagement_summary</code>
+
+  <span class="pin-btn" title="Pin this event">
+    <svg viewBox="0 0 24 24" width="12" height="12" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2L14.9 8.6L22 9.2L17 14.1L18.4 21.1L12 17.8L5.6 21.1L7 14.1L2 9.2L9.1 8.6L12 2Z"
+            stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </span>
+
+  <button class="note-btn" title="Add Note">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 20h9" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      <path d="M16.5 3.5l4 4L9 19H5v-4L16.5 3.5z"
+            stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <pre style="display:none;">{
+  "event": "session_engagement_summary",
+  "session_id": "sess_1760034620287_abc123",
+  "exit_reason": "tab_close",
+  "metrics": {
+    "page_views": 4,
+    "active_time": 218,
+    "time_on_page": 248,
+    "engagement_rate": 87.9,
+    "max_scroll_depth": 50,
+    "interactions": 12,
+    "clicks": 6,
+    "page_quality_score": 82,
+    "forms_started": 1,
+    "forms_submitted": 1
+  },
+  "timestamp": "2025-01-09T19:18:10.000Z"
+}</pre>
+</li>
+
+<!-- 33. SESSION_CONTENT_SUMMARY -->
+<li class="summary">
+  <span class="ts">2:18:10 PM</span>
+  <code>session_content_summary</code>
+
+  <span class="pin-btn" title="Pin this event">
+    <svg viewBox="0 0 24 24" width="12" height="12" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2L14.9 8.6L22 9.2L17 14.1L18.4 21.1L12 17.8L5.6 21.1L7 14.1L2 9.2L9.1 8.6L12 2Z"
+            stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </span>
+
+  <button class="note-btn" title="Add Note">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 20h9" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      <path d="M16.5 3.5l4 4L9 19H5v-4L16.5 3.5z"
+            stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <pre style="display:none;">{
+  "event": "session_content_summary",
+  "session_id": "sess_1760034620287_abc123",
+  "exit_reason": "tab_close",
+  "content_types_viewed": "product,cart,checkout",
+  "primary_content_type": "product_page",
+  "sections_engaged": 8,
+  "top_section": "product-reviews",
+  "total_section_time": 67,
+  "timestamp": "2025-01-09T19:18:10.000Z"
+}</pre>
+</li>
+
+<!-- 34. SESSION_ATTRIBUTION_SUMMARY -->
+<li class="summary">
+  <span class="ts">2:18:10 PM</span>
+  <code>session_attribution_summary</code>
+
+  <span class="pin-btn" title="Pin this event">
+    <svg viewBox="0 0 24 24" width="12" height="12" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2L14.9 8.6L22 9.2L17 14.1L18.4 21.1L12 17.8L5.6 21.1L7 14.1L2 9.2L9.1 8.6L12 2Z"
+            stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </span>
+
+  <button class="note-btn" title="Add Note">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 20h9" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      <path d="M16.5 3.5l4 4L9 19H5v-4L16.5 3.5z"
+            stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <pre style="display:none;">{
+  "event": "session_attribution_summary",
+  "session_id": "sess_1760034620287_abc123",
+  "exit_reason": "tab_close",
+  "first_touch_source": "google",
+  "first_touch_medium": "cpc",
+  "first_touch_campaign": "spring-sale-2025",
+  "last_touch_source": "direct",
+  "last_touch_medium": "(none)",
+  "last_touch_campaign": "(not set)",
+  "touch_points": 1,
+  "timestamp": "2025-01-09T19:18:10.000Z"
+}</pre>
+</li>
+
+<!-- 35. SESSION_PAGE_SUMMARY -->
+<li class="summary">
+  <span class="ts">2:18:10 PM</span>
+  <code>session_page_summary</code>
+
+  <span class="pin-btn" title="Pin this event">
+    <svg viewBox="0 0 24 24" width="12" height="12" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2L14.9 8.6L22 9.2L17 14.1L18.4 21.1L12 17.8L5.6 21.1L7 14.1L2 9.2L9.1 8.6L12 2Z"
+            stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </span>
+
+  <button class="note-btn" title="Add Note">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 20h9" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      <path d="M16.5 3.5l4 4L9 19H5v-4L16.5 3.5z"
+            stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <pre style="display:none;">{
+  "event": "session_page_summary",
+  "session_id": "sess_1760034620287_abc123",
+  "exit_reason": "tab_close",
+  "final_page_type": "order_confirmation",
+  "final_page_title": "Order Confirmation - TechBrand",
+  "final_page_url": "/checkout/order-received/45782",
+  "exit_active_time": 45,
+  "timestamp": "2025-01-09T19:18:10.000Z"
+}</pre>
+</li>
+
+<!-- 36. SESSION_VIDEO_SUMMARY -->
+<li class="summary">
+  <span class="ts">2:18:10 PM</span>
+  <code>session_video_summary</code>
+
+  <span class="pin-btn" title="Pin this event">
+    <svg viewBox="0 0 24 24" width="12" height="12" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2L14.9 8.6L22 9.2L17 14.1L18.4 21.1L12 17.8L5.6 21.1L7 14.1L2 9.2L9.1 8.6L12 2Z"
+            stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </span>
+
+  <button class="note-btn" title="Add Note">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 20h9" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      <path d="M16.5 3.5l4 4L9 19H5v-4L16.5 3.5z"
+            stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <pre style="display:none;">{
+  "event": "session_video_summary",
+  "session_id": "sess_1760034620287_abc123",
+  "exit_reason": "tab_close",
+  "videos_started": 1,
+  "videos_completed": 1,
+  "video_completion_rate": 1.0,
+  "total_video_time": 180,
+  "video_engagement_score": 100,
+  "most_watched_video": "Product Demo",
+  "timestamp": "2025-01-09T19:18:10.000Z"
+}</pre>
+</li>
+
+<!-- 37. SESSION_COMMERCE_SUMMARY -->
+<li class="summary">
+  <span class="ts">2:18:10 PM</span>
+  <code>session_commerce_summary</code>
+
+  <span class="pin-btn" title="Pin this event">
+    <svg viewBox="0 0 24 24" width="12" height="12" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2L14.9 8.6L22 9.2L17 14.1L18.4 21.1L12 17.8L5.6 21.1L7 14.1L2 9.2L9.1 8.6L12 2Z"
+            stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </span>
+
+  <button class="note-btn" title="Add Note">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 20h9" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      <path d="M16.5 3.5l4 4L9 19H5v-4L16.5 3.5z"
+            stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <pre style="display:none;">{
+  "event": "session_commerce_summary",
+  "session_id": "sess_1760034620287_abc123",
+  "exit_reason": "tab_close",
+  "products_viewed": 1,
+  "cart_adds": 1,
+  "cart_removes": 0,
+  "checkout_initiated": true,
+  "purchase_completed": true,
+  "session_revenue": 49.99,
+  "timestamp": "2025-01-09T19:18:10.000Z"
+}</pre>
+</li>
+
+<!-- 38. UTM_CAPTURED -->
+<li class="attribution">
+  <span class="ts">2:14:02 PM</span>
+  <code>utm_captured</code>
+
+  <span class="pin-btn" title="Pin this event">
+    <svg viewBox="0 0 24 24" width="12" height="12" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2L14.9 8.6L22 9.2L17 14.1L18.4 21.1L12 17.8L5.6 21.1L7 14.1L2 9.2L9.1 8.6L12 2Z"
+            stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </span>
+
+  <button class="note-btn" title="Add Note">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 20h9" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      <path d="M16.5 3.5l4 4L9 19H5v-4L16.5 3.5z"
+            stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <pre style="display:none;">{
+  "event": "utm_captured",
+  "utm_source": "google",
+  "utm_medium": "cpc",
+  "utm_campaign": "spring-sale-2025",
+  "utm_term": "wireless mouse",
+  "utm_content": "ad-variant-a",
+  "session_id": "sess_1760034620287_abc123",
+  "timestamp": "2025-01-09T19:14:02.000Z"
+}</pre>
+</li>
+
+<!-- 39. UTM_RESTORED -->
+<li class="attribution">
+  <span class="ts">2:14:02 PM</span>
+  <code>utm_restored</code>
+
+  <span class="pin-btn" title="Pin this event">
+    <svg viewBox="0 0 24 24" width="12" height="12" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2L14.9 8.6L22 9.2L17 14.1L18.4 21.1L12 17.8L5.6 21.1L7 14.1L2 9.2L9.1 8.6L12 2Z"
+            stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </span>
+
+  <button class="note-btn" title="Add Note">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 20h9" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      <path d="M16.5 3.5l4 4L9 19H5v-4L16.5 3.5z"
+            stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <pre style="display:none;">{
+  "event": "utm_restored",
+  "utm_source": "google",
+  "utm_medium": "cpc",
+  "utm_campaign": "spring-sale-2025",
+  "days_since_capture": 7,
+  "return_visit_number": 3,
+  "session_id": "sess_1760034620287_abc123",
+  "timestamp": "2025-01-09T19:14:02.000Z"
+}</pre>
+</li>
+
+<!-- 40. ATTRIBUTION_PING -->
+<li class="attribution">
+  <span class="ts">2:16:02 PM</span>
+  <code>attribution_ping</code>
+
+  <span class="pin-btn" title="Pin this event">
+    <svg viewBox="0 0 24 24" width="12" height="12" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2L14.9 8.6L22 9.2L17 14.1L18.4 21.1L12 17.8L5.6 21.1L7 14.1L2 9.2L9.1 8.6L12 2Z"
+            stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </span>
+
+  <button class="note-btn" title="Add Note">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 20h9" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      <path d="M16.5 3.5l4 4L9 19H5v-4L16.5 3.5z"
+            stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <pre style="display:none;">{
+  "event": "attribution_ping",
+  "attribution_active": true,
+  "utm_source": "google",
+  "session_id": "sess_1760034620287_abc123",
+  "timestamp": "2025-01-09T19:16:02.000Z"
+}</pre>
+</li>
+
+<!-- 41. CONSENT_LOADED -->
+<li class="consent">
+  <span class="ts">2:14:02 PM</span>
+  <code>consent_loaded</code>
+
+  <span class="pin-btn" title="Pin this event">
+    <svg viewBox="0 0 24 24" width="12" height="12" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2L14.9 8.6L22 9.2L17 14.1L18.4 21.1L12 17.8L5.6 21.1L7 14.1L2 9.2L9.1 8.6L12 2Z"
+            stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </span>
+
+  <button class="note-btn" title="Add Note">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 20h9" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      <path d="M16.5 3.5l4 4L9 19H5v-4L16.5 3.5z"
+            stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <pre style="display:none;">{
+  "event": "consent_loaded",
+  "cmp_detected": true,
+  "cmp_vendor": "cookieyes",
+  "session_id": "sess_1760034620287_abc123",
+  "timestamp": "2025-01-09T19:14:02.000Z"
+}</pre>
+</li>
+
+<!-- 42. CONSENT_GRANTED -->
+<li class="consent">
+  <span class="ts">2:14:05 PM</span>
+  <code>consent_granted</code>
+
+  <span class="pin-btn" title="Pin this event">
+    <svg viewBox="0 0 24 24" width="12" height="12" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2L14.9 8.6L22 9.2L17 14.1L18.4 21.1L12 17.8L5.6 21.1L7 14.1L2 9.2L9.1 8.6L12 2Z"
+            stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </span>
+
+  <button class="note-btn" title="Add Note">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 20h9" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      <path d="M16.5 3.5l4 4L9 19H5v-4L16.5 3.5z"
+            stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <pre style="display:none;">{
+  "event": "consent_granted",
+  "consent_types": ["analytics", "marketing"],
+  "session_id": "sess_1760034620287_abc123",
+  "timestamp": "2025-01-09T19:14:05.000Z"
+}</pre>
+</li>
+
+<!-- 43. CONSENT_REVOKED -->
+<li class="consent">
+  <span class="ts">2:14:45 PM</span>
+  <code>consent_revoked</code>
+
+  <span class="pin-btn" title="Pin this event">
+    <svg viewBox="0 0 24 24" width="12" height="12" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2L14.9 8.6L22 9.2L17 14.1L18.4 21.1L12 17.8L5.6 21.1L7 14.1L2 9.2L9.1 8.6L12 2Z"
+            stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </span>
+
+  <button class="note-btn" title="Add Note">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 20h9" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      <path d="M16.5 3.5l4 4L9 19H5v-4L16.5 3.5z"
+            stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <pre style="display:none;">{
+  "event": "consent_revoked",
+  "consent_types": ["marketing"],
+  "session_id": "sess_1760034620287_abc123",
+  "timestamp": "2025-01-09T19:14:45.000Z"
+}</pre>
+</li>
+
+<!-- 44. CONSENT_CHANGE -->
+<li class="consent">
+  <span class="ts">2:14:50 PM</span>
+  <code>consent_change</code>
+
+  <span class="pin-btn" title="Pin this event">
+    <svg viewBox="0 0 24 24" width="12" height="12" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2L14.9 8.6L22 9.2L17 14.1L18.4 21.1L12 17.8L5.6 21.1L7 14.1L2 9.2L9.1 8.6L12 2Z"
+            stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </span>
+
+  <button class="note-btn" title="Add Note">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 20h9" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      <path d="M16.5 3.5l4 4L9 19H5v-4L16.5 3.5z"
+            stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <pre style="display:none;">{
+  "event": "consent_change",
+  "previous_state": "granted",
+  "new_state": "denied",
+  "consent_category": "marketing",
+  "session_id": "sess_1760034620287_abc123",
+  "timestamp": "2025-01-09T19:14:50.000Z"
+}</pre>
+</li>
+
+<!-- 45. CLICK -->
+<li class="interaction">
+  <span class="ts">2:15:15 PM</span>
+  <code>click</code>
+
+  <span class="pin-btn" title="Pin this event">
+    <svg viewBox="0 0 24 24" width="12" height="12" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2L14.9 8.6L22 9.2L17 14.1L18.4 21.1L12 17.8L5.6 21.1L7 14.1L2 9.2L9.1 8.6L12 2Z"
+            stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </span>
+
+  <button class="note-btn" title="Add Note">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 20h9" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      <path d="M16.5 3.5l4 4L9 19H5v-4L16.5 3.5z"
+            stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <pre style="display:none;">{
+  "event": "click",
+  "link_text": "Add to Cart",
+  "link_url": "/shop/wireless-mouse?add-to-cart=8432",
+  "link_domain": "example.com",
+  "link_type": "internal",
+  "element_id": "product-add-to-cart",
+  "element_classes": "btn btn-primary single_add_to_cart_button",
+  "session_id": "sess_1760034620287_abc123",
+  "timestamp": "2025-01-09T19:15:15.000Z"
+}</pre>
+</li>
+
+</ol>
+
+<div id="adt-form-vendor-container-demo" role="region" aria-label="Detected Third-Party Form Vendors" style="font-size: 10px; color: rgb(221, 221, 221); padding: 15px 8px;">
+	      <div style="opacity:0.7;padding-left:4px;margin-top:2px;">
+	        Detected 3rd-party forms: <span style="background:#333;padding:2px 6px;border-radius:4px;margin-right:4px;">
+	         WooCommerce
+	       </span>
+	      </div></div>
+ </div>
+
+  <footer style="padding-top:15px; padding-bottom: 15px;">
+    <a href="https://datalayer-tracker.com" target="_blank">Made by Whittfield Holmes</a>
+  </footer>
+</div>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  (function() {
+    const logList = document.getElementById('adt-ovlog-events');
+    const pinnedList = document.getElementById('adt-ov-pinned-demo');
+    if (!logList || !pinnedList) return;
+
+    // ========= NEW: Control variables =========
+    let autoScrollPaused = false;
+    let interactionDisabled = false;
+
+    // ========= Accordion toggle =========
+    function closeAllExcept(exceptLi) {
+      [...logList.querySelectorAll('li'), ...pinnedList.querySelectorAll('li')].forEach(li => {
+        const pre = li.querySelector('pre');
+        if (!pre) return;
+        if (li !== exceptLi) pre.style.display = 'none';
+      });
+    }
+
+    function handleToggle(e) {
+      if (interactionDisabled) return; // NEW: Block if disabled
+      
+      const li = e.target.closest('li');
+      if (!li || e.target.closest('.pin-btn, .note-btn')) return;
+      const pre = li.querySelector('pre');
+      if (!pre) return;
+      const isVisible = pre.style.display === 'block';
+      if (isVisible) {
+        pre.style.display = 'none';
+      } else {
+        closeAllExcept(li);
+        pre.style.display = 'block';
+      }
+    }
+
+    logList.addEventListener('click', handleToggle);
+    pinnedList.addEventListener('click', handleToggle);
+
+    // ========= Pinning =========
+    document.addEventListener('click', e => {
+      if (interactionDisabled) return; // NEW: Block if disabled
+      
+      const btn = e.target.closest('.pin-btn');
+      if (!btn) return;
+      const li = btn.closest('li');
+      if (!li) return;
+      const inLog = logList.contains(li);
+      const inPinned = pinnedList.contains(li);
+      const pre = li.querySelector('pre');
+
+      btn.classList.toggle('pinned');
+
+      // --- When pinning from log ---
+      if (inLog && btn.classList.contains('pinned')) {
+        pinnedList.insertBefore(li, pinnedList.firstChild);
+        if (pre) pre.style.display = 'block';
+      }
+
+      // --- When unpinning (move back to log) ---
+      else if (inPinned && !btn.classList.contains('pinned')) {
+        if (pre) pre.style.display = 'none';
+        logList.insertBefore(li, logList.firstChild);
+      }
+    });
+
+    // ========= Notes =========
+    document.addEventListener('click', e => {
+      if (interactionDisabled) return; // NEW: Block if disabled
+      
+      const btn = e.target.closest('.note-btn');
+      if (!btn) return;
+      const li = e.target.closest('li');
+      if (!li) return;
+      let noteDiv = li.querySelector('.adt-note');
+      if (!noteDiv) {
+        noteDiv = document.createElement('div');
+        noteDiv.className = 'adt-note';
+        noteDiv.contentEditable = true;
+        noteDiv.textContent = 'Write a note...';
+        noteDiv.style.cssText =
+          'margin-top:4px;font-size:11px;color:#fffa;padding:4px;background:#222;border-radius:4px;';
+        li.insertBefore(noteDiv, li.querySelector('pre'));
+      }
+      noteDiv.focus();
+    });
+
+    // ========= Escape closes all =========
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeAllExcept(null);
+    });
+
+    // ========= Startup =========
+    closeAllExcept(null);
+
+    // Always open any pinned events on startup
+    [...pinnedList.querySelectorAll('li.pinned')].forEach(li => {
+      const pre = li.querySelector('pre');
+      if (pre) pre.style.display = 'block';
+    });
+
+    // Also keep any .stay-open events expanded
+    [...logList.querySelectorAll('li.stay-open')].forEach(li => {
+      const pre = li.querySelector('pre');
+      if (pre) pre.style.display = 'block';
+    });
+
+    // ========= Enhancement 1: Auto-scroll w/ pause on hover (UPDATED) =========
+    let scrollInterval = null, isHovered = false, isInView = false;
+    
+    function startScroll() {
+      if (scrollInterval || !isInView || autoScrollPaused) return; // NEW: Check autoScrollPaused
+      scrollInterval = setInterval(() => {
+        if (!isHovered && !autoScrollPaused) { // NEW: Check autoScrollPaused
+          logList.scrollTop += 1;
+          if (logList.scrollTop + logList.clientHeight >= logList.scrollHeight) {
+            logList.scrollTop = 0;
+          }
+        }
+      }, 40);
+    }
+    
+    function stopScroll() {
+      clearInterval(scrollInterval);
+      scrollInterval = null;
+    }
+    
+    logList.addEventListener('mouseenter', () => { isHovered = true; });
+    logList.addEventListener('mouseleave', () => { isHovered = false; });
+    
+    new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        isInView = entry.isIntersecting;
+        if (isInView && !autoScrollPaused) { // NEW: Check autoScrollPaused
+          logList.scrollTop = 0;
+          startScroll();
+        } else {
+          stopScroll();
+        }
+      });
+    }, { threshold: 0.3 }).observe(logList);
+
+    // ========= Enhancement 2: Keyboard navigation =========
+    document.addEventListener('keydown', e => {
+      if (document.activeElement && document.activeElement.isContentEditable) return;
+      if (e.key === 'ArrowDown') logList.scrollTop += 30;
+      if (e.key === 'ArrowUp')   logList.scrollTop -= 30;
+      if (e.key === ' ') {
+        e.preventDefault();
+        const firstVisible = logList.querySelector('li');
+        if (firstVisible) {
+          const pre = firstVisible.querySelector('pre');
+          if (pre) pre.style.display = (pre.style.display === 'block') ? 'none' : 'block';
+        }
+      }
+    });
+
+    // ========= Enhancement 3: Highlight new events =========
+    const observer = new MutationObserver(muts => {
+      muts.forEach(m => {
+        m.addedNodes.forEach(node => {
+          if (node.nodeType === 1 && node.tagName === 'LI') {
+            node.classList.add('adt-blink');
+            setTimeout(() => node.classList.remove('adt-blink'), 1000);
+          }
+        });
+      });
+    });
+    observer.observe(logList, { childList: true });
+
+    // ========= Message Listener for Parent Window (UPDATED) =========
+    window.addEventListener("message", (event) => {
+      const { action, eventName, eventGroup, scrollBehavior, openDelay } = event.data || {};
+      if (!action) return;
+
+      // console.log('[ADTOverlayDemo] Message received:', event.data);
+
+      // Handle different actions
+      if (action === "adtPinEvent") {
+        pinEventByName(eventName);
+      } else if (action === "adtPinGroup") {
+        pinEventsByGroup(eventGroup);
+      } else if (action === "adtUnpinAll") {
+        unpinAllEvents();
+      } else if (action === "adtOpenEvent") {
+        openEventByName(eventName);
+      } else if (action === "adtOpenGroup") {
+        openEventsByGroup(eventGroup);
+      } else if (action === "adtCloseAll") {
+        closeAllEvents();
+      } else if (action === "adtScrollToEvent") {
+        scrollToEvent(eventName, scrollBehavior || 'smooth');
+      } else if (action === "adtScrollAndOpenEvent") { // NEW
+        scrollAndOpenEvent(eventName, scrollBehavior || 'auto', openDelay || 300);
+      } else if (action === "adtPauseAutoScroll") { // NEW
+        pauseAutoScroll();
+      } else if (action === "adtResumeAutoScroll") { // NEW
+        resumeAutoScroll();
+      } else if (action === "adtDisableInteraction") { // NEW
+        disableInteraction();
+      } else if (action === "adtEnableInteraction") { // NEW
+        enableInteraction();
+      }
+    });
+
+    /**
+     * Pin a specific event by name
+     */
+    function pinEventByName(eventName) {
+      if (!eventName) return;
+
+      const allItems = logList.querySelectorAll('li');
+      let targetLi = null;
+
+      for (const li of allItems) {
+        const code = li.querySelector('code');
+        if (code && code.textContent.trim() === eventName) {
+          targetLi = li;
+          break;
+        }
+      }
+
+      if (!targetLi) {
+        console.error('[ADTOverlayDemo] Event not found:', eventName);
+        return;
+      }
+
+      const existingPinned = Array.from(pinnedList.querySelectorAll('li')).find(li => {
+        const code = li.querySelector('code');
+        return code && code.textContent.trim() === eventName;
+      });
+
+      if (existingPinned) {
+        // console.log('[ADTOverlayDemo] Already pinned, skipping');
+        return;
+      }
+
+      const clonedLi = targetLi.cloneNode(true);
+      const originalPinBtn = targetLi.querySelector('.pin-btn');
+      if (originalPinBtn) originalPinBtn.classList.add('pinned');
+
+      const clonedPinBtn = clonedLi.querySelector('.pin-btn');
+      if (clonedPinBtn) clonedPinBtn.classList.add('pinned');
+
+      pinnedList.insertBefore(clonedLi, pinnedList.firstChild);
+
+      const pre = clonedLi.querySelector('pre');
+      if (pre) pre.style.display = 'block';
+
+      // console.log('[ADTOverlayDemo] ✓ Pinned:', eventName);
+    }
+
+    /**
+     * Pin all events in a group
+     */
+    function pinEventsByGroup(groupClass) {
+      if (!groupClass) return;
+
+      const items = logList.querySelectorAll(`li.${groupClass}`);
+      items.forEach(li => {
+        const code = li.querySelector('code');
+        if (code) pinEventByName(code.textContent.trim());
+      });
+
+      // console.log(`[ADTOverlayDemo] ✓ Pinned group: ${groupClass}`);
+    }
+
+    /**
+     * Unpin all events
+     */
+    function unpinAllEvents() {
+      pinnedList.innerHTML = '';
+      const allPinBtns = logList.querySelectorAll('.pin-btn.pinned');
+      allPinBtns.forEach(btn => btn.classList.remove('pinned'));
+
+      // console.log('[ADTOverlayDemo] ✓ Unpinned all');
+    }
+
+    /**
+     * Open an event in the main list without pinning
+     */
+    function openEventByName(eventName) {
+      if (!eventName) return;
+
+      const allItems = logList.querySelectorAll('li');
+      let targetLi = null;
+
+      for (const li of allItems) {
+        const code = li.querySelector('code');
+        if (code && code.textContent.trim() === eventName) {
+          targetLi = li;
+          break;
+        }
+      }
+
+      if (!targetLi) {
+        console.error('[ADTOverlayDemo] Event not found:', eventName);
+        return;
+      }
+
+      const pre = targetLi.querySelector('pre');
+      if (pre) {
+        pre.style.display = 'block';
+        targetLi.classList.add('adt-opened');
+      }
+
+      // console.log('[ADTOverlayDemo] ✓ Opened:', eventName);
+    }
+
+    /**
+     * Open all events in a group without pinning
+     */
+    function openEventsByGroup(groupClass) {
+      if (!groupClass) return;
+
+      const items = logList.querySelectorAll(`li.${groupClass}`);
+      items.forEach(li => {
+        const code = li.querySelector('code');
+        if (code) openEventByName(code.textContent.trim());
+      });
+
+      // console.log(`[ADTOverlayDemo] ✓ Opened group: ${groupClass}`);
+    }
+
+    /**
+     * Close all opened events (doesn't affect pinned events)
+     */
+    function closeAllEvents() {
+      const openedItems = logList.querySelectorAll('li.adt-opened');
+      openedItems.forEach(li => {
+        const pre = li.querySelector('pre');
+        if (pre) pre.style.display = 'none';
+        li.classList.remove('adt-opened');
+      });
+
+      // console.log('[ADTOverlayDemo] ✓ Closed all opened events');
+    }
+
+	/**
+	 * Scroll to a specific event in the main list
+	 * Uses container scrolling instead of scrollIntoView to prevent parent page scroll
+	 */
+	function scrollToEvent(eventName, scrollBehavior = 'smooth') {
+	  if (!eventName) return;
+
+	  const allItems = logList.querySelectorAll('li');
+	  let targetLi = null;
+
+	  for (const li of allItems) {
+	    const code = li.querySelector('code');
+	    if (code && code.textContent.trim() === eventName) {
+	      targetLi = li;
+	      break;
+	    }
+	  }
+
+	  if (!targetLi) {
+	    console.error('[ADTOverlayDemo] Event not found for scroll:', eventName);
+	    return;
+	  }
+
+	  // Calculate scroll position relative to container
+	  const container = document.getElementById('adt-ov-events-wrap-demo');
+	  if (!container) return;
+  
+	  const containerTop = container.scrollTop;
+	  const containerHeight = container.clientHeight;
+	  const targetTop = targetLi.offsetTop;
+	  const targetHeight = targetLi.clientHeight;
+  
+	  // Calculate scroll position to center the element
+	  const scrollTo = targetTop - (containerHeight / 2) + (targetHeight / 2);
+  
+	  // Scroll the container (not the window!)
+	  if (scrollBehavior === 'smooth' && container.scrollTo) {
+	    container.scrollTo({
+	      top: scrollTo,
+	      behavior: 'smooth'
+	    });
+	  } else {
+	    container.scrollTop = scrollTo;
+	  }
+
+	  // Add a highlight effect
+	  targetLi.classList.add('adt-highlight');
+	  setTimeout(() => {
+	    targetLi.classList.remove('adt-highlight');
+	  }, 1000);
+
+	  // console.log('[ADTOverlayDemo] ✓ Scrolled to:', eventName);
+	}
+
+    /**
+     * NEW: Scroll to event and open it with proper timing
+     * This ensures the event is visible before opening
+     */
+    function scrollAndOpenEvent(eventName, scrollBehavior = 'auto', openDelay = 300) {
+      if (!eventName) return;
+
+      const allItems = logList.querySelectorAll('li');
+      let targetLi = null;
+
+      for (const li of allItems) {
+        const code = li.querySelector('code');
+        if (code && code.textContent.trim() === eventName) {
+          targetLi = li;
+          break;
+        }
+      }
+
+      if (!targetLi) {
+        console.error('[ADTOverlayDemo] Event not found:', eventName);
+        return;
+      }
+
+      // Close all other events first
+      closeAllEvents();
+
+      // Scroll to event (fast positioning)
+      targetLi.scrollIntoView({
+        behavior: scrollBehavior,
+        block: 'center',
+        inline: 'nearest'
+      });
+
+      // Add highlight effect
+      targetLi.classList.add('adt-highlight');
+      
+      // Wait for scroll to complete, then open
+      setTimeout(() => {
+        const pre = targetLi.querySelector('pre');
+        if (pre) {
+          pre.style.display = 'block';
+          targetLi.classList.add('adt-opened');
+        }
+        
+        // Remove highlight after opening
+        setTimeout(() => {
+          targetLi.classList.remove('adt-highlight');
+        }, 500);
+        
+        // console.log('[ADTOverlayDemo] ✓ Scrolled to and opened:', eventName);
+      }, openDelay);
+    }
+
+    /**
+     * NEW: Pause auto-scroll
+     */
+    function pauseAutoScroll() {
+      autoScrollPaused = true;
+      stopScroll();
+      // console.log('[ADTOverlayDemo] ✓ Auto-scroll paused');
+    }
+
+    /**
+     * NEW: Resume auto-scroll
+     */
+    function resumeAutoScroll() {
+      autoScrollPaused = false;
+      if (isInView) {
+        startScroll();
+      }
+      // console.log('[ADTOverlayDemo] ✓ Auto-scroll resumed');
+    }
+
+    /**
+     * NEW: Disable all interactions
+     */
+    function disableInteraction() {
+      interactionDisabled = true;
+      
+      // Add overlay to block interactions
+      let overlay = document.getElementById('adt-interaction-overlay');
+      if (!overlay) {
+        overlay = document.createElement('div');
+        overlay.id = 'adt-interaction-overlay';
+        overlay.style.cssText = `
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          z-index: 99998;
+          cursor: not-allowed;
+          background: rgba(0,0,0,0.02);
+        `;
+        document.getElementById('adt-debug-overlay-demo').appendChild(overlay);
+      }
+      
+      // console.log('[ADTOverlayDemo] ✓ Interactions disabled');
+    }
+
+    /**
+     * NEW: Enable interactions
+     */
+    function enableInteraction() {
+      interactionDisabled = false;
+      
+      const overlay = document.getElementById('adt-interaction-overlay');
+      if (overlay) {
+        overlay.remove();
+      }
+      
+      // console.log('[ADTOverlayDemo] ✓ Interactions enabled');
+    }
+
+    // Signal ready to parent window
+    if (window.parent !== window) {
+      window.parent.postMessage({ action: "adtDemoReady" }, "*");
+      // console.log('[ADTOverlayDemo] Ready signal sent');
+    }
+
+  })();
+});
+</script>
+
+
+</body>
+</html>

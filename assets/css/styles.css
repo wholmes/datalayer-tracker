@@ -1640,6 +1640,31 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: 0 0 0 3px rgba(27,79,216,0.12);
 }
 
+/* KB search: highlight mark */
+mark.kb-search-highlight {
+  background: rgba(27,79,216,0.14);
+  color: inherit;
+  border-radius: 3px;
+  padding: 0 2px;
+}
+
+/* KB search: "no results" per-section message */
+.kb-search-empty {
+  grid-column: 1 / -1;
+  width: 100%;
+  text-align: center;
+  color: var(--text-3);
+  font-size: 0.95rem;
+  padding: 24px 0;
+  min-height: 1em;
+}
+
+/* KB search: input ring when nothing matches globally */
+.kb-search--empty {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(27,79,216,0.12);
+}
+
 .kb-search-icon {
   position: absolute;
   left: 18px;

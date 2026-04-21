@@ -452,6 +452,127 @@ function initSmoothScroll() {
 }
 
 /* ============================================================
+   KB SEARCH — real-time filter across articles, categories, steps
+   ============================================================ */
+function initKBSearch() {
+  const input = document.querySelector('.kb-search');
+  if (!input) return;
+
+  // Collect all searchable cards with their text content cached
+  const buildIndex = () => [
+    ...document.querySelectorAll('.kb-article-card'),
+    ...document.querySelectorAll('.kb-category-card'),
+    ...document.querySelectorAll('.step-item'),
+  ].map(card => ({
+    el: card,
+    // Parent section wrapper — used to show/hide whole sections when empty
+    section: card.closest('section') || card.closest('.section'),
+    // Cache lowercased text for fast matching
+    text: card.textContent.toLowerCase(),
+    // Remember original inner HTML so we can restore after highlighting
+    originalHTML: card.innerHTML,
+  }));
+
+  let index = null;
+
+  // Highlight a query term inside text nodes only (safe, no HTML corruption)
+  function highlight(card, query) {
+    if (!query) {
+      card.el.innerHTML = card.originalHTML;
+      return;
+    }
+    // Walk text nodes and wrap matches in <mark>
+    const walker = document.createTreeWalker(card.el, NodeFilter.SHOW_TEXT, null);
+    const matches = [];
+    let node;
+    while ((node = walker.nextNode())) {
+      const idx = node.textContent.toLowerCase().indexOf(query);
+      if (idx !== -1) matches.push(node);
+    }
+    matches.forEach(node => {
+      const parent = node.parentNode;
+      if (!parent || parent.classList?.contains('kb-search-highlight')) return;
+      const before = node.textContent.slice(0, node.textContent.toLowerCase().indexOf(query));
+      const match  = node.textContent.slice(node.textContent.toLowerCase().indexOf(query), node.textContent.toLowerCase().indexOf(query) + query.length);
+      const after  = node.textContent.slice(node.textContent.toLowerCase().indexOf(query) + query.length);
+      const mark = document.createElement('mark');
+      mark.className = 'kb-search-highlight';
+      mark.textContent = match;
+      const frag = document.createDocumentFragment();
+      if (before) frag.appendChild(document.createTextNode(before));
+      frag.appendChild(mark);
+      if (after) frag.appendChild(document.createTextNode(after));
+      parent.replaceChild(frag, node);
+    });
+  }
+
+  // Per-section empty state messages
+  const emptyMessages = {};
+  const getSectionEmptyEl = (section) => {
+    if (!section) return null;
+    if (!emptyMessages[section]) {
+      const msg = document.createElement('p');
+      msg.className = 'kb-search-empty';
+      msg.setAttribute('aria-live', 'polite');
+      section.querySelector('.container')?.appendChild(msg);
+      emptyMessages[section] = msg;
+    }
+    return emptyMessages[section];
+  };
+
+  let debounceTimer;
+  input.addEventListener('input', () => {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(() => {
+      if (!index) index = buildIndex();
+
+      const raw = input.value.trim();
+      const query = raw.toLowerCase();
+
+      // Restore all originals first
+      index.forEach(card => { card.el.innerHTML = card.originalHTML; });
+
+      // Track visible counts per section
+      const sectionCounts = new Map();
+      index.forEach(({ section }) => {
+        if (section && !sectionCounts.has(section)) sectionCounts.set(section, 0);
+      });
+
+      index.forEach(card => {
+        const matches = !query || card.text.includes(query);
+        card.el.style.display = matches ? '' : 'none';
+        if (matches && card.section) {
+          sectionCounts.set(card.section, (sectionCounts.get(card.section) || 0) + 1);
+        }
+        if (matches && query) highlight(card, query);
+      });
+
+      // Show/hide empty-state messages per section
+      sectionCounts.forEach((count, section) => {
+        const msg = getSectionEmptyEl(section);
+        if (msg) {
+          msg.textContent = count === 0 && query
+            ? `No results for "${raw}" in this section.`
+            : '';
+        }
+      });
+
+      // Global empty state on the input itself
+      input.classList.toggle('kb-search--empty', query.length > 0 && [...sectionCounts.values()].every(c => c === 0));
+    }, 120);
+  });
+
+  // Clear on Escape
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      input.value = '';
+      input.dispatchEvent(new Event('input'));
+      input.blur();
+    }
+  });
+}
+
+/* ============================================================
    SECTION RAIL — collapsible in-page section jumps
    ============================================================ */
 const SECTION_RAIL_KEY = 'dt-section-rail-open';
@@ -641,6 +762,8 @@ document.addEventListener('DOMContentLoaded', () => {
     el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
     el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
   });
+
+  initKBSearch();
 
   // After scroll.js (same tick) registers Lenis
   setTimeout(() => initSectionRail(), 0);
