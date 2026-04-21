@@ -1373,16 +1373,28 @@ h1, h2, h3, h4, h5, h6 {
 .card-feature-item {
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 4px;
   padding: 12px 14px;
   border-radius: var(--radius-md);
   border: 1px solid var(--border);
   background: transparent;
 }
 
+.card-feature-item-label,
+.card-feature-item-sub {
+  display: block;
+}
+
 .card-feature-item-icon { display: none; }
 
+.card-feature-item-text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
 .card-feature-item-label {
+  display: block;
   font-size: 0.85rem;
   font-weight: 600;
   color: var(--text-1);
@@ -1390,6 +1402,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .card-feature-item-sub {
+  display: block;
   font-size: 0.77rem;
   color: var(--text-3);
   line-height: 1.4;
