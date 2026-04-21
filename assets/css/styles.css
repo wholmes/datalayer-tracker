@@ -1377,7 +1377,7 @@ h1, h2, h3, h4, h5, h6 {
   padding: 10px 14px;
   border-radius: var(--radius-md);
   border: 1px solid var(--border);
-  background: var(--bg-alt);
+  background: transparent;
 }
 
 .card-feature-item-icon {
