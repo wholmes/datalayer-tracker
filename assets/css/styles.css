@@ -2461,13 +2461,13 @@ mark.kb-search-highlight {
 }
 
 .card-stack-item {
-  /* Override the CSS pre-hide for stack items — GSAP manages them */
-  opacity: 1 !important;
-  transform: none !important;
   position: sticky;
-  top: 100px; /* JS overrides per-card with PEEK stagger */
+  top: 100px; /* JS overrides at runtime */
   margin-bottom: 24px;
   will-change: transform, opacity;
+  /* Cancel the scroll.css pre-hide — GSAP sets initial state instead */
+  opacity: 1;
+  transform: none;
 }
 
 @media (max-width: 768px) {

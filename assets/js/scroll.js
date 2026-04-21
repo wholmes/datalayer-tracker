@@ -744,22 +744,26 @@ function initCardStack() {
     const cards = stack.querySelectorAll('.card-stack-item');
     if (cards.length < 2) return;
 
-    const PEEK = 12;
+    const PEEK = 14; // px each card peeks below the one in front
 
     cards.forEach((card, i) => {
+      const depth = cards.length - 1 - i; // 0 = front, n-1 = furthest back
       const isLast = i === cards.length - 1;
-      const depth = cards.length - 1 - i;
 
-      // Stagger sticky top so earlier cards peek below later ones.
-      // Last card (frontmost) always gets top:100px so it never pushes anything.
-      card.style.top    = isLast ? '100px' : `${100 + i * PEEK}px`;
-      card.style.zIndex = i + 1;
+      // ALL cards same sticky top — no card can ever push another
+      card.style.top    = '100px';
+      card.style.zIndex = i + 1; // later cards render on top
 
+      // Permanent downward offset — card furthest back peeks the most
+      // Front card (depth=0) has y=0, each card behind adds PEEK
       gsap.set(card, {
+        y: depth * PEEK,
         scale: 1 - depth * 0.02,
         transformOrigin: 'top center',
       });
 
+      // When the NEXT card (i+1) scrolls in over this one,
+      // pull this card's peek back and compress it into the pile
       if (!isLast) {
         ScrollTrigger.create({
           trigger: cards[i + 1],
@@ -768,7 +772,8 @@ function initCardStack() {
           scrub: true,
           onUpdate: self => {
             gsap.set(card, {
-              scale:   1 - depth * 0.02 - self.progress * 0.03,
+              y:       depth * PEEK * (1 - self.progress),
+              scale:   1 - depth * 0.02 - self.progress * 0.02,
               opacity: 1 - self.progress * 0.25,
             });
           },
