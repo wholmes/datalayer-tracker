@@ -744,26 +744,34 @@ function initCardStack() {
     const cards = stack.querySelectorAll('.card-stack-item');
     if (cards.length < 2) return;
 
-    // All cards share the same sticky top — no pushing each other
-    const STICKY_TOP = 100;
-    const PEEK = 10; // px each card peeks below the one in front via translateY
-    cards.forEach((card, i) => {
-      card.style.top = `${STICKY_TOP}px`;
-    });
+    const PEEK = 10; // px each card peeks below the card in front of it
 
     cards.forEach((card, i) => {
       const isLast = i === cards.length - 1;
-      // depth: 0 = frontmost (last in DOM), n = furthest behind
-      const depth = cards.length - 1 - i;
 
-      // Cards behind the front card are offset downward so they peek below
-      gsap.set(card, {
-        y: depth * PEEK,
-        scale: 1 - depth * 0.02,
-        transformOrigin: 'top center',
-      });
+      // Later cards sit on top — higher z-index
+      card.style.top     = '100px';
+      card.style.zIndex  = i + 1;
 
-      // As the next card scrolls in and covers this one, compress it back
+      // Each card (except the last/frontmost) gets a translateY nudge
+      // so it peeks below the card that will cover it.
+      // depth relative to the NEXT card (i+1): card i peeks out by PEEK px
+      if (!isLast) {
+        gsap.set(card, {
+          y: PEEK,
+          scale: 1 - (cards.length - 1 - i) * 0.015,
+          transformOrigin: 'top center',
+        });
+      } else {
+        gsap.set(card, {
+          y: 0,
+          scale: 1,
+          transformOrigin: 'top center',
+        });
+      }
+
+      // As the next card scrolls in and covers this one, pull the peek back
+      // and compress/fade this card into the pile
       if (!isLast) {
         ScrollTrigger.create({
           trigger: cards[i + 1],
@@ -772,9 +780,9 @@ function initCardStack() {
           scrub: true,
           onUpdate: self => {
             gsap.set(card, {
-              y:       depth * PEEK * (1 - self.progress * 0.5),
-              scale:   1 - depth * 0.02 - self.progress * 0.03,
-              opacity: 1 - self.progress * 0.25,
+              y:       PEEK * (1 - self.progress),
+              scale:   1 - (cards.length - 1 - i) * 0.015 - self.progress * 0.025,
+              opacity: 1 - self.progress * 0.2,
             });
           },
         });
