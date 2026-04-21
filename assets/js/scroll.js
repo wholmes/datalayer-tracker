@@ -772,9 +772,8 @@ function initCardStack() {
           scrub: true,
           onUpdate: self => {
             gsap.set(card, {
-              y:       depth * PEEK * (1 - self.progress),
-              scale:   1 - depth * 0.02 - self.progress * 0.02,
-              opacity: 1 - self.progress * 0.25,
+              y:     depth * PEEK * (1 - self.progress),
+              scale: 1 - depth * 0.02 - self.progress * 0.02,
             });
           },
         });
