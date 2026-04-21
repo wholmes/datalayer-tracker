@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>18 Powerful WordPress Analytics Plugin Features | DataLayer Tracker</title>
+  <meta name="description" content="The most comprehensive WordPress analytics plugin. Server-side tracking, data enrichment, GTM container generator, consent management, WooCommerce suite — enterprise analytics in 15 minutes." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="stylesheet" href="assets/css/scroll.css" />
+</head>
+<body>
+
+  <div class="cursor-dot"></div>
+  <div class="cursor-ring"></div>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="index.html" class="nav-logo">
+          <div class="nav-logo-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          DataLayer Tracker
+        </a>
+        <div class="nav-links">
+          <a href="wordpress-analytics-plugin.html" class="nav-link active">Features</a>
+          <a href="pricing.html" class="nav-link">Pricing</a>
+          <a href="knowledge-base.html" class="nav-link">Docs</a>
+        </div>
+        <div class="nav-actions">
+          <a href="wordpress-analytics-plugin.html" class="nav-demo">Live Demo</a>
+          <a href="https://checkout.freemius.com/plugin/20636/plan/35597/?trial=free" class="nav-cta" target="_blank">
+            Start Free Trial
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </a>
+        </div>
+        <button class="nav-hamburger" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="nav-mobile">
+    <a href="index.html"          class="nav-mobile-link">Home</a>
+    <a href="wordpress-analytics-plugin.html"       class="nav-mobile-link">Features</a>
+    <a href="pricing.html"        class="nav-mobile-link">Pricing</a>
+    <a href="knowledge-base.html" class="nav-mobile-link">Docs</a>
+    <a href="wordpress-analytics-plugin.html" class="nav-mobile-link">Live Demo</a>
+    <a href="https://checkout.freemius.com/plugin/20636/plan/35597/?trial=free" class="nav-mobile-cta" target="_blank">Start Free Trial →</a>
+  </div>
+
+  <!-- ======================================================
+       PAGE HERO
+       ====================================================== -->
+  <section id="wap-overview" class="page-hero" style="position:relative;overflow:hidden" data-rail-label="Overview">
+    <!-- Connected dots particle mesh — same as homepage -->
+    <canvas id="hero-canvas" class="hero-canvas"></canvas>
+
+    <!-- Colour blobs -->
+    <div class="hero-blobs">
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+      <div class="blob blob-3"></div>
+    </div>
+
+    <div class="container" style="position:relative;z-index:1;text-align:center">
+      <span class="chip chip-blue" style="margin-bottom:20px">18 Enterprise Features</span>
+      <h1 class="display-lg" style="max-width:720px;margin-left:auto;margin-right:auto">
+        18 Powerful WordPress <span class="gradient-text">Analytics Plugin Features</span>
+      </h1>
+      <p class="body-lg" style="max-width:640px;margin:20px auto 36px;color:var(--text-2)">
+        Every event tracked. Every conversion recovered. Every customer understood — automatically, in 15 minutes.
+      </p>
+      <div class="flex justify-center gap-4" style="flex-wrap:wrap">
+        <a href="https://checkout.freemius.com/plugin/20636/plan/35597/?trial=free" class="btn btn-primary btn-lg" target="_blank">
+          Start Free Trial
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+        </a>
+        <a href="#comparison" class="btn btn-outline btn-lg">See Comparison</a>
+      </div>
+      <div style="display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin-top:20px">
+        <span style="font-size:0.825rem;color:var(--text-3);display:flex;align-items:center;gap:6px">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;color:var(--accent-2)"><polyline points="13 4 6 11 3 8"/></svg>
+          No credit card required
+        </span>
+        <span style="font-size:0.825rem;color:var(--text-3);display:flex;align-items:center;gap:6px">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;color:var(--accent-2)"><polyline points="13 4 6 11 3 8"/></svg>
+          Setup in 15 minutes
+        </span>
+        <span style="font-size:0.825rem;color:var(--text-3);display:flex;align-items:center;gap:6px">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;color:var(--accent-2)"><polyline points="13 4 6 11 3 8"/></svg>
+          14-day free trial
+        </span>
+      </div>
+
+      <!-- Hero pipeline graphic -->
+      <div class="fhg-wrap" data-fade-up>
+        <svg viewBox="0 0 860 282" xmlns="http://www.w3.org/2000/svg" class="fhg-svg" aria-hidden="true">
+          <defs>
+            <path id="wap-p-wp"    d="M 170 80  C 290 80  310 130 380 130"/>
+            <path id="wap-p-woo"   d="M 170 130 L 380 130"/>
+            <path id="wap-p-forms" d="M 170 180 C 290 180 310 130 380 130"/>
+            <path id="wap-p-meta"  d="M 480 130 C 560 130 580 65  660 65"/>
+            <path id="wap-p-ga4"   d="M 480 130 C 560 130 580 110 660 110"/>
+            <path id="wap-p-gads"  d="M 480 130 C 560 130 580 155 660 155"/>
+            <path id="wap-p-tt"    d="M 480 130 C 570 130 580 200 660 200"/>
+            <linearGradient id="wap-lg-in" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%"   stop-color="#2563eb" stop-opacity="0.12"/>
+              <stop offset="100%" stop-color="#2563eb" stop-opacity="0.45"/>
+            </linearGradient>
+            <linearGradient id="wap-lg-out" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%"   stop-color="#2563eb" stop-opacity="0.45"/>
+              <stop offset="100%" stop-color="#0d9488" stop-opacity="0.3"/>
+            </linearGradient>
+          </defs>
+
+          <!-- Connecting lines -->
+          <use href="#wap-p-wp"    fill="none" stroke="url(#wap-lg-in)"  stroke-width="1.5"/>
+          <use href="#wap-p-woo"   fill="none" stroke="url(#wap-lg-in)"  stroke-width="1.5"/>
+          <use href="#wap-p-forms" fill="none" stroke="url(#wap-lg-in)"  stroke-width="1.5"/>
+          <use href="#wap-p-meta"  fill="none" stroke="url(#wap-lg-out)" stroke-width="1.5"/>
+          <use href="#wap-p-ga4"   fill="none" stroke="url(#wap-lg-out)" stroke-width="1.5"/>
+          <use href="#wap-p-gads"  fill="none" stroke="url(#wap-lg-out)" stroke-width="1.5"/>
+          <use href="#wap-p-tt"    fill="none" stroke="url(#wap-lg-out)" stroke-width="1.5"/>
+
+          <!-- Animated particles -->
+          <circle r="3.5" fill="#2563eb" opacity="0.9"><animateMotion dur="2s"   repeatCount="indefinite" begin="0s"   ><mpath href="#wap-p-wp"/></animateMotion></circle>
+          <circle r="3.5" fill="#2563eb" opacity="0.9"><animateMotion dur="2s"   repeatCount="indefinite" begin="0.75s"><mpath href="#wap-p-wp"/></animateMotion></circle>
+          <circle r="3.5" fill="#7c3aed" opacity="0.9"><animateMotion dur="1.8s" repeatCount="indefinite" begin="0.3s" ><mpath href="#wap-p-woo"/></animateMotion></circle>
+          <circle r="3.5" fill="#7c3aed" opacity="0.9"><animateMotion dur="1.8s" repeatCount="indefinite" begin="1.2s" ><mpath href="#wap-p-woo"/></animateMotion></circle>
+          <circle r="3.5" fill="#0d9488" opacity="0.9"><animateMotion dur="2.2s" repeatCount="indefinite" begin="0.5s" ><mpath href="#wap-p-forms"/></animateMotion></circle>
+          <circle r="3.5" fill="#0d9488" opacity="0.9"><animateMotion dur="2.2s" repeatCount="indefinite" begin="1.6s" ><mpath href="#wap-p-forms"/></animateMotion></circle>
+          <circle r="3.5" fill="#1877F2" opacity="0.9"><animateMotion dur="1.6s" repeatCount="indefinite" begin="0.9s" ><mpath href="#wap-p-meta"/></animateMotion></circle>
+          <circle r="3.5" fill="#1877F2" opacity="0.9"><animateMotion dur="1.6s" repeatCount="indefinite" begin="1.8s" ><mpath href="#wap-p-meta"/></animateMotion></circle>
+          <circle r="3.5" fill="#e37400" opacity="0.9"><animateMotion dur="1.9s" repeatCount="indefinite" begin="0.4s" ><mpath href="#wap-p-ga4"/></animateMotion></circle>
+          <circle r="3.5" fill="#4285F4" opacity="0.9"><animateMotion dur="1.7s" repeatCount="indefinite" begin="1.3s" ><mpath href="#wap-p-gads"/></animateMotion></circle>
+          <circle r="3.5" fill="#EE1D52" opacity="0.9"><animateMotion dur="2.1s" repeatCount="indefinite" begin="0.6s" ><mpath href="#wap-p-tt"/></animateMotion></circle>
+
+          <!-- Source nodes -->
+          <rect x="20"  y="62"  width="150" height="36" rx="8" fill="#ffffff" stroke="rgba(11,14,24,0.1)" stroke-width="1"/>
+          <circle cx="42" cy="80" r="10" fill="#21759b"/>
+          <text x="42" y="84" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" font-weight="700" fill="#fff">WP</text>
+          <text x="104" y="77" text-anchor="middle" font-family="Inter,sans-serif" font-size="11.5" font-weight="600" fill="#0b0e18">WordPress</text>
+          <text x="104" y="91" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#8b93a5">Events &amp; page views</text>
+
+          <rect x="20"  y="112" width="150" height="36" rx="8" fill="#ffffff" stroke="rgba(11,14,24,0.1)" stroke-width="1"/>
+          <circle cx="42" cy="130" r="10" fill="#7F54B3"/>
+          <text x="42" y="134" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" font-weight="700" fill="#fff">WC</text>
+          <text x="104" y="127" text-anchor="middle" font-family="Inter,sans-serif" font-size="11.5" font-weight="600" fill="#0b0e18">WooCommerce</text>
+          <text x="104" y="141" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#8b93a5">Purchases &amp; carts</text>
+
+          <rect x="20"  y="162" width="150" height="36" rx="8" fill="#ffffff" stroke="rgba(11,14,24,0.1)" stroke-width="1"/>
+          <circle cx="42" cy="180" r="10" fill="#0d9488"/>
+          <text x="42" y="184" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" font-weight="700" fill="#fff">FO</text>
+          <text x="104" y="177" text-anchor="middle" font-family="Inter,sans-serif" font-size="11.5" font-weight="600" fill="#0b0e18">Forms &amp; Pixels</text>
+          <text x="104" y="191" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#8b93a5">Leads &amp; conversions</text>
+
+          <!-- Hub -->
+          <!-- Outer pulse ring -->
+          <circle cx="430" cy="130" r="72" fill="none" stroke="rgba(37,99,235,0.1)" stroke-width="1">
+            <animate attributeName="r"              values="72;84;72"    dur="3s" repeatCount="indefinite" calcMode="ease"/>
+            <animate attributeName="stroke-opacity" values="0.12;0;0.12" dur="3s" repeatCount="indefinite"/>
+          </circle>
+          <!-- Middle ring -->
+          <circle cx="430" cy="130" r="62" fill="rgba(37,99,235,0.04)" stroke="rgba(37,99,235,0.18)" stroke-width="1"/>
+          <!-- Hub circle with gradient -->
+          <defs>
+            <radialGradient id="hub-grad" cx="40%" cy="35%" r="65%">
+              <stop offset="0%"   stop-color="#3b82f6"/>
+              <stop offset="100%" stop-color="#1d4ed8"/>
+            </radialGradient>
+          </defs>
+          <circle cx="430" cy="130" r="50" fill="url(#hub-grad)" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/>
+          <!-- EKG waveform icon — white on blue -->
+          <polyline points="406 130 413 130 417 119 424 143 431 108 438 150 443 130 450 130 457 130"
+                    fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <!-- Live pulse dot -->
+          <circle cx="457" cy="130" r="4" fill="#34d399">
+            <animate attributeName="opacity" values="1;0.2;1" dur="1.4s" repeatCount="indefinite"/>
+          </circle>
+          <!-- Label below hub -->
+          <rect x="376" y="188" width="108" height="22" rx="11" fill="rgba(37,99,235,0.08)" stroke="rgba(37,99,235,0.2)" stroke-width="1"/>
+          <text x="430" y="203" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" font-weight="600" fill="#2563eb">DataLayer Tracker</text>
+
+          <!-- Destination nodes -->
+          <rect x="660" y="47"  width="180" height="36" rx="8" fill="#ffffff" stroke="rgba(11,14,24,0.1)" stroke-width="1"/>
+          <circle cx="681" cy="65" r="10" fill="#1877F2"/>
+          <text x="681" y="69" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" font-weight="700" fill="#fff">M</text>
+          <text x="759" y="62" text-anchor="middle" font-family="Inter,sans-serif" font-size="11.5" font-weight="600" fill="#0b0e18">Meta CAPI</text>
+          <text x="759" y="76" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#8b93a5">Conversions API</text>
+
+          <rect x="660" y="92"  width="180" height="36" rx="8" fill="#ffffff" stroke="rgba(11,14,24,0.1)" stroke-width="1"/>
+          <circle cx="681" cy="110" r="10" fill="#e37400"/>
+          <text x="681" y="114" text-anchor="middle" font-family="Inter,sans-serif" font-size="8.5" font-weight="700" fill="#fff">GA4</text>
+          <text x="759" y="107" text-anchor="middle" font-family="Inter,sans-serif" font-size="11.5" font-weight="600" fill="#0b0e18">GA4 Measurement</text>
+          <text x="759" y="121" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#8b93a5">Protocol</text>
+
+          <rect x="660" y="137" width="180" height="36" rx="8" fill="#ffffff" stroke="rgba(11,14,24,0.1)" stroke-width="1"/>
+          <circle cx="681" cy="155" r="10" fill="#4285F4"/>
+          <text x="681" y="159" text-anchor="middle" font-family="Inter,sans-serif" font-size="8.5" font-weight="700" fill="#fff">ADS</text>
+          <text x="759" y="152" text-anchor="middle" font-family="Inter,sans-serif" font-size="11.5" font-weight="600" fill="#0b0e18">Google Ads</text>
+          <text x="759" y="166" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#8b93a5">Conversion tracking</text>
+
+          <rect x="660" y="182" width="180" height="36" rx="8" fill="#ffffff" stroke="rgba(11,14,24,0.1)" stroke-width="1"/>
+          <circle cx="681" cy="200" r="10" fill="#010101"/>
+          <text x="681" y="204" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" font-weight="700" fill="#fff">TT</text>
+          <text x="759" y="197" text-anchor="middle" font-family="Inter,sans-serif" font-size="11.5" font-weight="600" fill="#0b0e18">TikTok Events API</text>
+          <text x="759" y="211" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#8b93a5">Pixel &amp; server</text>
+
+          <!-- Recovery stat banner -->
+          <rect x="20" y="238" width="820" height="32" rx="8" fill="rgba(13,148,136,0.07)" stroke="rgba(13,148,136,0.22)" stroke-width="1"/>
+          <circle cx="42" cy="254" r="4" fill="#0d9488">
+            <animate attributeName="opacity" values="1;0.3;1" dur="1.4s" repeatCount="indefinite"/>
+          </circle>
+          <text x="54"  y="258" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#0d9488">62,410 client-side</text>
+          <text x="185" y="258" font-family="Inter,sans-serif" font-size="11" fill="#8b93a5">  +  </text>
+          <text x="210" y="258" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#0d9488">31,800 server-side recovered</text>
+          <text x="455" y="258" font-family="Inter,sans-serif" font-size="11" fill="#8b93a5">  =  94,210 total events</text>
+          <rect x="658" y="242" width="172" height="20" rx="5" fill="rgba(13,148,136,0.18)"/>
+          <text x="744" y="256" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="700" fill="#0d9488">✓ 99.8% capture rate</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================
+       FEATURE MARQUEE STRIP
+       ====================================================== -->
+  <div class="features-marquee-wrap">
+    <div class="features-marquee-track">
+      <div class="features-marquee-item">
+        <div class="features-overview-icon" style="background:var(--accent-dim);color:var(--accent)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        </div>
+        <div><div class="features-overview-label">Server-Side Tracking</div><div class="features-overview-sub">Bypass ad blockers &amp; iOS limits</div></div>
+      </div>
+      <div class="features-marquee-sep" aria-hidden="true"></div>
+      <div class="features-marquee-item">
+        <div class="features-overview-icon" style="background:rgba(124,58,237,0.1);color:var(--accent-3)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+        </div>
+        <div><div class="features-overview-label">Data Enrichment</div><div class="features-overview-sub">30+ data points per event</div></div>
+      </div>
+      <div class="features-marquee-sep" aria-hidden="true"></div>
+      <div class="features-marquee-item">
+        <div class="features-overview-icon" style="background:var(--accent-dim-2);color:var(--accent-2)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div><div class="features-overview-label">Consent Management</div><div class="features-overview-sub">10+ CMPs, auto-detected</div></div>
+      </div>
+      <div class="features-marquee-sep" aria-hidden="true"></div>
+      <div class="features-marquee-item">
+        <div class="features-overview-icon" style="background:rgba(217,119,6,0.1);color:#D97706">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        </div>
+        <div><div class="features-overview-label">WooCommerce Suite</div><div class="features-overview-sub">10+ customer segments</div></div>
+      </div>
+      <div class="features-marquee-sep" aria-hidden="true"></div>
+      <div class="features-marquee-item">
+        <div class="features-overview-icon" style="background:var(--accent-dim);color:var(--accent)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </div>
+        <div><div class="features-overview-label">GTM Generator</div><div class="features-overview-sub">Production-ready in 5 minutes</div></div>
+      </div>
+      <div class="features-marquee-sep" aria-hidden="true"></div>
+      <div class="features-marquee-item">
+        <div class="features-overview-icon" style="background:var(--accent-dim-2);color:var(--accent-2)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        </div>
+        <div><div class="features-overview-label">Debug Overlay</div><div class="features-overview-sub">Real-time event monitoring</div></div>
+      </div>
+      <div class="features-marquee-sep" aria-hidden="true"></div>
+      <div class="features-marquee-item">
+        <div class="features-overview-icon" style="background:rgba(124,58,237,0.1);color:var(--accent-3)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+        </div>
+        <div><div class="features-overview-label">95–100% Recovery Rate</div><div class="features-overview-sub">vs 60–70% client-side only</div></div>
+      </div>
+      <div class="features-marquee-sep" aria-hidden="true"></div>
+      <div class="features-marquee-item">
+        <div class="features-overview-icon" style="background:rgba(217,119,6,0.1);color:#D97706">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div><div class="features-overview-label">15-Minute Setup</div><div class="features-overview-sub">Zero code, zero developer</div></div>
+      </div>
+      <!-- Duplicate set for seamless loop -->
+      <div class="features-marquee-item" aria-hidden="true">
+        <div class="features-overview-icon" style="background:var(--accent-dim);color:var(--accent)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        </div>
+        <div><div class="features-overview-label">Server-Side Tracking</div><div class="features-overview-sub">Bypass ad blockers &amp; iOS limits</div></div>
+      </div>
+      <div class="features-marquee-sep" aria-hidden="true"></div>
+      <div class="features-marquee-item" aria-hidden="true">
+        <div class="features-overview-icon" style="background:rgba(124,58,237,0.1);color:var(--accent-3)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+        </div>
+        <div><div class="features-overview-label">Data Enrichment</div><div class="features-overview-sub">30+ data points per event</div></div>
+      </div>
+      <div class="features-marquee-sep" aria-hidden="true"></div>
+      <div class="features-marquee-item" aria-hidden="true">
+        <div class="features-overview-icon" style="background:var(--accent-dim-2);color:var(--accent-2)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div><div class="features-overview-label">Consent Management</div><div class="features-overview-sub">10+ CMPs, auto-detected</div></div>
+      </div>
+      <div class="features-marquee-sep" aria-hidden="true"></div>
+      <div class="features-marquee-item" aria-hidden="true">
+        <div class="features-overview-icon" style="background:rgba(217,119,6,0.1);color:#D97706">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        </div>
+        <div><div class="features-overview-label">WooCommerce Suite</div><div class="features-overview-sub">10+ customer segments</div></div>
+      </div>
+      <div class="features-marquee-sep" aria-hidden="true"></div>
+      <div class="features-marquee-item" aria-hidden="true">
+        <div class="features-overview-icon" style="background:var(--accent-dim);color:var(--accent)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </div>
+        <div><div class="features-overview-label">GTM Generator</div><div class="features-overview-sub">Production-ready in 5 minutes</div></div>
+      </div>
+      <div class="features-marquee-sep" aria-hidden="true"></div>
+      <div class="features-marquee-item" aria-hidden="true">
+        <div class="features-overview-icon" style="background:var(--accent-dim-2);color:var(--accent-2)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        </div>
+        <div><div class="features-overview-label">Debug Overlay</div><div class="features-overview-sub">Real-time event monitoring</div></div>
+      </div>
+      <div class="features-marquee-sep" aria-hidden="true"></div>
+      <div class="features-marquee-item" aria-hidden="true">
+        <div class="features-overview-icon" style="background:rgba(124,58,237,0.1);color:var(--accent-3)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+        </div>
+        <div><div class="features-overview-label">95–100% Recovery Rate</div><div class="features-overview-sub">vs 60–70% client-side only</div></div>
+      </div>
+      <div class="features-marquee-sep" aria-hidden="true"></div>
+      <div class="features-marquee-item" aria-hidden="true">
+        <div class="features-overview-icon" style="background:rgba(217,119,6,0.1);color:#D97706">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div><div class="features-overview-label">15-Minute Setup</div><div class="features-overview-sub">Zero code, zero developer</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================
+       FOUNDATION & SETUP
+       ====================================================== -->
+  <section id="wap-foundation" class="section" data-rail-label="Foundation">
+    <div class="container">
+      <div class="section-header centered">
+        <div class="section-header-eyebrow">
+          <span class="chip chip-blue">Foundation &amp; Setup</span>
+        </div>
+        <h2 class="display-md" data-split>WordPress Analytics Setup<br>in Minutes, Not Weeks</h2>
+        <p class="body-lg section-header-sub" data-fade-up>The foundation features eliminate the complexity of WordPress event tracking setup. What takes enterprise teams weeks to build works perfectly in 15 minutes.</p>
+      </div>
+
+      <div class="card-stack">
+      <div class="feature-full-card card-stack-item" data-stack-index="0">
+        <div>
+          <div class="feature-number-badge">1</div>
+          <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
+            <span class="chip chip-blue" style="font-size:0.75rem">Visual Tool</span>
+            <span class="chip chip-green" style="font-size:0.75rem">Real-time</span>
+          </div>
+          <h3>Live Debug Overlay with Event Simulator</h3>
+          <p>The most powerful WordPress analytics debug tool ever built. Watch every event fire in real-time, simulate complete user journeys, and catch errors before they cost you money — no developer console required.</p>
+          <ul class="feature-list">
+            <li class="feature-list-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Real-time event monitoring with visual overlay</li>
+            <li class="feature-list-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Built-in journey simulator tests complete flows</li>
+            <li class="feature-list-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Filter and search events instantly by type, category, or status</li>
+            <li class="feature-list-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>No developer tools or console diving required</li>
+          </ul>
+          <a href="wordpress-analytics-plugin.html" class="btn btn-outline" style="margin-top:20px">View Live Demo →</a>
+        </div>
+        <div class="feature-visual-box">
+          <div style="font-size:0.78rem;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px">Event Stream — Live</div>
+          <div class="event-row">
+            <span class="event-type et-purchase">purchase</span>
+            <span class="event-name">WooCommerce Order</span>
+            <span class="event-value">$89.00</span>
+            <span class="event-source">server-side</span>
+          </div>
+          <div class="event-row">
+            <span class="event-type et-page_view">page_view</span>
+            <span class="event-name">/shop/products/</span>
+            <span class="event-source">client</span>
+          </div>
+          <div class="event-row">
+            <span class="event-type et-form">form_submit</span>
+            <span class="event-name">Lead Form — Sidebar</span>
+            <span class="event-source">client</span>
+          </div>
+          <div class="event-row">
+            <span class="event-type et-scroll">scroll_75</span>
+            <span class="event-name">Blog Post: GTM Guide</span>
+            <span class="event-value">75%</span>
+            <span class="event-source">client</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="feature-full-card card-stack-item" data-stack-index="1">
+        <div>
+          <div class="feature-number-badge">2</div>
+          <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
+            <span class="chip chip-green" style="font-size:0.75rem">10+ CMPs</span>
+            <span class="chip chip-green" style="font-size:0.75rem">GDPR / CCPA</span>
+          </div>
+          <h3>Smart Consent Management &amp; Privacy</h3>
+          <p>Stay compliant automatically. Our intelligent consent system auto-detects over 10 Consent Management Platforms and handles GDPR and CCPA compliance without any manual integration or developer time.</p>
+          <ul class="feature-list">
+            <li class="feature-list-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Auto-detects CookieYes, OneTrust, Cookiebot, Complianz, Borlabs, and more</li>
+            <li class="feature-list-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Automatic event blocking until consent is granted</li>
+            <li class="feature-list-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>IAB TCF 2.0 framework support</li>
+            <li class="feature-list-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>SHA-256 hashing and PII protection built-in</li>
+          </ul>
+        </div>
+        <div class="feature-visual-box">
+          <div class="metric-row"><span class="metric-name">CookieYes</span><span class="metric-value" style="color:var(--accent-2)">✓ Detected</span></div>
+          <div class="metric-row"><span class="metric-name">IAB TCF 2.0</span><span class="metric-value" style="color:var(--accent-2)">✓ Active</span></div>
+          <div class="metric-row"><span class="metric-name">PII Protection</span><span class="metric-value" style="color:var(--accent-2)">✓ SHA-256</span></div>
+          <div class="metric-row"><span class="metric-name">Compliance Status</span><span class="chip chip-green" style="font-size:0.72rem">100% GDPR</span></div>
+        </div>
+      </div>
+
+      <div class="feature-full-card card-stack-item" data-stack-index="2">
+        <div>
+          <div class="feature-number-badge">3</div>
+          <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
+            <span class="chip chip-violet" style="font-size:0.75rem">1-Click Export</span>
+            <span class="chip chip-blue" style="font-size:0.75rem">5min Setup</span>
+          </div>
+          <h3>Google Tag Manager WordPress Container Generator</h3>
+          <p>From zero to fully tracked in 5 minutes. Creates production-ready Google Tag Manager containers with all triggers, variables, and tags pre-configured. What takes manual setup 4+ hours happens in one click.</p>
+          <ul class="feature-list">
+            <li class="feature-list-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>One-click JSON export — import directly into GTM</li>
+            <li class="feature-list-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Pre-configured GA4 tags and event mapping</li>
+            <li class="feature-list-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Version history — roll back to any previous configuration</li>
+            <li class="feature-list-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Zero manual configuration — eliminates human error completely</li>
+          </ul>
+        </div>
+        <div class="feature-visual-box">
+          <div style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:14px;font-family:monospace;font-size:0.78rem;color:var(--text-2);margin-bottom:12px">
+            <div style="color:var(--accent-3);margin-bottom:4px">// Generated GTM Container</div>
+            <div>{</div>
+            <div style="padding-left:16px">"tags": <span style="color:var(--accent-2)">42</span>,</div>
+            <div style="padding-left:16px">"triggers": <span style="color:var(--accent-2)">38</span>,</div>
+            <div style="padding-left:16px">"variables": <span style="color:var(--accent-2)">61</span>,</div>
+            <div style="padding-left:16px">"status": <span style="color:var(--accent-2)">"ready"</span></div>
+            <div>}</div>
+          </div>
+          <div class="metric-row"><span class="metric-name">Generation Time</span><span class="metric-value">0.4s</span><span class="metric-change up">vs 4+ hours manual</span></div>
+        </div>
+      </div>
+
+      <div class="feature-full-card card-stack-item" data-stack-index="3">
+        <div>
+          <div class="feature-number-badge">4</div>
+          <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
+            <span class="chip chip-blue" style="font-size:0.75rem">Version Control</span>
+            <span class="chip chip-green" style="font-size:0.75rem">Audit Trail</span>
+          </div>
+          <h3>Export History &amp; Versioning</h3>
+          <p>Never lose a working configuration again. Track every change with automatic versioning, roll back instantly, and maintain complete audit trails for compliance documentation.</p>
+          <ul class="feature-list">
+            <li class="feature-list-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Automatic version control for all exports</li>
+            <li class="feature-list-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Compare configurations side-by-side</li>
+            <li class="feature-list-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>One-click rollback to any previous version</li>
+            <li class="feature-list-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Full audit trail for compliance documentation</li>
+          </ul>
+        </div>
+        <div class="feature-visual-box">
+          <div class="metric-row"><span class="metric-name">v1.4.2 — Current</span><span class="chip chip-green" style="font-size:0.72rem">Active</span></div>
+          <div class="metric-row"><span class="metric-name">v1.4.1 — Apr 14</span><span class="metric-change up">Restore</span></div>
+          <div class="metric-row"><span class="metric-name">v1.3.8 — Apr 8</span><span class="metric-change up">Restore</span></div>
+          <div class="metric-row"><span class="metric-name">v1.3.0 — Apr 1</span><span class="metric-change up">Restore</span></div>
+        </div>
+      </div>
+      </div><!-- /card-stack -->
+    </div>
+  </section>
+
+  <!-- ======================================================
+       DATA INTELLIGENCE
+       ====================================================== -->
+  <section id="wap-data" class="section section-alt" data-rail-label="Data">
+    <div class="container">
+      <div class="section-header centered">
+        <div class="section-header-eyebrow">
+          <span class="chip chip-violet">Data Intelligence</span>
+        </div>
+        <h2 class="display-md" data-split>Turn Basic WordPress Events<br>into Business Intelligence</h2>
+        <p class="body-lg section-header-sub" data-fade-up>Our AI-powered enrichment engine automatically adds 30+ contextual data points to every interaction, transforming raw tracking into actionable insights.</p>
+      </div>
+
+      <div class="card-stack">
+      <div class="feature-full-card card-stack-item" data-stack-index="0">
+        <div>
+          <div class="feature-number-badge">5</div>
+          <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
+            <span class="chip chip-violet" style="font-size:0.75rem">AI-Powered</span>
+            <span class="chip chip-blue" style="font-size:0.75rem">30+ Data Points</span>
+            <span class="chip chip-green" style="font-size:0.75rem">Zero Config</span>
+          </div>
+          <h3>Automatic WordPress Data Enrichment Engine</h3>
+          <p>The most advanced enrichment system ever built for WordPress analytics. Every event is automatically enhanced with session quality scores, intent classification, customer segments, and behavioral tags.</p>
+          <ul class="feature-list">
+            <li class="feature-list-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Session quality scoring (0–100) for every interaction</li>
+            <li class="feature-list-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Automatic intent detection — transactional, informational, commercial, navigational</li>
+            <li class="feature-list-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>10+ customer segments with confidence scores</li>
+            <li class="feature-list-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>30+ contextual data points per event — no configuration needed</li>
+          </ul>
+        </div>
+        <div class="feature-visual-box">
+          <div class="metric-row"><span class="metric-name">Session Score</span><span class="metric-value">87/100</span><span class="chip chip-green" style="font-size:0.72rem">High</span></div>
+          <div class="metric-row"><span class="metric-name">Intent</span><span class="metric-value" style="color:var(--accent)">Transactional</span></div>
+          <div class="metric-row"><span class="metric-name">Segment</span><span class="metric-value">VIP (94%)</span></div>
+          <div class="metric-row"><span class="metric-name">Enriched Points</span><span class="metric-value">34</span></div>
+        </div>
+      </div>
+
+      <div class="feature-full-card card-stack-item" data-stack-index="1">
+        <div>
+          <div class="feature-number-badge">6</div>
+          <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
+            <span class="chip chip-blue" style="font-size:0.75rem">Engagement Scoring</span>
+            <span class="chip chip-violet" style="font-size:0.75rem">Scroll Depth</span>
+          </div>
+          <h3>WordPress Content Intelligence &amp; Engagement Tracking</h3>
+          <p>Identify high-intent visitors in real-time with WordPress active time tracking. Advanced engagement scoring, scroll depth tracking, and intent signal detection enable personalization and conversion optimization.</p>
+          <ul class="feature-list">
+            <li class="feature-list-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>High-intent visitor identification</li>
+            <li class="feature-list-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Section interaction tracking for content heatmaps</li>
+            <li class="feature-list-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Real-time personalization triggers</li>
+            <li class="feature-list-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Behavioral pattern recognition</li>
+          </ul>
+        </div>
+        <div class="feature-visual-box">
+          <div class="metric-row"><span class="metric-name">Scroll Depth</span><span class="metric-value">83%</span><span class="metric-change up">↑</span></div>
+          <div class="metric-row"><span class="metric-name">Active Time</span><span class="metric-value">4m 12s</span></div>
+          <div class="metric-row"><span class="metric-name">Engagement Score</span><span class="metric-value">92</span><span class="chip chip-green" style="font-size:0.72rem">High</span></div>
+        </div>
+      </div>
+
+      <div class="feature-full-card card-stack-item" data-stack-index="2">
+        <div>
+          <div class="feature-number-badge">7</div>
+          <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
+            <span class="chip chip-green" style="font-size:0.75rem">Journey Mapping</span>
+            <span class="chip chip-blue" style="font-size:0.75rem">Cross-page</span>
+          </div>
+          <h3>WordPress Session Manager &amp; Customer Journey Tracking</h3>
+          <p>See the complete customer journey with WordPress session tracking. Automatic session summaries provide total time on site, pages viewed, events triggered, and conversion path mapping with cross-page persistence.</p>
+          <ul class="feature-list">
+            <li class="feature-list-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Complete session tracking across all pages</li>
+            <li class="feature-list-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Automatic engagement, content, attribution, and page summaries</li>
+            <li class="feature-list-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Full customer journey visibility</li>
+            <li class="feature-list-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Conversion path mapping and drop-off identification</li>
+          </ul>
+        </div>
+        <div class="feature-visual-box">
+          <div class="metric-row"><span class="metric-name">Session Duration</span><span class="metric-value">8m 44s</span></div>
+          <div class="metric-row"><span class="metric-name">Pages Viewed</span><span class="metric-value">7</span></div>
+          <div class="metric-row"><span class="metric-name">Events Fired</span><span class="metric-value">34</span></div>
+          <div class="metric-row"><span class="metric-name">Conversion Path</span><span class="metric-value" style="color:var(--accent-2)">Purchase ✓</span></div>
+        </div>
+      </div>
+      </div><!-- /card-stack -->
+    </div>
+  </section>
+
+  <!-- ======================================================
+       E-COMMERCE EXCELLENCE
+       ====================================================== -->
+  <section id="wap-woo" class="section" data-rail-label="Commerce">
+    <div class="container">
+      <div class="section-header centered">
+        <div class="section-header-eyebrow">
+          <span class="chip chip-amber">E-commerce Excellence</span>
+        </div>
+        <h2 class="display-md" data-split>WooCommerce Analytics Plugin:<br>Reduce Cart Abandonment &amp; Increase Revenue</h2>
+        <p class="body-lg section-header-sub" data-fade-up>Complete WooCommerce tracking integration with automatic customer classification, lifetime value calculation, and purchase pattern analysis.</p>
+      </div>
+
+      <div class="grid-3 card-group" style="margin-bottom:24px">
+        <div class="feature-card" data-tilt>
+          <div class="feature-card-icon icon-amber">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h3>WooCommerce Customer Segmentation</h3>
+          <p>Automatically segment every customer into 10+ categories including VIP, Loyal, Engaged Prospect, Cart Abandoner, and Dormant — each with confidence scoring and LTV tracking.</p>
+          <div class="feature-card-meta"><span class="chip chip-amber" style="font-size:0.72rem">10+ Segments</span></div>
+        </div>
+        <div class="feature-card" data-tilt>
+          <div class="feature-card-icon icon-blue">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+          <h3>Advanced WooCommerce Data Enrichment</h3>
+          <p>Customer lifetime value calculation, purchase frequency tracking, average order value analysis, and revenue attribution for WooCommerce optimization.</p>
+          <div class="feature-card-meta"><span class="chip chip-blue" style="font-size:0.72rem">Auto-calculated</span></div>
+        </div>
+        <div class="feature-card" data-tilt>
+          <div class="feature-card-icon icon-green">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          </div>
+          <h3>WooCommerce Product &amp; Cart Abandonment Tracking</h3>
+          <p>Complete sales funnel visibility from product view to purchase. Identify drop-off points and reduce cart abandonment by 15–25% with precise funnel tracking.</p>
+          <div class="feature-card-meta"><span class="chip chip-green" style="font-size:0.72rem">15–25% Reduction</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================
+       ADVANCED TECHNOLOGY
+       ====================================================== -->
+  <section id="wap-advanced" class="section section-alt" data-rail-label="Advanced">
+    <div class="container">
+      <div class="section-header centered">
+        <div class="section-header-eyebrow">
+          <span class="chip chip-blue">Advanced Technology</span>
+        </div>
+        <h2 class="display-md" data-split>WordPress Server-Side Tracking:<br>Recover 30–40% of Lost Events</h2>
+        <p class="body-lg section-header-sub" data-fade-up>Enterprise WordPress server-side tracking and multi-platform pixel management that bypasses ad blockers, iOS restrictions, and browser limitations for accurate analytics.</p>
+      </div>
+
+      <div class="feature-full-card">
+        <div>
+          <div class="feature-number-badge">11</div>
+          <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
+            <span class="chip chip-blue" style="font-size:0.75rem">Server-Side</span>
+            <span class="chip chip-green" style="font-size:0.75rem">+30–40% Events</span>
+            <span class="chip chip-green" style="font-size:0.75rem">Ad-Block Proof</span>
+          </div>
+          <h3>WordPress Server-Side Tracking (GA4 &amp; Meta CAPI)</h3>
+          <p>Capture 30–40% more events with Meta Conversions API and GA4 Measurement Protocol for WordPress. Completely bypasses ad blockers and iOS 14+ restrictions while staying GDPR compliant.</p>
+          <ul class="feature-list">
+            <li class="feature-list-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Meta CAPI and GA4 MP server-side transmission</li>
+            <li class="feature-list-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Ad blocker and iOS 14+ ATT bypass</li>
+            <li class="feature-list-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Automatic event deduplication</li>
+            <li class="feature-list-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Real-time stats dashboard showing recovered events</li>
+          </ul>
+        </div>
+        <div class="feature-visual-box">
+          <div class="metric-row"><span class="metric-name">Client-side events</span><span class="metric-value">62,410</span></div>
+          <div class="metric-row"><span class="metric-name">Server-side recovered</span><span class="metric-value">+31,800</span><span class="metric-change up">+51%</span></div>
+          <div class="metric-row" style="border:1px solid rgba(13,148,136,0.25);background:var(--accent-dim-2)"><span class="metric-name" style="color:var(--accent-2);font-weight:700">Total captured</span><span class="metric-value" style="color:var(--accent-2)">94,210</span></div>
+        </div>
+      </div>
+
+      <div class="feature-full-card">
+        <div>
+          <div class="feature-number-badge">12</div>
+          <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
+            <span class="chip chip-violet" style="font-size:0.75rem">6 Platforms</span>
+            <span class="chip chip-blue" style="font-size:0.75rem">Dual-Dispatch</span>
+          </div>
+          <h3>WordPress Pixel Manager for Multiple Ad Platforms</h3>
+          <p>Manage Meta, TikTok, LinkedIn, X, Pinterest, and Google Ads pixels from one WordPress interface. Dual-dispatch mode fires through both GTM and SDK simultaneously for maximum coverage.</p>
+          <ul class="feature-list">
+            <li class="feature-list-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>6 platforms: Meta, TikTok, LinkedIn, X, Pinterest, Google Ads</li>
+            <li class="feature-list-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Dual-dispatch mode for ad blocker recovery</li>
+            <li class="feature-list-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Custom event mapping per platform</li>
+            <li class="feature-list-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Intelligent deduplication prevents double-counting</li>
+          </ul>
+        </div>
+        <div class="feature-visual-box">
+          <div class="metric-row"><span class="metric-name">Meta Pixel</span><span class="chip chip-green" style="font-size:0.72rem">Active</span></div>
+          <div class="metric-row"><span class="metric-name">TikTok Pixel</span><span class="chip chip-green" style="font-size:0.72rem">Active</span></div>
+          <div class="metric-row"><span class="metric-name">LinkedIn Insight</span><span class="chip chip-green" style="font-size:0.72rem">Active</span></div>
+          <div class="metric-row"><span class="metric-name">Google Ads</span><span class="chip chip-green" style="font-size:0.72rem">Active</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================
+       INTEGRATIONS & TESTING
+       ====================================================== -->
+  <section id="wap-integrations" class="section" data-rail-label="Integrations">
+    <div class="container">
+      <div class="section-header centered">
+        <div class="section-header-eyebrow">
+          <span class="chip chip-green">Integrations &amp; Testing</span>
+        </div>
+        <h2 class="display-md" data-split>WordPress Form Tracking Plugin:<br>Connect Your Entire Marketing Stack</h2>
+        <p class="body-lg section-header-sub" data-fade-up>Native WordPress form tracking integrations with major form builders and marketing automation platforms, plus comprehensive testing tools for event validation.</p>
+      </div>
+
+      <div class="grid-3 card-group">
+        <div class="feature-card" data-tilt>
+          <div class="feature-card-icon icon-violet">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg>
+          </div>
+          <h3>WordPress Form Tracking &amp; Marketing Integrations</h3>
+          <p>Native integrations with HubSpot, Marketo, Pardot, and all major WordPress form plugins including Gravity Forms, Contact Form 7, WPForms, and Formidable Forms.</p>
+          <div class="feature-card-meta"><span class="chip chip-violet" style="font-size:0.72rem">8+ Plugins</span></div>
+        </div>
+        <div class="feature-card" data-tilt>
+          <div class="feature-card-icon icon-blue">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+          </div>
+          <h3>Video Analytics</h3>
+          <p>HTML5 video tracking with progress milestones (25%, 50%, 75%, 100%), engagement scoring, and completion rate analysis. Auto-detected, zero configuration.</p>
+          <div class="feature-card-meta"><span class="chip chip-blue" style="font-size:0.72rem">Auto-detect</span></div>
+        </div>
+        <div class="feature-card" data-tilt>
+          <div class="feature-card-icon icon-green">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          </div>
+          <h3>WordPress Event Testing &amp; Journey Simulator</h3>
+          <p>Test complete WordPress user flows before going live. Simulate purchase flows, form submissions, and custom events without real user data for pre-deploy validation.</p>
+          <div class="feature-card-meta"><span class="chip chip-green" style="font-size:0.72rem">Pre-deploy test</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================
+       COMPARISON TABLE
+       ====================================================== -->
+  <section class="section section-alt" id="comparison" data-rail-label="Compare">
+    <div class="container">
+      <div class="section-header centered">
+        <div class="section-header-eyebrow">
+          <span class="chip chip-amber">WordPress Analytics Plugin Comparison</span>
+        </div>
+        <h2 class="display-md" data-split>DataLayer Tracker vs.<br>The Alternatives</h2>
+        <p class="body-lg section-header-sub" data-fade-up>See why DataLayer Tracker is the smartest WordPress analytics plugin choice for serious businesses.</p>
+      </div>
+
+      <div style="overflow-x:auto">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th style="width:30%">Feature</th>
+              <th>Manual Setup</th>
+              <th>Other WordPress Plugins</th>
+              <th class="col-highlight">DataLayer Tracker</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>WordPress Analytics Setup Time</td><td>4–8 weeks</td><td>2–4 weeks</td><td class="col-highlight" style="font-weight:700;color:var(--accent-2)">15 minutes</td></tr>
+            <tr><td>WordPress Server-Side Tracking</td><td><span class="check-no">✕</span></td><td><span class="check-no">✕</span></td><td class="col-highlight"><span class="check-yes">✓</span></td></tr>
+            <tr><td>Automatic Data Enrichment</td><td><span class="check-no">✕</span></td><td><span class="check-no">✕</span></td><td class="col-highlight"><span class="check-yes">✓</span></td></tr>
+            <tr><td>WordPress GDPR Consent Management</td><td>Manual</td><td>Limited</td><td class="col-highlight" style="font-weight:700;color:var(--accent-2)">10+ CMPs Auto</td></tr>
+            <tr><td>WordPress Debug Tools</td><td>Console only</td><td>Basic</td><td class="col-highlight" style="font-weight:700;color:var(--accent-2)">Visual + Simulator</td></tr>
+            <tr><td>WooCommerce Customer Segmentation</td><td><span class="check-no">✕</span></td><td><span class="check-no">✕</span></td><td class="col-highlight"><span class="check-yes">✓ 10+ segments</span></td></tr>
+            <tr><td>Event Recovery Rate</td><td>60–70%</td><td>70–80%</td><td class="col-highlight" style="font-weight:700;color:var(--accent-2)">95–100%</td></tr>
+            <tr><td>GTM Container Generator</td><td><span class="check-no">✕</span></td><td><span class="check-no">✕</span></td><td class="col-highlight"><span class="check-yes">✓</span></td></tr>
+            <tr><td>WordPress Analytics Maintenance Required</td><td>High</td><td>Medium</td><td class="col-highlight" style="font-weight:700;color:var(--accent-2)">Automatic</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================
+       CTA
+       ====================================================== -->
+  <section id="wap-cta" class="cta-section" data-rail-label="Get started">
+    <div class="container">
+      <div class="cta-inner">
+        <span class="chip chip-blue" style="margin-bottom:24px;display:inline-flex;">Ready to Upgrade?</span>
+        <h2 class="display-md" data-split>Ready to Upgrade Your<br>WordPress Analytics Plugin?</h2>
+        <p data-fade-up>Join hundreds of businesses using DataLayer Tracker to capture 30–40% more data with enterprise-grade WordPress event tracking that takes 15 minutes to set up.</p>
+        <div class="cta-actions">
+          <a href="https://checkout.freemius.com/plugin/20636/plan/35597/?trial=free" class="btn btn-white btn-lg" target="_blank">
+            Start Free Trial — WordPress Analytics Plugin
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </a>
+          <a href="pricing.html" class="btn btn-outline btn-lg" style="color:rgba(255,255,255,0.9);border-color:rgba(255,255,255,0.25);background:rgba(255,255,255,0.08)">See Pricing</a>
+        </div>
+        <div class="cta-trust">
+          <span class="cta-trust-item">✓ No credit card required</span>
+          <span class="cta-trust-item">✓ 14-day free trial</span>
+          <span class="cta-trust-item">✓ Setup in 15 minutes</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand-logo">
+            <div class="footer-brand-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            </div>
+            DataLayer Tracker
+          </div>
+          <p class="footer-tagline">Enterprise WordPress analytics without the enterprise complexity.</p>
+        </div>
+        <div>
+          <div class="footer-col-title">Product</div>
+          <ul class="footer-links">
+            <li><a href="wordpress-analytics-plugin.html" class="footer-link">Features</a></li>
+            <li><a href="pricing.html" class="footer-link">Pricing</a></li>
+            <li><a href="wordpress-analytics-plugin.html" class="footer-link">Live Demo</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">Resources</div>
+          <ul class="footer-links">
+            <li><a href="knowledge-base.html" class="footer-link">Documentation</a></li>
+            <li><a href="https://datalayer-tracker.com/knowledge-base/installation-guide/" class="footer-link" target="_blank">Installation Guide</a></li>
+            <li><a href="mailto:support@datalayer-tracker.com" class="footer-link">Support</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">Company</div>
+          <ul class="footer-links">
+            <li><a href="index.html" class="footer-link">Home</a></li>
+            <li><a href="#" class="footer-link">Privacy Policy</a></li>
+            <li><a href="#" class="footer-link">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 DataLayer Tracker. All rights reserved.</span>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/scroll.js"></script>
+</body>
+</html>

@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Knowledge Base — Documentation &amp; Guides | DataLayer Tracker</title>
+  <meta name="description" content="Complete documentation for DataLayer Tracker. Installation guides, GTM setup, WooCommerce tracking, consent management, and troubleshooting." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="stylesheet" href="assets/css/scroll.css" />
+</head>
+<body>
+
+  <div class="cursor-dot"></div>
+  <div class="cursor-ring"></div>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="index.html" class="nav-logo">
+          <div class="nav-logo-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          DataLayer Tracker
+        </a>
+        <div class="nav-links">
+          <a href="wordpress-analytics-plugin.html" class="nav-link">Features</a>
+          <a href="pricing.html" class="nav-link">Pricing</a>
+          <a href="knowledge-base.html" class="nav-link active">Docs</a>
+        </div>
+        <div class="nav-actions">
+          <a href="wordpress-analytics-plugin.html" class="nav-demo">Live Demo</a>
+          <a href="https://checkout.freemius.com/plugin/20636/plan/35597/?trial=free" class="nav-cta" target="_blank">
+            Start Free Trial
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </a>
+        </div>
+        <button class="nav-hamburger" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="nav-mobile">
+    <a href="index.html"          class="nav-mobile-link">Home</a>
+    <a href="wordpress-analytics-plugin.html"       class="nav-mobile-link">Features</a>
+    <a href="pricing.html"        class="nav-mobile-link">Pricing</a>
+    <a href="knowledge-base.html" class="nav-mobile-link">Docs</a>
+    <a href="wordpress-analytics-plugin.html" class="nav-mobile-link">Live Demo</a>
+    <a href="https://checkout.freemius.com/plugin/20636/plan/35597/?trial=free" class="nav-mobile-cta" target="_blank">Start Free Trial →</a>
+  </div>
+
+  <!-- ======================================================
+       HERO
+       ====================================================== -->
+  <section class="page-hero" style="position:relative;overflow:hidden">
+    <div class="hero-blobs" style="opacity:0.4">
+      <div class="blob blob-1" style="width:400px;height:400px;top:-100px;right:5%"></div>
+      <div class="blob blob-3" style="width:280px;height:280px;bottom:-40px;left:15%"></div>
+    </div>
+    <div class="container" style="position:relative;z-index:1;text-align:center">
+      <span class="chip chip-violet" style="margin-bottom:20px">Documentation</span>
+      <h1 class="display-lg" data-split>
+        Everything You Need<br>to <span class="gradient-text">Get Up and Running</span>
+      </h1>
+      <p class="body-lg" data-fade-up style="max-width:520px;margin:16px auto 0">
+        From quick-start installation to advanced server-side configuration. Find the answer you need, fast.
+      </p>
+      <div class="kb-search-wrap">
+        <svg class="kb-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" class="kb-search" placeholder="Search documentation…" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================
+       QUICK START
+       ====================================================== -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-header-eyebrow">
+          <span class="chip chip-green">Quick Start</span>
+        </div>
+        <h2 class="display-md" data-split>Start in 3 Steps</h2>
+        <p class="body-lg section-header-sub" data-fade-up>From fresh install to full tracking in under 15 minutes.</p>
+      </div>
+
+      <div class="steps-grid card-group">
+        <div class="step-item">
+          <div class="step-number">1</div>
+          <h3>Install &amp; Activate</h3>
+          <p>Download from the dashboard, upload to WordPress, activate. The plugin auto-detects your theme and begins capturing events immediately.</p>
+          <a href="#installation" class="btn btn-ghost mt-4">
+            Installation guide →
+          </a>
+        </div>
+        <div class="step-item">
+          <div class="step-number">2</div>
+          <h3>Generate GTM Container</h3>
+          <p>Navigate to DataLayer Tracker → GTM Generator. One click creates a complete container. Import the JSON into Google Tag Manager.</p>
+          <a href="#gtm-setup" class="btn btn-ghost mt-4">
+            GTM setup guide →
+          </a>
+        </div>
+        <div class="step-item">
+          <div class="step-number">3</div>
+          <h3>Enable Server-Side</h3>
+          <p>Connect your Meta CAPI and GA4 Measurement Protocol credentials. Watch your event recovery rate climb in the real-time dashboard.</p>
+          <a href="#server-side" class="btn btn-ghost mt-4">
+            Server-side guide →
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================
+       CATEGORIES
+       ====================================================== -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header centered">
+        <div class="section-header-eyebrow">
+          <span class="chip chip-blue">All Topics</span>
+        </div>
+        <h2 class="display-md" data-split>Browse by Topic</h2>
+        <p class="body-lg section-header-sub" data-fade-up>Everything organized so you can find answers without digging.</p>
+      </div>
+
+      <div class="kb-categories card-group">
+        <div class="kb-category-card">
+          <div class="kb-category-icon" style="background:rgba(27,79,216,0.09)">🚀</div>
+          <h3>Getting Started</h3>
+          <p>Installation, initial setup, quick-start templates, and first-run configuration for new users.</p>
+          <div class="mt-4 flex gap-4" style="flex-wrap:wrap">
+            <a href="https://datalayer-tracker.com/knowledge-base/installation-guide/" class="btn btn-ghost" style="font-size:0.85rem;padding:0" target="_blank">Installation guide →</a>
+          </div>
+        </div>
+
+        <div class="kb-category-card">
+          <div class="kb-category-icon" style="background:rgba(124,58,237,0.08)">⚙️</div>
+          <h3>GTM &amp; GA4 Setup</h3>
+          <p>Container generator usage, manual GTM configuration, GA4 Measurement Protocol, and event mapping reference.</p>
+          <div class="mt-4">
+            <a href="https://datalayer-tracker.com/knowledge-base/gtm-setup-guide/" class="btn btn-ghost" style="font-size:0.85rem;padding:0" target="_blank">GTM setup guide →</a>
+          </div>
+        </div>
+
+        <div class="kb-category-card">
+          <div class="kb-category-icon" style="background:rgba(13,148,136,0.09)">🛒</div>
+          <h3>WooCommerce Tracking</h3>
+          <p>E-commerce events, customer segmentation configuration, LTV tracking, cart abandonment, and purchase attribution.</p>
+          <div class="mt-4">
+            <a href="https://datalayer-tracker.com/knowledge-base/" class="btn btn-ghost" style="font-size:0.85rem;padding:0" target="_blank">E-commerce guide →</a>
+          </div>
+        </div>
+
+        <div class="kb-category-card">
+          <div class="kb-category-icon" style="background:rgba(217,119,6,0.08)">🔒</div>
+          <h3>Consent &amp; Privacy</h3>
+          <p>GDPR compliance setup, CMP integration, IAB TCF 2.0 configuration, cookie categories, and PII protection.</p>
+          <div class="mt-4">
+            <a href="https://datalayer-tracker.com/knowledge-base/consent-management-guide/" class="btn btn-ghost" style="font-size:0.85rem;padding:0" target="_blank">Consent guide →</a>
+          </div>
+        </div>
+
+        <div class="kb-category-card">
+          <div class="kb-category-icon" style="background:rgba(27,79,216,0.09)">📡</div>
+          <h3>Server-Side Tracking</h3>
+          <p>Meta Conversions API setup, GA4 Measurement Protocol credentials, event deduplication, and recovery dashboard.</p>
+          <div class="mt-4">
+            <a href="https://datalayer-tracker.com/knowledge-base/" class="btn btn-ghost" style="font-size:0.85rem;padding:0" target="_blank">Server-side guide →</a>
+          </div>
+        </div>
+
+        <div class="kb-category-card">
+          <div class="kb-category-icon" style="background:rgba(124,58,237,0.08)">📊</div>
+          <h3>Data Enrichment</h3>
+          <p>Session quality scoring, intent classification, customer segments, engagement tracking, and content intelligence.</p>
+          <div class="mt-4">
+            <a href="https://datalayer-tracker.com/knowledge-base/engagement-tracking-guide/" class="btn btn-ghost" style="font-size:0.85rem;padding:0" target="_blank">Engagement guide →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================
+       POPULAR ARTICLES
+       ====================================================== -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header centered">
+        <div class="section-header-eyebrow">
+          <span class="chip chip-violet">Popular Guides</span>
+        </div>
+        <h2 class="display-md" data-split>Most-Read Documentation</h2>
+        <p class="body-lg section-header-sub" data-fade-up>The most-referenced documentation for common setup scenarios.</p>
+      </div>
+
+      <div class="kb-article-grid">
+        <a href="https://datalayer-tracker.com/knowledge-base/installation-guide/" class="kb-article-card" target="_blank">
+          <div class="kb-article-icon" style="background:rgba(27,79,216,0.09)">📦</div>
+          <div class="kb-article-content">
+            <h4>Quick Setup with Pre-Configured Templates</h4>
+            <p>Get started in minutes with configuration presets matched to your business type. Zero manual setup required.</p>
+          </div>
+        </a>
+
+        <a href="https://datalayer-tracker.com/knowledge-base/gtm-setup-guide/" class="kb-article-card" target="_blank">
+          <div class="kb-article-icon" style="background:rgba(124,58,237,0.08)">🏷️</div>
+          <div class="kb-article-content">
+            <h4>Google Tag Manager Setup Guide</h4>
+            <p>Complete walkthrough for connecting DataLayer Tracker to GTM, from container generation to publishing.</p>
+          </div>
+        </a>
+
+        <a href="https://datalayer-tracker.com/knowledge-base/" class="kb-article-card" target="_blank">
+          <div class="kb-article-icon" style="background:rgba(13,148,136,0.09)">🛒</div>
+          <div class="kb-article-content">
+            <h4>Complete WooCommerce Analytics Guide</h4>
+            <p>Everything about e-commerce tracking: product views, cart events, checkout flow, purchase attribution.</p>
+          </div>
+        </a>
+
+        <a href="https://datalayer-tracker.com/knowledge-base/consent-management-guide/" class="kb-article-card" target="_blank">
+          <div class="kb-article-icon" style="background:rgba(217,119,6,0.08)">⚖️</div>
+          <div class="kb-article-content">
+            <h4>Consent Management &amp; GDPR Compliance</h4>
+            <p>How to configure DataLayer Tracker with any CMP to stay 100% GDPR and CCPA compliant without breaking tracking.</p>
+          </div>
+        </a>
+
+        <a href="https://datalayer-tracker.com/knowledge-base/engagement-tracking-guide/" class="kb-article-card" target="_blank">
+          <div class="kb-article-icon" style="background:rgba(27,79,216,0.09)">📈</div>
+          <div class="kb-article-content">
+            <h4>Engagement Tracking &amp; Session Intelligence</h4>
+            <p>Understanding session quality scores, intent classification, and how to use enriched data in GA4 and GTM.</p>
+          </div>
+        </a>
+
+        <a href="https://datalayer-tracker.com/knowledge-base/" class="kb-article-card" target="_blank">
+          <div class="kb-article-icon" style="background:rgba(124,58,237,0.08)">🔧</div>
+          <div class="kb-article-content">
+            <h4>Admin Tools &amp; Troubleshooting</h4>
+            <p>Plugin management, diagnostics tools, IP exclusion, and common issue resolution for tracking problems.</p>
+          </div>
+        </a>
+
+        <a href="https://datalayer-tracker.com/knowledge-base/" class="kb-article-card" target="_blank">
+          <div class="kb-article-icon" style="background:rgba(13,148,136,0.09)">📡</div>
+          <div class="kb-article-content">
+            <h4>Custom Events Reference</h4>
+            <p>Complete guide to creating and managing custom events alongside DataLayer Tracker's 40+ built-in auto-tracked events.</p>
+          </div>
+        </a>
+
+        <a href="https://datalayer-tracker.com/knowledge-base/" class="kb-article-card" target="_blank">
+          <div class="kb-article-icon" style="background:rgba(27,79,216,0.09)">📊</div>
+          <div class="kb-article-content">
+            <h4>GA4 Stats Dashboard &amp; Reporting</h4>
+            <p>View real-time GA4 data directly in WordPress admin. Monitor pageviews, blocked tracking rates, and conversions.</p>
+          </div>
+        </a>
+
+        <a href="https://datalayer-tracker.com/knowledge-base/" class="kb-article-card" target="_blank">
+          <div class="kb-article-icon" style="background:rgba(217,119,6,0.08)">🗂️</div>
+          <div class="kb-article-content">
+            <h4>Session Management Deep Dive</h4>
+            <p>How session tracking works across pages, multi-tab coordination, and session summary data structure.</p>
+          </div>
+        </a>
+
+        <a href="https://datalayer-tracker.com/knowledge-base/" class="kb-article-card" target="_blank">
+          <div class="kb-article-icon" style="background:rgba(124,58,237,0.08)">🔒</div>
+          <div class="kb-article-content">
+            <h4>IP Exclusion &amp; Internal Traffic Filtering</h4>
+            <p>Exclude your IP from Google Analytics, Meta Pixel, and all tracking platforms to keep production data clean.</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================
+       SUPPORT BANNER
+       ====================================================== -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header centered">
+        <div class="section-header-eyebrow">
+          <span class="chip chip-green">Need Help?</span>
+        </div>
+        <h2 class="display-md" data-split>We've Got Your Back</h2>
+        <p class="body-lg section-header-sub" data-fade-up>Can't find what you need in the docs? Real humans are standing by.</p>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:860px;margin:0 auto" class="card-group">
+        <div class="feature-card" style="text-align:center">
+          <div class="feature-card-icon icon-blue" style="margin:0 auto 16px">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <h3>Priority Support</h3>
+          <p style="margin-bottom:20px">Premium users get 24-hour response times. We'll help you debug any tracking issue — no ticket queues, no bots.</p>
+          <a href="mailto:support@datalayer-tracker.com" class="btn btn-outline">
+            Email Support
+          </a>
+        </div>
+
+        <div class="feature-card" style="text-align:center">
+          <div class="feature-card-icon icon-green" style="margin:0 auto 16px">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8" fill="currentColor"/></svg>
+          </div>
+          <h3>Live Debug Demo</h3>
+          <p style="margin-bottom:20px">See the debug overlay in action before you commit. Our interactive demo shows exactly how event tracking looks in real time.</p>
+          <a href="wordpress-analytics-plugin.html" class="btn btn-outline" target="_blank">
+            Open Demo
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================
+       CTA
+       ====================================================== -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-inner">
+        <span class="chip chip-blue" style="margin-bottom:24px;display:inline-flex;">Ready to install?</span>
+        <h2 class="display-md" data-split>Documentation Ready.<br>Your Turn.</h2>
+        <p data-fade-up>Install DataLayer Tracker and start capturing every conversion event — even the ones your current setup is missing.</p>
+        <div class="cta-actions">
+          <a href="https://checkout.freemius.com/plugin/20636/plan/35597/?trial=free" class="btn btn-white btn-lg" target="_blank">
+            Start Free Trial
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </a>
+          <a href="pricing.html" class="btn btn-outline btn-lg" style="color:rgba(255,255,255,0.9);border-color:rgba(255,255,255,0.25);background:rgba(255,255,255,0.08)">View Pricing</a>
+        </div>
+        <div class="cta-trust">
+          <span class="cta-trust-item">✓ No credit card required</span>
+          <span class="cta-trust-item">✓ 14-day free trial</span>
+          <span class="cta-trust-item">✓ Setup in 15 minutes</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand-logo">
+            <div class="footer-brand-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            </div>
+            DataLayer Tracker
+          </div>
+          <p class="footer-tagline">Enterprise WordPress analytics without the enterprise complexity.</p>
+        </div>
+        <div>
+          <div class="footer-col-title">Product</div>
+          <ul class="footer-links">
+            <li><a href="wordpress-analytics-plugin.html" class="footer-link">Features</a></li>
+            <li><a href="pricing.html" class="footer-link">Pricing</a></li>
+            <li><a href="wordpress-analytics-plugin.html" class="footer-link">Live Demo</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">Docs</div>
+          <ul class="footer-links">
+            <li><a href="knowledge-base.html" class="footer-link">Knowledge Base</a></li>
+            <li><a href="https://datalayer-tracker.com/knowledge-base/installation-guide/" class="footer-link" target="_blank">Installation</a></li>
+            <li><a href="https://datalayer-tracker.com/knowledge-base/gtm-setup-guide/" class="footer-link" target="_blank">GTM Guide</a></li>
+            <li><a href="mailto:support@datalayer-tracker.com" class="footer-link">Support</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">Legal</div>
+          <ul class="footer-links">
+            <li><a href="#" class="footer-link">Privacy Policy</a></li>
+            <li><a href="#" class="footer-link">Terms of Service</a></li>
+            <li><a href="#" class="footer-link">Cookie Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 DataLayer Tracker. All rights reserved.</span>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/scroll.js"></script>
+</body>
+</html>

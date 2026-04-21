@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pricing — Simple, Transparent Pricing | DataLayer Tracker</title>
+  <meta name="description" content="Enterprise WordPress analytics at a fraction of the cost. $47/month with annual billing. 14-day free trial, no credit card required." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="stylesheet" href="assets/css/scroll.css" />
+</head>
+<body>
+
+  <div class="cursor-dot"></div>
+  <div class="cursor-ring"></div>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="index.html" class="nav-logo">
+          <div class="nav-logo-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          DataLayer Tracker
+        </a>
+        <div class="nav-links">
+          <a href="wordpress-analytics-plugin.html" class="nav-link">Features</a>
+          <a href="pricing.html" class="nav-link active">Pricing</a>
+          <a href="knowledge-base.html" class="nav-link">Docs</a>
+        </div>
+        <div class="nav-actions">
+          <a href="wordpress-analytics-plugin.html" class="nav-demo">Live Demo</a>
+          <a href="https://checkout.freemius.com/plugin/20636/plan/35597/?trial=free" class="nav-cta" target="_blank">
+            Start Free Trial
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </a>
+        </div>
+        <button class="nav-hamburger" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="nav-mobile">
+    <a href="index.html"          class="nav-mobile-link">Home</a>
+    <a href="wordpress-analytics-plugin.html"       class="nav-mobile-link">Features</a>
+    <a href="pricing.html"        class="nav-mobile-link">Pricing</a>
+    <a href="knowledge-base.html" class="nav-mobile-link">Docs</a>
+    <a href="wordpress-analytics-plugin.html" class="nav-mobile-link">Live Demo</a>
+    <a href="https://checkout.freemius.com/plugin/20636/plan/35597/?trial=free" class="nav-mobile-cta" target="_blank">Start Free Trial →</a>
+  </div>
+
+  <!-- ======================================================
+       PAGE HERO
+       ====================================================== -->
+  <section id="pricing-overview" class="page-hero" style="position:relative;overflow:hidden" data-rail-label="Overview">
+    <div class="hero-blobs" style="opacity:0.45">
+      <div class="blob blob-1" style="width:420px;height:420px;top:-100px;right:8%"></div>
+      <div class="blob blob-2" style="width:320px;height:320px;bottom:-80px;left:4%"></div>
+    </div>
+    <div class="container" style="position:relative;z-index:1;text-align:center">
+      <span class="chip chip-green" style="margin-bottom:20px">Transparent Pricing</span>
+      <h1 class="display-lg" data-split>
+        Enterprise Analytics.<br><span class="gradient-text">Without Enterprise Pricing.</span>
+      </h1>
+      <p class="body-lg" data-fade-up style="max-width:540px;margin:16px auto 0">
+        All 18 enterprise features in one plan. No tiers, no hidden fees, no surprises. Start free for 14 days.
+      </p>
+
+      <!-- Metrics strip -->
+      <div class="pricing-hero-metrics" data-fade-up>
+        <div class="pricing-hero-metric">
+          <span class="pricing-hero-metric-value">500<span style="color:var(--accent-2)">+</span></span>
+          <span class="pricing-hero-metric-label">Businesses tracking</span>
+        </div>
+        <div class="pricing-hero-metric-divider"></div>
+        <div class="pricing-hero-metric">
+          <span class="pricing-hero-metric-value">99.8<span style="color:var(--accent-2)">%</span></span>
+          <span class="pricing-hero-metric-label">Event accuracy</span>
+        </div>
+        <div class="pricing-hero-metric-divider"></div>
+        <div class="pricing-hero-metric">
+          <span class="pricing-hero-metric-value">15<span style="color:var(--accent-2)" style="font-size:1.1rem">min</span></span>
+          <span class="pricing-hero-metric-label">Setup time</span>
+        </div>
+        <div class="pricing-hero-metric-divider"></div>
+        <div class="pricing-hero-metric">
+          <span class="pricing-hero-metric-value">30–40<span style="color:var(--accent-2)">%</span></span>
+          <span class="pricing-hero-metric-label">More conversions tracked</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================
+       PRICING CARDS
+       ====================================================== -->
+  <section id="pricing-plans" class="section" data-rail-label="Plans">
+    <div class="container" style="text-align:center">
+
+      <!-- Toggle -->
+      <div class="pricing-toggle">
+        <button class="toggle-btn" data-mode="monthly">Monthly</button>
+        <button class="toggle-btn active" data-mode="yearly">
+          Yearly
+          <span class="chip chip-green" style="font-size:0.7rem;margin-left:4px">Save 20%</span>
+        </button>
+      </div>
+
+      <div class="pricing-grid">
+        <!-- FREE -->
+        <div class="pricing-card" data-tilt>
+          <div class="pricing-tier">Free Forever</div>
+          <div class="pricing-price">
+            <span class="pricing-currency">$</span>
+            <span class="pricing-amount">0</span>
+            <span class="pricing-period">/month</span>
+          </div>
+          <p class="pricing-note">Forever free. No credit card.</p>
+
+          <a href="https://wordpress.org/plugins/" class="btn btn-outline w-full" target="_blank" style="margin-bottom:20px">
+            Download Free
+          </a>
+
+          <div class="pricing-divider"></div>
+
+          <div class="pricing-features">
+            <div class="pricing-feature">
+              <div class="pricing-feature-check">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              Live Debug Overlay
+            </div>
+            <div class="pricing-feature">
+              <div class="pricing-feature-check">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              Basic Consent Management
+            </div>
+            <div class="pricing-feature">
+              <div class="pricing-feature-check">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              Basic Event Tracking
+            </div>
+            <div class="pricing-feature" style="color:var(--text-3)">
+              <div style="width:18px;height:18px;border-radius:50%;background:var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="width:10px;height:10px"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              </div>
+              Server-Side Tracking
+            </div>
+            <div class="pricing-feature" style="color:var(--text-3)">
+              <div style="width:18px;height:18px;border-radius:50%;background:var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="width:10px;height:10px"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              </div>
+              Data Enrichment
+            </div>
+            <div class="pricing-feature" style="color:var(--text-3)">
+              <div style="width:18px;height:18px;border-radius:50%;background:var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="width:10px;height:10px"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              </div>
+              WooCommerce Suite
+            </div>
+          </div>
+        </div>
+
+        <!-- PREMIUM -->
+        <div class="pricing-card featured" data-tilt>
+          <div class="pricing-badge">Most Popular</div>
+          <div class="pricing-tier">Single Site — Premium</div>
+          <div class="pricing-price">
+            <span class="pricing-currency">$</span>
+            <span class="pricing-amount"
+              data-price-monthly="59"
+              data-price-yearly="47">47</span>
+            <span class="pricing-period">/month</span>
+          </div>
+          <p class="pricing-note"
+            data-billing-note
+            data-monthly-note="Billed monthly &bull; 1 site license"
+            data-yearly-note="Billed annually at $564 &bull; save $144/year">
+            Billed annually at $564 &bull; save $144/year
+          </p>
+
+          <a href="https://checkout.freemius.com/plugin/20636/plan/35597/?trial=free" class="btn btn-primary w-full" style="margin-bottom:20px" target="_blank">
+            Start 14-Day Free Trial
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </a>
+
+          <div class="pricing-divider"></div>
+
+          <div class="pricing-features">
+            <div class="pricing-feature">
+              <div class="pricing-feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+              All Free features included
+            </div>
+            <div class="pricing-feature">
+              <div class="pricing-feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Server-Side Tracking (Meta CAPI + GA4 MP)
+            </div>
+            <div class="pricing-feature">
+              <div class="pricing-feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Data Enrichment (30+ data points)
+            </div>
+            <div class="pricing-feature">
+              <div class="pricing-feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+              10+ WooCommerce Customer Segments
+            </div>
+            <div class="pricing-feature">
+              <div class="pricing-feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Universal Pixel Manager (6 platforms)
+            </div>
+            <div class="pricing-feature">
+              <div class="pricing-feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+              GTM Container Generator
+            </div>
+            <div class="pricing-feature">
+              <div class="pricing-feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Smart Consent Management (10+ CMPs)
+            </div>
+            <div class="pricing-feature">
+              <div class="pricing-feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Journey Simulator + Complete Debug Suite
+            </div>
+            <div class="pricing-feature">
+              <div class="pricing-feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Priority Support (24-hour response)
+            </div>
+            <div class="pricing-feature">
+              <div class="pricing-feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Unlimited events &amp; tracking
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Trust signals -->
+      <div class="pricing-trust-row" data-fade-up>
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;color:var(--accent-2)"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          14-day free trial, no card
+        </div>
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;color:var(--accent-2)"><polyline points="20 6 9 17 4 12"/></svg>
+          30-day money-back guarantee
+        </div>
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;color:var(--accent-2)"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          Cancel anytime, no questions
+        </div>
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;color:var(--accent-2)"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          Unlimited events &amp; tracking
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================
+       VALUE HIGHLIGHTS
+       ====================================================== -->
+  <section id="pricing-value" class="section section-alt" data-rail-label="Value">
+    <div class="container">
+      <div class="section-header centered">
+        <div class="section-header-eyebrow">
+          <span class="chip chip-blue">Why Premium Pays Off</span>
+        </div>
+        <h2 class="display-md" data-split>The Math Is Simple</h2>
+        <p class="body-lg section-header-sub" data-fade-up>One recovered conversion typically pays for months of the subscription.</p>
+      </div>
+
+      <div class="pricing-value-grid card-group">
+        <div class="pricing-value-card" data-tilt>
+          <div class="pricing-value-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+          </div>
+          <div class="pricing-value-num gradient-text">30–40%</div>
+          <div class="pricing-value-label">More conversions recovered</div>
+          <p class="pricing-value-desc">Server-side tracking bypasses ad blockers and iOS restrictions that silently drop your client-side events.</p>
+        </div>
+
+        <div class="pricing-value-card" data-tilt>
+          <div class="pricing-value-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div class="pricing-value-num gradient-text">15 min</div>
+          <div class="pricing-value-label">To full setup</div>
+          <p class="pricing-value-desc">Install, connect GA4 and Meta, activate server-side — your tracking is enterprise-grade before lunch.</p>
+        </div>
+
+        <div class="pricing-value-card" data-tilt>
+          <div class="pricing-value-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          </div>
+          <div class="pricing-value-num gradient-text">30+</div>
+          <div class="pricing-value-label">Data points enriched per event</div>
+          <p class="pricing-value-desc">Device type, session quality, customer lifetime value, geolocation, and more — automatically appended to every event.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================
+       COMPARISON TABLE — FREE VS PREMIUM
+       ====================================================== -->
+  <section id="pricing-compare" class="section" data-rail-label="Compare">
+    <div class="container">
+      <div class="section-header centered">
+        <div class="section-header-eyebrow">
+          <span class="chip chip-violet">Compare Plans</span>
+        </div>
+        <h2 class="display-md" data-split>Free vs Premium</h2>
+        <p class="body-lg section-header-sub" data-fade-up>Every feature compared side by side.</p>
+      </div>
+
+      <div style="overflow-x:auto;max-width:680px;margin:0 auto">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>Free</th>
+              <th class="col-highlight">Premium</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Debug Overlay</td><td><span class="check-yes">✓</span></td><td class="col-highlight"><span class="check-yes">✓</span></td></tr>
+            <tr><td>Consent Management</td><td><span class="check-yes">✓</span></td><td class="col-highlight"><span class="check-yes">✓</span></td></tr>
+            <tr><td>Basic Event Tracking</td><td><span class="check-yes">✓</span></td><td class="col-highlight"><span class="check-yes">✓</span></td></tr>
+            <tr><td>Server-Side Tracking</td><td><span class="check-no">—</span></td><td class="col-highlight"><span class="check-yes">✓</span></td></tr>
+            <tr><td>Data Enrichment (30+ points)</td><td><span class="check-no">—</span></td><td class="col-highlight"><span class="check-yes">✓</span></td></tr>
+            <tr><td>Customer Segmentation</td><td><span class="check-no">—</span></td><td class="col-highlight"><span class="check-yes">✓ 10+ segments</span></td></tr>
+            <tr><td>Universal Pixel Manager</td><td><span class="check-no">—</span></td><td class="col-highlight"><span class="check-yes">✓</span></td></tr>
+            <tr><td>E-commerce Suite</td><td><span class="check-no">—</span></td><td class="col-highlight"><span class="check-yes">✓</span></td></tr>
+            <tr><td>Content Intelligence</td><td><span class="check-no">—</span></td><td class="col-highlight"><span class="check-yes">✓</span></td></tr>
+            <tr><td>Form Integrations</td><td><span class="check-no">—</span></td><td class="col-highlight"><span class="check-yes">✓</span></td></tr>
+            <tr><td>Journey Simulator</td><td><span class="check-no">—</span></td><td class="col-highlight"><span class="check-yes">✓</span></td></tr>
+            <tr><td>Priority Support</td><td><span class="check-no">—</span></td><td class="col-highlight"><span class="check-yes">✓ 24-hour</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================
+       FAQ
+       ====================================================== -->
+  <section id="pricing-faq" class="section section-alt" data-rail-label="FAQ">
+    <div class="container">
+      <div class="section-header centered">
+        <div class="section-header-eyebrow">
+          <span class="chip chip-amber">Got Questions</span>
+        </div>
+        <h2 class="display-md" data-split>Frequently Asked Questions</h2>
+        <p class="body-lg section-header-sub" data-fade-up>Everything you need to know about pricing and the product.</p>
+      </div>
+
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-question">
+            Is there a free trial?
+            <div class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">Yes. We offer a 14-day free trial with full access to all premium features. No credit card required to start—just install the plugin and activate your trial from the WordPress admin.</div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            Can I cancel anytime?
+            <div class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">Absolutely. Cancel anytime from your account dashboard. No questions asked, no cancellation fees, no awkward retention flows. Your subscription ends at the next billing cycle.</div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            What's included in the free version?
+            <div class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">The free version includes the live debug overlay, basic consent management (detects and respects CMP choices), and basic event tracking (page views, clicks, standard WordPress events). It's great for testing and smaller sites that don't need server-side tracking or advanced enrichment.</div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            Do you offer refunds?
+            <div class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">Yes. We offer a 30-day money-back guarantee. If you're not satisfied with DataLayer Tracker for any reason, contact our support team within 30 days of purchase for a full refund. No questions asked.</div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            Are there any usage limits or overages?
+            <div class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">No limits at all. Track unlimited events, users, page views, and sessions. There are no hidden fees, no overage charges, and no throttling regardless of how much traffic your site receives.</div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            Do you offer discounts for multiple sites?
+            <div class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">Yes. Contact our sales team for volume pricing if you need licenses for 5 or more sites. We offer significant discounts for agencies and businesses managing multiple WordPress installations.</div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            What payment methods do you accept?
+            <div class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">We accept all major credit cards (Visa, Mastercard, Amex, Discover), PayPal, and can provide invoices for annual plans upon request. All payments are processed securely through Freemius.</div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            Can I upgrade or downgrade my plan?
+            <div class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">Yes. Switch between monthly and yearly billing anytime from your account dashboard. Changes take effect at your next billing cycle, and we'll prorate any differences automatically.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================
+       CTA
+       ====================================================== -->
+  <section id="pricing-cta" class="cta-section" data-rail-label="Get started">
+    <div class="container">
+      <div class="cta-inner">
+        <span class="chip chip-blue" style="margin-bottom:24px;display:inline-flex;">Start today, free</span>
+        <h2 class="display-md" data-split>14 Days to See<br>the Difference.</h2>
+        <p data-fade-up>Full access to all 18 premium features. No credit card. Set up in 15 minutes and watch your event recovery rate climb to 95–100%.</p>
+        <div class="cta-actions">
+          <a href="https://checkout.freemius.com/plugin/20636/plan/35597/?trial=free" class="btn btn-white btn-lg" target="_blank">
+            Start Free Trial — No Card Needed
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </a>
+          <a href="wordpress-analytics-plugin.html" class="btn btn-outline btn-lg" style="color:rgba(255,255,255,0.9);border-color:rgba(255,255,255,0.25);background:rgba(255,255,255,0.08)">See All Features</a>
+        </div>
+        <div class="cta-trust">
+          <span class="cta-trust-item">✓ 30-day money-back guarantee</span>
+          <span class="cta-trust-item">✓ Cancel anytime</span>
+          <span class="cta-trust-item">✓ Unlimited events</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand-logo">
+            <div class="footer-brand-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            </div>
+            DataLayer Tracker
+          </div>
+          <p class="footer-tagline">Enterprise WordPress analytics without the enterprise complexity.</p>
+        </div>
+        <div>
+          <div class="footer-col-title">Product</div>
+          <ul class="footer-links">
+            <li><a href="wordpress-analytics-plugin.html" class="footer-link">Features</a></li>
+            <li><a href="pricing.html" class="footer-link">Pricing</a></li>
+            <li><a href="wordpress-analytics-plugin.html" class="footer-link">Live Demo</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">Resources</div>
+          <ul class="footer-links">
+            <li><a href="knowledge-base.html" class="footer-link">Documentation</a></li>
+            <li><a href="knowledge-base.html" class="footer-link">Installation Guide</a></li>
+            <li><a href="mailto:support@datalayer-tracker.com" class="footer-link">Support</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">Legal</div>
+          <ul class="footer-links">
+            <li><a href="#" class="footer-link">Privacy Policy</a></li>
+            <li><a href="#" class="footer-link">Terms of Service</a></li>
+            <li><a href="#" class="footer-link">Cookie Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 DataLayer Tracker. All rights reserved.</span>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/scroll.js"></script>
+</body>
+</html>
