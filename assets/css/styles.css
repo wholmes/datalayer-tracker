@@ -516,6 +516,56 @@ h1, h2, h3, h4, h5, h6 {
   50%       { transform: translate(-40px, -30px) scale(1.1); }
 }
 
+/* ── Section blobs — reusable ambient gradients for non-hero sections ── */
+.section-blobs {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Wrapper needs position:relative for blobs to anchor to */
+.section-blob-wrap {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Direct container child sits above the blobs */
+.section-blob-wrap > .container {
+  position: relative;
+  z-index: 1;
+}
+
+.section-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  will-change: transform;
+  pointer-events: none;
+}
+
+.section-blob-a {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(147,197,253,0.22) 0%, rgba(147,197,253,0) 70%);
+  top: -80px; right: -60px;
+  animation: blob-float-1 14s ease-in-out infinite;
+}
+
+.section-blob-b {
+  width: 380px; height: 380px;
+  background: radial-gradient(circle, rgba(196,181,253,0.18) 0%, rgba(196,181,253,0) 70%);
+  bottom: -60px; left: -40px;
+  animation: blob-float-2 18s ease-in-out infinite;
+}
+
+.section-blob-c {
+  width: 280px; height: 280px;
+  background: radial-gradient(circle, rgba(110,231,183,0.15) 0%, rgba(110,231,183,0) 70%);
+  top: 40%; left: 35%;
+  animation: blob-float-3 12s ease-in-out infinite;
+}
+
 /* ── Hero grid — text column stays contained, mockup bleeds right ── */
 .hero .container {
   /* Both sides use the standard gutter — left aligns with nav logo */
